@@ -977,6 +977,11 @@ h3.title {
 }
 
 
+a {
+    text-decoration: none;
+    color: #8B5CF6
+}
+
 /* CONFIG PRIME_NG */
 
 .form-group {

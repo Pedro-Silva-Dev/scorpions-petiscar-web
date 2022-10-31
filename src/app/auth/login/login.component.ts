@@ -1,3 +1,4 @@
+import { IMAGES } from './../shared/enum/images.enum';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -9,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  public logo = IMAGES.LOGO_GESTAO;
   public loginForm!: FormGroup;
   public viewPassword: boolean = false;
 
