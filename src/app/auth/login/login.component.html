@@ -1,8 +1,33 @@
 <div class="content">
     <div class="ui-card p-2">
-        <form [formGroup]="loginForm">
+        <form [formGroup]="loginForm" class="p-4">
             <div class="form-group">
-                
+                <div class="p-fluid p-grid">
+                    <div class="p-field p-col-12">
+                      <span class="p-float-label">
+                        <input type="text" id="inputtext" pInputText autocomplete="off" formControlName="username" />
+                        <label for="inputtext">Usuario</label>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group pt-3">
+                <div class="p-fluid p-grid">
+                    <div class="p-field p-col-12">
+                        <span class="p-float-label p-input-icon-right">
+                            <i *ngIf="!viewPassword" (click)="setViewPassword()" class="pi pi-eye cursor-pointer"></i>
+                            <i *ngIf="viewPassword" (click)="setViewPassword()" class="pi pi-eye-slash cursor-pointer"></i>
+                            <input [type]="viewPassword ? 'text' : 'password'" id="inputtext-right" autocomplete="off" pInputText formControlName="password"> 
+                            <label for="inputtext-right">Senha</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-end">
+                    <button pButton type="button" label="Voltar" class="p-button-outlined p-button-secondary me-2"></button>
+                    <button pButton type="button" label="Entrar" class="p-button-outlined"></button>
+                </div>
             </div>
         </form>
     </div>

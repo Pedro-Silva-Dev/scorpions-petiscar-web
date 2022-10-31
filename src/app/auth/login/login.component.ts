@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   public loginForm!: FormGroup;
+  public viewPassword: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder
@@ -18,6 +19,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this._createLoginForm();
   }
+
+
+  public setViewPassword(): void {
+    this.viewPassword = !this.viewPassword;
+  }
+
 
 
   /************* METHODS PRIVATE *************/

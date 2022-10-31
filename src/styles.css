@@ -977,3 +977,15 @@ h3.title {
 }
 
 
+/* CONFIG PRIME_NG */
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.p-button {
+    padding: 0.4rem 1rem;
+}
+
+
+
