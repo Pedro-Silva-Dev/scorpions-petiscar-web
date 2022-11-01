@@ -1,6 +1,6 @@
 import { IMAGES } from '../../shared/enum/images.enum';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastService } from 'src/app/shared/service/toast.service';
@@ -34,13 +34,18 @@ export class LoginComponent implements OnInit {
     this.viewPassword = !this.viewPassword;
   }
 
+  public getFormValid(field: string, error: string): boolean {
+    const fieldForm = this.loginForm?.get(field);
+    const valid = fieldForm?.dirty && fieldForm?.hasError(error) ? true : false;
+    return valid;
+  }
 
   /************* METHODS PRIVATE *************/
 
   private _createLoginForm(): void {
     this.loginForm = this._formBuilder.group({
-      username: [null],
-      password: [null],
+      username: [null, [Validators.required, Validators.minLength(3)]],
+      password: [null, [Validators.required, Validators.minLength(7)]],
     });
   }
 

@@ -12,10 +12,12 @@
                             <div class="p-field p-col-12">
                               <span class="p-float-label">
                                 <input type="text" id="inputtext" pInputText autocomplete="off" formControlName="username" />
-                                <label for="inputtext">Usuario</label>
+                                <label for="inputtext">Usuário</label>
                               </span>
                             </div>
                         </div>
+                        <p *ngIf="getFormValid('username', 'required')" class="mt-1">o campo usuário é obrigatório.</p>
+                        <p *ngIf="getFormValid('username', 'minlength')" class="mt-1">o campo usuário deve ter mais de 3 characters.</p>
                     </div>
                     <div class="form-group pt-3">
                         <div class="p-fluid p-grid">
@@ -28,6 +30,8 @@
                                 </span>
                             </div>
                         </div>
+                        <p *ngIf="getFormValid('password', 'required')" class="mt-1">o campo senha é obrigatório.</p>
+                        <p *ngIf="getFormValid('password', 'minlength')" class="mt-1">o campo senha deve ter mais de 7 characters.</p>
                     </div>
                     <div class="form-group">
                         <div class="d-flex justify-content-end mt-4">
