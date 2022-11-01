@@ -22,6 +22,10 @@
     
 }
 
+.login-form {
+    width: 25rem;
+}
+
 @media screen and (max-width: 920px) {
     .login-image {
         display: none;
@@ -31,4 +35,8 @@
         padding-top: 2rem;
     }
 
+    .login-form {
+        width: auto;
+    }
+    
 }
