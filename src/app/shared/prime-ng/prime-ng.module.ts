@@ -12,6 +12,7 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputTextModule } from "primeng/inputtext";
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
+import { RippleModule } from 'primeng/ripple';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {ToastModule} from 'primeng/toast';
     InputTextModule,
     AutoCompleteModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    RippleModule,
   ],
   exports: [
     CalendarModule,
@@ -45,7 +47,8 @@ import {ToastModule} from 'primeng/toast';
     InputTextModule,
     AutoCompleteModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    RippleModule,
   ]
 })
 export class PrimeNgModule { }
