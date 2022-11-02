@@ -1,1 +1,49 @@
-<p>register works!</p>
+<div class="content">
+    <div class="ui-card d-flex login-card">
+        <div class="login-image">
+            <img [src]="logo" class="img-fluid" alt="logo">
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="login-form">
+                <form [formGroup]="registerForm" class="p-4">
+                    <span class="h3 login-title">Registre-se</span>
+                    <div class="form-group">
+                        <div class="p-fluid p-grid">
+                            <div class="p-field p-col-12">
+                              <span class="p-float-label">
+                                <input type="text" id="inputtext" pInputText autocomplete="off" formControlName="username" />
+                                <label for="inputtext">Usuário</label>
+                              </span>
+                            </div>
+                        </div>
+                        <p *ngIf="getFormValid('username', 'required')" class="mt-1">o campo usuário é obrigatório.</p>
+                        <p *ngIf="getFormValid('username', 'minlength')" class="mt-1">o campo usuário deve ter mais de 3 characters.</p>
+                    </div>
+                    <div class="form-group pt-3">
+                        <div class="p-fluid p-grid">
+                            <div class="p-field p-col-12">
+                                <span class="p-float-label p-input-icon-right">
+                                    <i *ngIf="!viewPassword" (click)="setViewPassword()" class="pi pi-eye cursor-pointer"></i>
+                                    <i *ngIf="viewPassword" (click)="setViewPassword()" class="pi pi-eye-slash cursor-pointer"></i>
+                                    <input [type]="viewPassword ? 'text' : 'password'" id="inputtext-right" autocomplete="off" pInputText formControlName="password"> 
+                                    <label for="inputtext-right">Senha</label>
+                                </span>
+                            </div>
+                        </div>
+                        <p *ngIf="getFormValid('password', 'required')" class="mt-1">o campo senha é obrigatório.</p>
+                        <p *ngIf="getFormValid('password', 'minlength')" class="mt-1">o campo senha deve ter mais de 7 characters.</p>
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex justify-content-end mt-4">
+                            <button pButton type="button" label="Entrar" class="p-button-outlined p-large-button"></button>
+                        </div>
+                    </div>
+                    <div class="form-group text-center d-flex flex-column">
+                        <span>Não tem cadastro?</span>
+                        <a href="javascript:void(0)">Registre-se</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

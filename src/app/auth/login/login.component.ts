@@ -1,9 +1,11 @@
 import { IMAGES } from '../../shared/enum/images.enum';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastService } from 'src/app/shared/service/toast.service';
+import { BehaviorSubject } from 'rxjs';
+import { AUTH_NAVIGATE } from '../enum/auth-navigate.enum';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,8 @@ import { ToastService } from 'src/app/shared/service/toast.service';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class LoginComponent implements OnInit {
+
+  @Output() loginEvent$ = new EventEmitter<AUTH_NAVIGATE>();
 
   public logo = IMAGES.LOGO_GESTAO;
   public loginForm!: FormGroup;
@@ -38,6 +42,10 @@ export class LoginComponent implements OnInit {
     const fieldForm = this.loginForm?.get(field);
     const valid = fieldForm?.dirty && fieldForm?.hasError(error) ? true : false;
     return valid;
+  }
+
+  public navigateRegister(): void {
+    this.loginEvent$.emit(AUTH_NAVIGATE.REGISTER);
   }
 
   /************* METHODS PRIVATE *************/

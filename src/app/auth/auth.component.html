@@ -1,8 +1,11 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <ng-container *ngIf="(loginEvent$ | async)">
-                <app-login></app-login>
+            <ng-container *ngIf="navigate == typesNavigate.LOGIN">
+                <app-login (loginEvent$)="directNavigate($event)"></app-login>
+            </ng-container>
+            <ng-container *ngIf="navigate == typesNavigate.REGISTER">
+                <app-register></app-register>
             </ng-container>
         </div>
     </div>
