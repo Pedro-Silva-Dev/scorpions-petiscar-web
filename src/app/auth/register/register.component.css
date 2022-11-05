@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
 }
-.login-card {
+.register-card {
     width: 100%;
     padding: 0px 0px;
     border-radius: 1rem;
@@ -14,7 +14,7 @@
     justify-content: space-around;
 }
 
-.login-title {
+.register-title {
     color: #8B5CF6;
     display: flex;
     justify-content: center;
@@ -22,20 +22,52 @@
     
 }
 
-.login-form {
-    width: 25rem;
+.register-form {
+    width: 30rem;
 }
 
+.register-image {
+    height: 100% !important; 
+}
+
+#register {
+    animation: slidein 1s;
+}
+
+.btn-animation {
+    animation: btn-opacity 1s;
+}
+
+@keyframes slidein {
+    from {
+      opacity: 0.3;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes btn-opacity {
+    from {
+      opacity: 0.5;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
 @media screen and (max-width: 920px) {
-    .login-image {
+    .register-image {
         display: none;
     }
 
-    .login-title {
+    .register-title {
         padding-top: 2rem;
     }
 
-    .login-form {
+    .register-form {
         width: auto;
     }
     

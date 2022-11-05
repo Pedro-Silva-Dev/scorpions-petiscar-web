@@ -1,25 +1,38 @@
 <div class="content">
-    <div class="ui-card d-flex login-card">
-        <div class="login-image">
+    <div class="ui-card d-flex register-card">
+        <div class="register-image">
             <img [src]="logo" class="img-fluid" alt="logo">
         </div>
         <div class="d-flex align-items-center">
-            <div class="login-form">
+            <div id="register" class="register-form">
                 <form [formGroup]="registerForm" class="p-4">
-                    <span class="h3 login-title">Registre-se</span>
+                    <span class="h3 register-title">Registre-se</span>
                     <div class="form-group">
                         <div class="p-fluid p-grid">
                             <div class="p-field p-col-12">
                               <span class="p-float-label">
-                                <input type="text" id="inputtext" pInputText autocomplete="off" formControlName="username" />
-                                <label for="inputtext">Usuário</label>
+                                <input type="text" id="name" pInputText autocomplete="off" formControlName="name" />
+                                <label for="name">Nome Completo</label>
                               </span>
                             </div>
                         </div>
-                        <p *ngIf="getFormValid('username', 'required')" class="mt-1">o campo usuário é obrigatório.</p>
-                        <p *ngIf="getFormValid('username', 'minlength')" class="mt-1">o campo usuário deve ter mais de 3 characters.</p>
+                        <p *ngIf="getFormValid('name', 'required')" class="mt-1">esse campo é obrigatório.</p>
+                        <p *ngIf="getFormValid('name', 'minlength')" class="mt-1">esse campo deve ter mais de 3 characters.</p>
                     </div>
-                    <div class="form-group pt-3">
+                    <div class="form-group pt-2">
+                        <div class="p-fluid p-grid">
+                            <div class="p-field p-col-12">
+                                <span class="p-float-label">
+                                    <input type="text" id="email" autocomplete="off" pInputText formControlName="email"> 
+                                    <label for="email">Email</label>
+                                </span>
+                            </div>
+                        </div>
+                        <p *ngIf="getFormValid('email', 'required')" class="mt-1">esse campo é obrigatório.</p>
+                        <p *ngIf="getFormValid('email', 'email')" class="mt-1">esse campo deve ser um email válido.</p>
+                        <p *ngIf="getFormValid('email', 'isEmailRegistred')" class="mt-1">esse email já possui cadastro.</p>
+                    </div>
+                    <div class="form-group pt-2">
                         <div class="p-fluid p-grid">
                             <div class="p-field p-col-12">
                                 <span class="p-float-label p-input-icon-right">
@@ -30,17 +43,33 @@
                                 </span>
                             </div>
                         </div>
-                        <p *ngIf="getFormValid('password', 'required')" class="mt-1">o campo senha é obrigatório.</p>
-                        <p *ngIf="getFormValid('password', 'minlength')" class="mt-1">o campo senha deve ter mais de 7 characters.</p>
+                        <p *ngIf="getFormValid('password', 'required')" class="mt-1">esse campo é obrigatório.</p>
+                        <p *ngIf="getFormValid('password', 'minlength')" class="mt-1">esse campo deve ter mais de 7 characters.</p>
+                        <p *ngIf="isPasswordValid()" class="mt-1">as senhas devem ser iguais.</p>
+                    </div>
+                    <div class="form-group pt-2">
+                        <div class="p-fluid p-grid">
+                            <div class="p-field p-col-12">
+                                <span class="p-float-label p-input-icon-right">
+                                    <i *ngIf="!viewConfirmPassword" (click)="setViewConfirmePassword()" class="pi pi-eye cursor-pointer"></i>
+                                    <i *ngIf="viewConfirmPassword" (click)="setViewConfirmePassword()" class="pi pi-eye-slash cursor-pointer"></i>
+                                    <input [type]="viewConfirmPassword ? 'text' : 'password'" id="cofirmPassword" autocomplete="off" pInputText formControlName="cofirmPassword"> 
+                                    <label for="cofirmPassword">Confirmar Senha</label>
+                                </span>
+                            </div>
+                        </div>
+                        <p *ngIf="getFormValid('cofirmPassword', 'required')" class="mt-1">esse campo é obrigatório.</p>
+                        <p *ngIf="getFormValid('cofirmPassword', 'minlength')" class="mt-1">esse campo deve ter mais de 7 characters.</p>
+                        <p *ngIf="isPasswordValid()" class="mt-1">as senhas devem ser iguais.</p>
                     </div>
                     <div class="form-group">
                         <div class="d-flex justify-content-end mt-4">
-                            <button pButton type="button" label="Entrar" class="p-button-outlined p-large-button"></button>
+                            <button pButton [disabled]="!isFormValid()" type="button" label="Cadastrar" class="p-button-outlined p-large-button"></button>
                         </div>
                     </div>
                     <div class="form-group text-center d-flex flex-column">
-                        <span>Não tem cadastro?</span>
-                        <a href="javascript:void(0)">Registre-se</a>
+                        <span>Já possui cadastro?</span>
+                        <a (click)="navigateLogin()" href="javascript:void(0)">Entrar</a>
                     </div>
                 </form>
             </div>

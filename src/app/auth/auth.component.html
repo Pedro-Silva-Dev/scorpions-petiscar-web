@@ -5,7 +5,7 @@
                 <app-login (loginEvent$)="directNavigate($event)"></app-login>
             </ng-container>
             <ng-container *ngIf="navigate == typesNavigate.REGISTER">
-                <app-register></app-register>
+                <app-register (registerEvent$)="directNavigate($event)"></app-register>
             </ng-container>
         </div>
     </div>

@@ -26,6 +26,34 @@
     width: 25rem;
 }
 
+#login {
+    animation: slidein 1s;
+}
+
+.btn-animation {
+    animation: btn-opacity 1s;
+}
+
+@keyframes slidein {
+    from {
+      opacity: 0.3;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes btn-opacity {
+    from {
+      opacity: 0.5;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
 @media screen and (max-width: 920px) {
     .login-image {
         display: none;

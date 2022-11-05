@@ -1,12 +1,15 @@
 import { ToastService } from 'src/app/shared/service/toast.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, take, map } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, take, map, catchError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
+
+  private _baseUrl = environment.baseUrl;
 
   constructor(
     protected readonly http: HttpClient,
@@ -16,7 +19,7 @@ export class BaseService {
   protected get(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>> {
     eventComponent?.next(true);
     //@ts-ignore
-    return this.http.get<any>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, {observe: 'response'}).pipe(catchError(
+    return this.http.get<any>(`${this._baseUrl}${url}?success=true${this._getInfoBuild(build)}`, {observe: 'response'}).pipe(catchError(
       (err: any) => {
         this.toastrService.error(msgError);
         eventComponent?.next(false);
@@ -28,7 +31,7 @@ export class BaseService {
   protected post(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
     eventComponent?.next(true);
     // @ts-ignore
-    return this.http.post<any>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, data, {observe: 'response'}).pipe(catchError(
+    return this.http.post<any>(`${this._baseUrl}${url}?success=true${this._getInfoBuild(build)}`, data, {observe: 'response'}).pipe(catchError(
       (err: any) => {
         this.toastrService.error(msgError);
         eventComponent?.next(false);
@@ -40,7 +43,7 @@ export class BaseService {
   protected put(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
     eventComponent?.next(true);
     //@ts-ignore
-    return this.http.put<any>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, data, {observe: 'response'}).pipe(catchError(
+    return this.http.put<any>(`${this._baseUrl}${url}?success=true${this._getInfoBuild(build)}`, data, {observe: 'response'}).pipe(catchError(
       (err: any) => {
         this.toastrService.error(msgError);
         eventComponent?.next(false);
@@ -52,7 +55,7 @@ export class BaseService {
   protected delete(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
     eventComponent?.next(true);
     //@ts-ignore
-    return this.http.delete<boolean>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, {observe: 'response'}).pipe(catchError(
+    return this.http.delete<boolean>(`${this._baseUrl}${url}?success=true${this._getInfoBuild(build)}`, {observe: 'response'}).pipe(catchError(
       (err: any) => {
         this.toastrService.error(msgError);
         eventComponent?.next(false);
@@ -69,7 +72,7 @@ export class BaseService {
         const params = r.split('=');
         //@ts-ignore
         const data = params[1]?.replaceAll(',', '@');
-        return `${params[0]}=${data}`;
+        return `&${params[0]}=${data}`;
       })
     //@ts-ignore
     const params = arrayNormalized?.toString()?.replaceAll(',', '')?.replaceAll('@', ',')
