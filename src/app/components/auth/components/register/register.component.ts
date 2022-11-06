@@ -1,10 +1,12 @@
+import { RegisterUser } from './../../models/register-user.model';
 import { BehaviorSubject, map, Observable, Subject, switchMap, timer, Unsubscribable, debounceTime } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { IMAGES } from 'src/app/shared/enum/images.enum';
-import { ToastService } from 'src/app/shared/service/toast.service';
-import { AuthService } from '../auth.service';
-import { AUTH_NAVIGATE } from '../enum/auth-navigate.enum';
+import { IMAGES } from 'src/app/shared/enums/images.enum';
+import { AuthService } from '../../services/auth.service';
+import { AUTH_NAVIGATE } from '../../enums/auth-navigate.enum';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,8 +18,8 @@ export class RegisterComponent implements OnInit {
 
   @Output() registerEvent$ = new EventEmitter<AUTH_NAVIGATE>();
 
+  public registerUserEvent$ = new BehaviorSubject<boolean>(false);
   public logo = IMAGES.LOGO_GESTAO;
-
   public registerForm!: FormGroup;
   public viewPassword: boolean = false;
   public viewConfirmPassword: boolean = false;
@@ -25,7 +27,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
-    private _toastrService: ToastService
+    private _toastrService: ToastService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -62,7 +65,8 @@ export class RegisterComponent implements OnInit {
 
   public register(): void {
     if(this.isFormValid()) {
-
+      const user: RegisterUser = {...this.registerForm.value, username: this.registerForm?.value?.email};
+      this._registerUser(user);
     }else {
       this._toastrService.warning(`Não foi possível realizar o cadastro, por favor revise os seus dados e tente novamente.`);
     }
@@ -127,8 +131,14 @@ export class RegisterComponent implements OnInit {
     return {password: true};
   }
 
-  private _registerUser(): void {
-
+  private _registerUser(user: RegisterUser): void {
+    this._authService.createUser(user, this.registerUserEvent$).subscribe(
+      res => {
+        if(res.status == 201) {
+          this._toastrService.success(`Bem-vindo ao Petiscar!`);
+          this._router.navigate([`/`]);
+        }
+      });
   }
   
 

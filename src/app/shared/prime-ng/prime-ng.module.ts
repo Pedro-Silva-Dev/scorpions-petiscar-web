@@ -13,6 +13,7 @@ import { InputTextModule } from "primeng/inputtext";
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { RippleModule } from 'primeng/ripple';
     ButtonModule,
     ToastModule,
     RippleModule,
+    ProgressSpinnerModule,
   ],
   exports: [
     CalendarModule,
@@ -49,6 +51,7 @@ import { RippleModule } from 'primeng/ripple';
     ButtonModule,
     ToastModule,
     RippleModule,
+    ProgressSpinnerModule,
   ]
 })
 export class PrimeNgModule { }

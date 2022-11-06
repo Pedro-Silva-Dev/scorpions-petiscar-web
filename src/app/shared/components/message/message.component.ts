@@ -1,5 +1,5 @@
 import { MessageToast } from './model/message-toast.model';
-import { ToastService } from 'src/app/shared/service/toast.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Unsubscribable } from 'rxjs';

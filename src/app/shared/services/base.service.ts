@@ -1,15 +1,15 @@
-import { ToastService } from 'src/app/shared/service/toast.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, take, map, catchError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, take, map, catchError, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
 
-  private _baseUrl = environment.baseUrl;
+  protected _baseUrl = environment.baseUrl;
 
   constructor(
     protected readonly http: HttpClient,
@@ -25,7 +25,10 @@ export class BaseService {
         eventComponent?.next(false);
         return throwError(err);
       }
-    )).pipe(take(1)).pipe(map(() => eventComponent?.next(false)));
+    )).pipe(take(1)).pipe(map((r) => {
+      eventComponent?.next(false);
+      return r;
+    }));
   }
   
   protected post(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
@@ -37,7 +40,10 @@ export class BaseService {
         eventComponent?.next(false);
         return throwError(err);
       }
-    )).pipe(take(1)).pipe(map(() => eventComponent?.next(false)));
+    )).pipe(take(1)).pipe(map((r) => {
+      eventComponent?.next(false);
+      return r;
+    }));
   }
   
   protected put(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
@@ -49,7 +55,10 @@ export class BaseService {
         eventComponent?.next(false);
         return throwError(err);
       }
-    )).pipe(take(1)).pipe(map(() => eventComponent?.next(false)));
+    )).pipe(take(1)).pipe(map((r) => {
+      eventComponent?.next(false);
+      return r;
+    }));
   }
   
   protected delete(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
@@ -61,7 +70,10 @@ export class BaseService {
         eventComponent?.next(false);
         return throwError(err);
       }
-    )).pipe(take(1)).pipe(map(() => eventComponent?.next(false)));
+    )).pipe(take(1)).pipe(map((r) => {
+      eventComponent?.next(false);
+      return r;
+    }));
   }
   
   /******************* METHODS PRIVATE *******************/
@@ -71,11 +83,11 @@ export class BaseService {
     const arrayNormalized = arrayActive.map(r => {
         const params = r.split('=');
         //@ts-ignore
-        const data = params[1]?.replaceAll(',', '@');
+        const data = params[1]?.replaceAll(',', '@#@');
         return `&${params[0]}=${data}`;
       })
     //@ts-ignore
-    const params = arrayNormalized?.toString()?.replaceAll(',', '')?.replaceAll('@', ',')
+    const params = arrayNormalized?.toString()?.replaceAll(',', '')?.replaceAll('@#@', ',')
     return params;
   }
 

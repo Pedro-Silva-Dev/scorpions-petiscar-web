@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AUTH_NAVIGATE } from './enum/auth-navigate.enum';
+import { AUTH_NAVIGATE } from './enums/auth-navigate.enum';
 
 @Component({
   selector: 'app-auth',

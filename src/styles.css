@@ -1002,4 +1002,34 @@ a {
     width: 100%;
 }
 
+.spinner-primary .p-progress-spinner-circle {
+    stroke: #8B5CF6 !important;
+}
 
+.btn-animation-slidein {
+    animation: slidein 1s;
+}
+
+.btn-animation-slideout {
+  animation: slideout 1s;
+}
+
+@keyframes slidein {
+    from {
+      width: 100%;
+    }
+  
+    to {
+      width: 4rem;
+    }
+}
+
+@keyframes slideout {
+  from {
+    width: 4rem;
+  }
+
+  to {
+    width: 100%;
+  }
+}
