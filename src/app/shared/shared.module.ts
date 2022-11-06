@@ -9,9 +9,7 @@ import { SpinnerButtonComponent } from './components/spinner-button/spinner-butt
 
 @NgModule({
   declarations: [
-
-  
-    SpinnerButtonComponent
+    SpinnerButtonComponent,
   ],
   imports: [
     CommonModule,

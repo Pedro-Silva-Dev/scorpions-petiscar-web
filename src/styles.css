@@ -4,7 +4,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900&display=swap");
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #F9F9F9;
+    background-color: var(--gray-50) !important;
     color: #2d4665 !important;
     font-size: 0.91rem !important;
     line-height: 1.5;
@@ -1014,6 +1014,20 @@ a {
   animation: slideout 1s;
 }
 
+.bg-primary {
+    background-color: var(--purple-500) !important;
+}
+
+.bg-primary-light {
+    background-color: var(--purple-50) !important;
+}
+
+.color-primary {
+    color: var(--purple-500) !important;
+}
+
+
+
 @keyframes slidein {
     from {
       width: 100%;
@@ -1033,3 +1047,30 @@ a {
     width: 100%;
   }
 }
+
+
+
+@media screen and (max-width: 920px) {
+    /* exibir apenas em monitores, notebooks etc. */
+    .display-screen {
+        display: none;
+    }   
+}
+
+@media screen and (min-width: 920px) {
+    /* exibir apenas em dispositivos moveis, tablets, cells etc. */
+    .display-mobile {
+        display: none;
+    }    
+}
+
+
+
+
+
+
+
+
+
+
+

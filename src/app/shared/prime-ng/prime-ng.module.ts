@@ -14,6 +14,7 @@ import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     ToastModule,
     RippleModule,
     ProgressSpinnerModule,
+    TooltipModule,
   ],
   exports: [
     CalendarModule,
@@ -52,6 +54,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     ToastModule,
     RippleModule,
     ProgressSpinnerModule,
+    TooltipModule,
   ]
 })
 export class PrimeNgModule { }

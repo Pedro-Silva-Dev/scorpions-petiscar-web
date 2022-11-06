@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './components/user/user.module';
 import { HomeModule } from './components/home/home.module';
+import { NavbarModule } from './shared/components/navbar/navbar.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HomeModule } from './components/home/home.module';
     HttpClientModule,
     MessageModule,
     UserModule,
-    HomeModule
+    HomeModule,
+    NavbarModule
   ],
   providers: [
     {
