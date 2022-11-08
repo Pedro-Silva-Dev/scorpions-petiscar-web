@@ -1026,6 +1026,16 @@ a {
     color: var(--purple-500) !important;
 }
 
+.p-carousel-item {
+    display: flex !important;
+    align-items: center !important;
+}
+
+h5.title {
+    color: var(--purple-500) !important;
+    font-size: 1.4rem;
+    margin: 1rem 0rem;
+}
 
 
 @keyframes slidein {
