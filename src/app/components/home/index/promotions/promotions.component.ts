@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,6 +8,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class PromotionsComponent implements OnInit {
+
+  public promotionEvent$ = new BehaviorSubject<boolean>(false);
 
   public responsiveOptions: any[] = [];
   public carousel: boolean = false;
@@ -42,7 +45,9 @@ export class PromotionsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    setTimeout(() => {
+      this.promotionEvent$.next(true)
+    }, 2000);
   }
 
 

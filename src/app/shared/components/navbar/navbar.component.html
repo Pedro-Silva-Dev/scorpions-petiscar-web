@@ -21,7 +21,7 @@
       <div>
         <form class="">
           <button pTooltip="Valor total" pButton type="button" label="{{'R$'+total}}" class="p-button-outlined me-2"><i class="pi pi-shopping-cart navbar-icon me-2"></i></button>
-          <button pButton type="button" label="Entrar" class="p-button-outlined"></button>
+          <button pButton type="button" [label]="user?.name ? user.name : 'Entrar'" class="p-button-outlined"></button>
         </form>
       </div>
     </div>

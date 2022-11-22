@@ -16,6 +16,9 @@ import { RippleModule } from 'primeng/ripple';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {TooltipModule} from 'primeng/tooltip';
 import {CarouselModule} from 'primeng/carousel';
+import {AutoFocusModule} from 'primeng/autofocus';
+import {ImageModule} from 'primeng/image';
+
 
 
 @NgModule({
@@ -40,6 +43,8 @@ import {CarouselModule} from 'primeng/carousel';
     ProgressSpinnerModule,
     TooltipModule,
     CarouselModule,
+    ImageModule,
+    AutoFocusModule,
   ],
   exports: [
     CalendarModule,
@@ -58,6 +63,8 @@ import {CarouselModule} from 'primeng/carousel';
     ProgressSpinnerModule,
     TooltipModule,
     CarouselModule,
+    ImageModule,
+    AutoFocusModule,
   ]
 })
 export class PrimeNgModule { }
