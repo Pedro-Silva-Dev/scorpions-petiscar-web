@@ -27,7 +27,8 @@ export class NavbarComponent implements OnInit {
     //@ts-ignore
     const url: string = this._route.snapshot['_routerState']?.url;
     const isPageAdmin = url?.toLowerCase().includes('admin');
-    return isPageAdmin ? false : true;
+    const isPageAuth = url?.toLowerCase().includes('auth');
+    return (isPageAdmin || isPageAuth ) ? false : true;
   }
 
   /************************** METHODS PRIVATE **************************/

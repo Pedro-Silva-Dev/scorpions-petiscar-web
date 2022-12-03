@@ -1,6 +1,5 @@
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { User } from './../../user/models/user.model';
 import { RegisterUser } from '../models/register-user.model';
 import { Observable, BehaviorSubject, take, map } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -15,6 +14,7 @@ import jwt_decode from "jwt-decode";
 import Hashids from "hashids";
 import { ROLES } from 'src/app/shared/enums/roles.enum';
 import { AuthParamBuild } from 'src/app/shared/models/param-build/auth-param.build.model';
+import { User } from '../../admin/user/models/user.model';
 
 @Injectable({
   providedIn: 'root',

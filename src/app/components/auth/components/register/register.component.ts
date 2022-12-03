@@ -1,4 +1,4 @@
-import { RegisterUser } from './../../models/register-user.model';
+import { RegisterUser } from '../../models/register-user.model';
 import { BehaviorSubject, map, Observable, Subject, switchMap, timer, Unsubscribable, debounceTime } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';

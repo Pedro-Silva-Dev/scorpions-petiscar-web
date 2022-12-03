@@ -1,4 +1,4 @@
-import { Login } from './../../models/login.model';
+import { Login } from '../../models/login.model';
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
