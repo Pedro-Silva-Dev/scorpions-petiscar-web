@@ -68,7 +68,7 @@ export class AuthService extends BaseService {
     const user = this.getUser();
     if(user) {
       const roles = user.roles?.split(',');
-      const isAdmin = roles?.find(res => res == ROLES.Admin);
+      const isAdmin = roles?.find(res => res == ROLES.ADMIN);
       admin = isAdmin ? true : false;
     }
     return admin;

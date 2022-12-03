@@ -1,9 +1,31 @@
-
-.sidebar-content {
+.sidebar {
     position: fixed;
     top: 0;
     left: 0;
     width: var(--sidebar-width);
     height: 100%;
     z-index: 99;
+}
+
+.sidebar .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.sidebar .content .item {
+    padding: 1rem;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.item img {
+    width: 2rem;
+}
+
+.item-selected {
+    background-color: var(--purple-700) !important;
+    border-radius: 1rem;
 }

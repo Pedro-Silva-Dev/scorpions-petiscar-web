@@ -3,9 +3,16 @@
         Content
     </p-sidebar>
     
-    <div class="sidebar">
-        <div class="sidebar-content bg-primary">
-            <header></header>
+    <div class="sidebar bg-primary">
+        <div class="content">
+            <header class="item">
+                <span>Petiscar</span>
+            </header>
+            <ng-container *ngFor="let sidebarItem of sidebarItens">
+                <div *ngIf="isRolePermission(sidebarItem)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">
+                    <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarItem.icon" [alt]="sidebarItem.name"></a>
+                </div>
+            </ng-container>
         </div>
     </div>
 </ng-container>
