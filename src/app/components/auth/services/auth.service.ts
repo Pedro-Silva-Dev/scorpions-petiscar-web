@@ -1,3 +1,4 @@
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { User } from './../../user/models/user.model';
 import { RegisterUser } from '../models/register-user.model';
@@ -12,6 +13,7 @@ import { UserAuth } from '../models/user-auth.model';
 import jwt_decode from "jwt-decode";
 //@ts-ignore
 import Hashids from "hashids";
+import { ROLES } from 'src/app/shared/enums/roles.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +27,7 @@ export class AuthService extends BaseService {
 
   constructor(
     private _http: HttpClient,
-    private _toastrService: ToastService
+    private _toastrService: ToastService,
   ) { 
     super(_http, _toastrService);
   }
@@ -60,9 +62,18 @@ export class AuthService extends BaseService {
     return user?.userKey ? true : false;
   }
 
-  public getTest(): boolean {
-    return true;
+  public isUserAdmin(): boolean {
+    let admin = false;
+    const user = this.getUser();
+    if(user) {
+      const roles = user.roles?.split(',');
+      const isAdmin = roles?.find(res => res == ROLES.Admin);
+      admin = isAdmin ? true : false;
+    }
+    return admin;
   }
+
+
 
   public getUser(): UserAuth {
     const token = this.getAuthToken();
@@ -89,6 +100,15 @@ export class AuthService extends BaseService {
     const user = this.getUser();
     const userId = user?.officeKey ? this._getHashId(user.officeKey) : 0;
     return userId;
+  }
+
+  public getUserRoles(): string[] {
+    let roles: string[] = [];
+    const user = this.getUser();
+    if(user) {
+      roles = user.roles?.split(',');
+    }
+    return roles;
   }
 
   public isEmailValid(email: string, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<StatusRequest>> {

@@ -1,29 +1,31 @@
-<nav class="navbar navbar-expand-lg bg-primary-light display-screen">
-  <div class="container-fluid">
-    <a class="navbar-brand color-primary" href="javascript:void(0)">Petiscar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbar-content">
+<ng-container *ngIf="isPermission()">
+  <nav class="navbar navbar-expand-lg bg-primary-light display-screen">
+    <div class="container-fluid">
+      <a class="navbar-brand color-primary" href="javascript:void(0)">Petiscar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbar-content">
+        <div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="javascript:void(0)">Restaurantes</a>
+            </li>
+          </ul>
+        </div>
       <div>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="javascript:void(0)">Restaurantes</a>
-          </li>
-        </ul>
-      </div>
-     <div>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-        <button pTooltip="Pesquisar" pButton type="button" class="p-button-outlined"><i class="pi pi-search"></i></button>
-      </form>
-     </div>
-      <div>
-        <form class="">
-          <button pTooltip="Valor total" pButton type="button" label="{{'R$'+total}}" class="p-button-outlined me-2"><i class="pi pi-shopping-cart navbar-icon me-2"></i></button>
-          <button pButton type="button" [label]="user?.name ? user.name : 'Entrar'" class="p-button-outlined"></button>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+          <button pTooltip="Pesquisar" pButton type="button" class="p-button-outlined"><i class="pi pi-search"></i></button>
         </form>
       </div>
+        <div>
+          <form class="">
+            <button pTooltip="Valor total" pButton type="button" label="{{'R$'+total}}" class="p-button-outlined me-2"><i class="pi pi-shopping-cart navbar-icon me-2"></i></button>
+            <button pButton type="button" [label]="user.name ? user.name : 'Entrar'" class="p-button-outlined"></button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</ng-container>

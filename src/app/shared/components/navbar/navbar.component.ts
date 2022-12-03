@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserAuth } from 'src/app/components/auth/models/user-auth.model';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 
@@ -13,18 +14,27 @@ export class NavbarComponent implements OnInit {
   public user!: UserAuth;
 
   constructor(
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _route: ActivatedRoute,
+    private _router: Router
   ) { }
 
   ngOnInit() {
     this._setUserInfo();
   }
 
+  public isPermission(): boolean {
+    //@ts-ignore
+    const url: string = this._route.snapshot['_routerState']?.url;
+    const isPageAdmin = url?.toLowerCase().includes('admin');
+    return isPageAdmin ? false : true;
+  }
 
   /************************** METHODS PRIVATE **************************/
 
   private _setUserInfo(): void {
     this.user = this._authService.getUser();
   }
+
 
 }
