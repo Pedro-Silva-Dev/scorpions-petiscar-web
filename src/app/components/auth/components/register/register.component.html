@@ -77,6 +77,11 @@
     </div>
 </div>
 
+<ng-container *ngIf="(this.registerUserEvent$ | async)">
+    <app-spinner></app-spinner>
+</ng-container>
+
+
 <ng-template #spinnerButton>
     <button pButton type="button" class="p-button-outlined btn-animation-slidein"><app-spinner-button></app-spinner-button></button>
 </ng-template>

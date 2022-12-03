@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   selector: 'app-spinner-button',
   templateUrl: './spinner-button.component.html',
   styleUrls: ['./spinner-button.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class SpinnerButtonComponent implements OnInit {
 

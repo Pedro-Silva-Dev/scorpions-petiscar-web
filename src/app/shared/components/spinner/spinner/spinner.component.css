@@ -1,0 +1,6 @@
+.screen {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    z-index: 99;
+}

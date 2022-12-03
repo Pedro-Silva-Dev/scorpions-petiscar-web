@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   baseUrl: '/api',
   salt:`ppcOpmT57PCY5EpwbiDmr6IfupC5K0RZ`,
-  lengthSalt: 32
+  lengthSalt: 32,
 };
 
 /*

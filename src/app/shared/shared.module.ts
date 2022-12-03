@@ -3,23 +3,24 @@ import { CommonModule } from '@angular/common';
 
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SpinnerButtonComponent } from './components/spinner-button/spinner-button.component';
+import { SpinnerModule } from './components/spinner/spinner.module';
 
 
 
 @NgModule({
   declarations: [
-    SpinnerButtonComponent,
+
   ],
   imports: [
     CommonModule,
     PrimeNgModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SpinnerModule,
   ],
   exports: [
     PrimeNgModule,
     ReactiveFormsModule,
-    SpinnerButtonComponent
+    SpinnerModule,
   ]
 })
 export class SharedModule { }

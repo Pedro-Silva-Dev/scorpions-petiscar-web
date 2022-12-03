@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserAuth } from 'src/app/components/auth/models/user-auth.model';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { PermissionService } from '../../services/permission.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _permissionService: PermissionService
   ) { }
 
   ngOnInit() {
@@ -24,11 +26,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public isPermission(): boolean {
-    //@ts-ignore
-    const url: string = this._route.snapshot['_routerState']?.url;
-    const isPageAdmin = url?.toLowerCase().includes('admin');
-    const isPageAuth = url?.toLowerCase().includes('auth');
-    return (isPageAdmin || isPageAuth ) ? false : true;
+    return this._permissionService.isPermissionNavbar();
   }
 
   /************************** METHODS PRIVATE **************************/

@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './shared/components/navbar/navbar.module';
+import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NavbarModule } from './shared/components/navbar/navbar.module';
     HttpClientModule,
     MessageModule,
     NavbarModule,
+    SidebarModule
   ],
   providers: [
     {

@@ -7,7 +7,7 @@ import { IMAGES } from 'src/app/shared/enums/images.enum';
 import { AuthService } from '../../services/auth.service';
 import { AUTH_NAVIGATE } from '../../enums/auth-navigate.enum';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
     private _toastrService: ToastService,
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -82,7 +83,7 @@ export class LoginComponent implements OnInit {
       if(res.status == 200) {
         this._toastrService.success(`Bem-vindo ao Petiscar!`);
         this._authService.saveAuthToken(res.body);
-        this._router.navigate([`/`])
+        this._navigateUser();
       }else {
         this._toastrService.warning(`Não foi possível realizar o login, por favor tente novamente.`);
       }
@@ -92,6 +93,21 @@ export class LoginComponent implements OnInit {
       }
         this._toastrService.error(`Não foi possível realizar o login, revise os seus dados tente novamente.`);
     });
+  }
+
+  private _isPageAuth(): boolean {
+    //@ts-ignore
+    const url: string = this._route.snapshot['_routerState']?.url;
+    const isPageAuth = url?.toLowerCase().includes('auth');
+    return isPageAuth ? true : false;
+  }
+
+  private _navigateUser(): void {
+    if(this._isPageAuth()) {
+      this._router.navigate([`/admin`])
+    }else {
+      this._router.navigate([`/`])
+    }
   }
 
   

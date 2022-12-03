@@ -18,7 +18,8 @@ import {TooltipModule} from 'primeng/tooltip';
 import {CarouselModule} from 'primeng/carousel';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {ImageModule} from 'primeng/image';
-
+import {BlockUIModule} from 'primeng/blockui';
+import {SidebarModule} from 'primeng/sidebar';
 
 
 @NgModule({
@@ -45,6 +46,8 @@ import {ImageModule} from 'primeng/image';
     CarouselModule,
     ImageModule,
     AutoFocusModule,
+    BlockUIModule,
+    SidebarModule,
   ],
   exports: [
     CalendarModule,
@@ -65,6 +68,8 @@ import {ImageModule} from 'primeng/image';
     CarouselModule,
     ImageModule,
     AutoFocusModule,
+    BlockUIModule,
+    SidebarModule,
   ]
 })
 export class PrimeNgModule { }

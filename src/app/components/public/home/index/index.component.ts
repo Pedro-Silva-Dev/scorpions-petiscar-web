@@ -20,9 +20,6 @@ export class IndexComponent implements OnInit {
     const userId = this._authService.getUserId();
     const companyId = this._authService.getUserCompanyId();
     const officeId = this._authService.getUserOfficeId();
-
-    console.log(`UserId: ${userId} companyId: ${companyId} officeId: ${officeId}`);
-    
   }
 
 }
