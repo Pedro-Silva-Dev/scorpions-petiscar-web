@@ -16,7 +16,7 @@ export class BaseService {
     protected readonly toastrService: ToastService
   ) { }
   
-  protected get(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>> {
+  protected get(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any): Observable<HttpResponse<any>> {
     eventComponent?.next(true);
     //@ts-ignore
     return this.http.get<any>(`${this._baseUrl}${url}?success=true${this._getInfoBuild(build)}`, {observe: 'response'}).pipe(catchError(
@@ -31,7 +31,7 @@ export class BaseService {
     }));
   }
   
-  protected post(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
+  protected post(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any): Observable<HttpResponse<any>>{
     eventComponent?.next(true);
     // @ts-ignore
     return this.http.post<any>(`${this._baseUrl}${url}?success=true${this._getInfoBuild(build)}`, data, {observe: 'response'}).pipe(catchError(
@@ -46,7 +46,7 @@ export class BaseService {
     }));
   }
   
-  protected put(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
+  protected put(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any): Observable<HttpResponse<any>>{
     eventComponent?.next(true);
     //@ts-ignore
     return this.http.put<any>(`${this._baseUrl}${url}?success=true${this._getInfoBuild(build)}`, data, {observe: 'response'}).pipe(catchError(
@@ -61,7 +61,7 @@ export class BaseService {
     }));
   }
   
-  protected delete(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, ...build: string[]): Observable<HttpResponse<any>>{
+  protected delete(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any): Observable<HttpResponse<any>>{
     eventComponent?.next(true);
     //@ts-ignore
     return this.http.delete<boolean>(`${this._baseUrl}${url}?success=true${this._getInfoBuild(build)}`, {observe: 'response'}).pipe(catchError(
@@ -78,17 +78,35 @@ export class BaseService {
   
   /******************* METHODS PRIVATE *******************/
   
-  private _getInfoBuild(build: string[]): string {
+  private _getInfoBuild(paramsBuild: any): string {
+    const build = this._getParamsBuild(paramsBuild);
     const arrayActive = build?.filter(r => r);
-    const arrayNormalized = arrayActive.map(r => {
-        const params = r.split('=');
-        //@ts-ignore
-        const data = params[1]?.replaceAll(',', '@#@');
-        return `&${params[0]}=${data}`;
-      })
+    const arrayNormalized = arrayActive?.map(r => {
+      const params = r.split('=');
+      //@ts-ignore
+      const data = params[1]?.replaceAll(',', '@');
+      return `${params[0]}=${data}`;
+    })
     //@ts-ignore
-    const params = arrayNormalized?.toString()?.replaceAll(',', '')?.replaceAll('@#@', ',')
+    const params = arrayNormalized?.toString()?.replaceAll(',', '')?.replaceAll('@', ',')
     return params;
+  }
+
+  private _getParamsBuild(build: any): string[] {
+    let array: string[] = [];
+    if (build) {
+      Object.keys(build)?.forEach(key => {
+        //@ts-ignore
+        if (build[key] != null && build[key] != undefined) {
+          //@ts-ignore
+          const item = `&${key}=${encodeURIComponent(build[key])}`;
+          console.log(item);
+
+          array.push(item);
+        }
+      });
+    }
+    return array;
   }
 
 }

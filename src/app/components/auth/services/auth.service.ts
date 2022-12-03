@@ -14,6 +14,7 @@ import jwt_decode from "jwt-decode";
 //@ts-ignore
 import Hashids from "hashids";
 import { ROLES } from 'src/app/shared/enums/roles.enum';
+import { AuthParamBuild } from 'src/app/shared/models/param-build/auth-param.build.model';
 
 @Injectable({
   providedIn: 'root',
@@ -111,11 +112,10 @@ export class AuthService extends BaseService {
     return roles;
   }
 
-  public isEmailValid(email: string, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<StatusRequest>> {
+  public isEmailValid(build: Partial<AuthParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<StatusRequest>> {
     const url = `/user/public/valid-email.json`;
     const msgError = `Não o possível realizar a validação do emai, por favor tente novamente.`;
-    const paramEmail = `email=${email}`;
-    return this.get(url, loadEvent, msgError, paramEmail);
+    return this.get(url, loadEvent, msgError, build);
   }
 
   public createUser(user: RegisterUser, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<User>> {
