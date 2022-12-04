@@ -1047,9 +1047,23 @@ h5.title {
     margin: 1rem 0rem;
 }
 
+/* CONFIG SIDEBAR */
+
+.p-sidebar-content {
+    height: 100% !important;
+}
+
 .p-sidebar-header {
     display: none !important;
 }
+
+.sidebar-expand {
+    width: 17rem !important;
+    height: 100% !important;
+}
+
+
+/* *********** */
 
 @keyframes slidein {
     from {

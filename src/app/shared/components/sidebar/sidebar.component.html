@@ -1,10 +1,34 @@
 <ng-container *ngIf="isPermission()">
-    <p-sidebar styleClass="bg-primary" [(visible)]="expand" [dismissible]="false" [modal]="false" [showCloseIcon]="false">
-        <header class="sidebar-header">
-            <span>Petiscar</span>
-            <a href="javascript:void(0)" (click)="setExpand()" ><img [src]="closeIcon" alt="fechar sidebar bar"></a>
-        </header>
-       
+    <p-sidebar styleClass="bg-primary sidebar-expand" [(visible)]="expand" [dismissible]="false" [modal]="false" [showCloseIcon]="false">
+        <div class="expand-content">
+            <header class="sidebar-header-expand">
+                <span>Petiscar</span>
+                <a href="javascript:void(0)" (click)="setExpand()" pTooltip="Ocultar"><img [src]="arrowLeftIcon" alt="fechar sidebar bar"></a>
+            </header>
+            <ng-container *ngFor="let sidebarItem of sidebarItens">
+                <div *ngIf="isRolePermission(sidebarItem)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item item-expand {{isItemSelected(sidebarItem) ? 'item-selected-expand' : ''}}">
+                    <a href="javascript:void(0)" routerLinkActive="router-link-active" >
+                        <img [src]="sidebarItem.icon" [alt]="sidebarItem.name">
+                        <span class="item-title">{{sidebarItem.name}}</span>
+                    </a>
+                </div>
+            </ng-container>
+        </div>
+        <div class="expand-footer">
+            <div class="item-logout">
+                <a href="javascript:void(0)" routerLinkActive="router-link-active" class="user-info" >
+                    <img class="user-profile" [src]="(user && user.urlPhoto) ? user.urlPhoto : userProfileImg" alt="imagem do usuário">
+                    <div>
+                        <span class="user-name">{{user.name}}</span> <br>
+                        <small class="user-office">{{(user && user.office) ? user.office : '-'}}</small>
+                    </div>
+                    
+                </a>
+                <a (click)="logout()" [pTooltip]="sidebarLogout.tooltip" class="item item-expand mt-2" href="javascript:void(0)">
+                    <img [src]="sidebarLogout.icon" [alt]="sidebarLogout.name">
+                </a>
+            </div>
+        </div>
        
     </p-sidebar>
     
@@ -15,13 +39,13 @@
                <a href="javascript:void(0)"><span>Petiscar</span></a>
             </header>
             <ng-container *ngFor="let sidebarItem of sidebarItens">
-                <div *ngIf="isRolePermission(sidebarItem)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">
+                <div *ngIf="isRolePermission(sidebarItem)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item item-navigation {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">
                     <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarItem.icon" [alt]="sidebarItem.name"></a>
                 </div>
             </ng-container>
         </div>
         <div class="footer">
-            <div (click)="logout()" [pTooltip]="sidebarLogout.tooltip" class="item">
+            <div (click)="logout()" [pTooltip]="sidebarLogout.tooltip" class="item item-navigation">
                 <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarLogout.icon" [alt]="sidebarLogout.name"></a>
             </div>
         </div>

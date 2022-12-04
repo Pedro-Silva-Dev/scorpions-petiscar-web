@@ -1,3 +1,4 @@
+import { IMAGES } from 'src/app/shared/enums/images.enum';
 import { ROLES } from './../../enums/roles.enum';
 import { ICONS } from './../../enums/icons.enum';
 import { SidebarItem } from './../../models/sidebar-item.model';
@@ -6,6 +7,7 @@ import { PermissionService } from '../../services/permission.service';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { URLS } from '../../enums/urls.enum';
 import { ActivatedRoute } from '@angular/router';
+import { UserAuth } from 'src/app/components/auth/models/user-auth.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,11 +17,13 @@ import { ActivatedRoute } from '@angular/router';
 export class SidebarComponent implements OnInit {
 
   public expand: boolean = false;
-  public closeIcon = ICONS.CLOSE;
+  public arrowLeftIcon = ICONS.ARROW_LEFT;
+  public userProfileImg = IMAGES.USER_PROFILE;
   public sidebarItens: SidebarItem[] = [];
   public sidebarLogout!: SidebarItem;
   public userRoles: string[] = [];
-
+  public user!: UserAuth;
+  
   constructor(
     private _permissionService: PermissionService,
     private _authService: AuthService,
@@ -73,6 +77,8 @@ export class SidebarComponent implements OnInit {
 
   private _setSidebarItens(): void {
     this._setSidebarItem(`Dashboard`, ICONS.DASHBOARD, URLS.DASHBOARD, `Dashboard`, [ROLES.ADMIN]);
+    this._setSidebarItem(`Usuários`, ICONS.USER, URLS.USERS, `Usuários`, [ROLES.ADMIN]);
+    this._setSidebarItem(`Categorias`, ICONS.CATEGORY, URLS.CATEGORIES, `Categorias`, [ROLES.ADMIN]);
 
     this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
   }
@@ -100,11 +106,12 @@ export class SidebarComponent implements OnInit {
 
   private _setInfoUser(): void {
     this.userRoles = this._authService.getUserRoles();
+    this.user = this._authService.getUser();
   }
 
   private _setSidebarLogout(): void {
     this.sidebarLogout = {
-      name: 'Logout',
+      name: 'Sair',
       icon: ICONS.LOGOUT,
       url: ``,
       tooltip: `Sair`,
