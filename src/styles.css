@@ -1047,6 +1047,9 @@ h5.title {
     margin: 1rem 0rem;
 }
 
+.p-sidebar-header {
+    display: none !important;
+}
 
 @keyframes slidein {
     from {

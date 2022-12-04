@@ -15,7 +15,9 @@ import { ActivatedRoute } from '@angular/router';
 export class SidebarComponent implements OnInit {
 
   public expand: boolean = false;
+  public closeIcon = ICONS.CLOSE;
   public sidebarItens: SidebarItem[] = [];
+  public sidebarLogout!: SidebarItem;
   public userRoles: string[] = [];
 
   constructor(
@@ -27,6 +29,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this._setInfoUser();
     this._setSidebarItens();
+    this._setSidebarLogout();
   }
 
   public setExpand(): void {
@@ -39,12 +42,13 @@ export class SidebarComponent implements OnInit {
 
   public isRolePermission(sidebarItem: SidebarItem): boolean {
     let permission = false;
+    const userRoles = this._authService.getUserRoles();
     
     if(!sidebarItem?.roles?.length) {
       permission = true;
     }
-    if(sidebarItem?.roles && this.userRoles?.length) {
-      this.userRoles?.forEach(userRole => {
+    if(sidebarItem?.roles && userRoles?.length) {
+      userRoles?.forEach(userRole => {
         const rolePermission = sidebarItem?.roles?.find(itemRole => itemRole == userRole);
         if(rolePermission) {
           permission = true;
@@ -61,11 +65,14 @@ export class SidebarComponent implements OnInit {
     return isSelected;
   }
 
+  public logout(): void {
+    this._authService.logout();
+  }
+
   /***************** METHODS PRIVATE *****************/
 
   private _setSidebarItens(): void {
     this._setSidebarItem(`Dashboard`, ICONS.DASHBOARD, URLS.DASHBOARD, `Dashboard`, [ROLES.ADMIN]);
-    this._setSidebarItem(`Users`, ICONS.DASHBOARD, URLS.USERS, `Usuários`, [ROLES.ADMIN]);
 
     this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
   }
@@ -93,6 +100,17 @@ export class SidebarComponent implements OnInit {
 
   private _setInfoUser(): void {
     this.userRoles = this._authService.getUserRoles();
+  }
+
+  private _setSidebarLogout(): void {
+    this.sidebarLogout = {
+      name: 'Logout',
+      icon: ICONS.LOGOUT,
+      url: ``,
+      tooltip: `Sair`,
+      order: 0,
+      roles: [],
+    }
   }
 
 

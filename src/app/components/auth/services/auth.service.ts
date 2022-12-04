@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { RegisterUser } from '../models/register-user.model';
 import { Observable, BehaviorSubject, take, map } from 'rxjs';
@@ -29,6 +29,7 @@ export class AuthService extends BaseService {
   constructor(
     private _http: HttpClient,
     private _toastrService: ToastService,
+    private _router: Router
   ) { 
     super(_http, _toastrService);
   }
@@ -73,8 +74,6 @@ export class AuthService extends BaseService {
     }
     return admin;
   }
-
-
 
   public getUser(): UserAuth {
     const token = this.getAuthToken();
@@ -130,7 +129,11 @@ export class AuthService extends BaseService {
     return this._http.post<any>(`${this._baseUrl}${url}`, login, { responseType: 'text', observe: `response` }).pipe(take(1));
   }
 
-  
+  public logout(): void {
+    window.sessionStorage.clear();
+    window.localStorage.clear();
+    this._router.navigate(['/']);
+  }
 
 }
 

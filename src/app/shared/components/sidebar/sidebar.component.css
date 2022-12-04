@@ -10,9 +10,16 @@
 .sidebar .content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    height: 90%;
 
+}
+
+.sidebar .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 10%;
 }
 
 .sidebar .content .item {
@@ -25,7 +32,39 @@
     width: 2rem;
 }
 
+.item a span {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
 .item-selected {
+    background-color: var(--purple-700) !important;
+    border-radius: 1rem;
+}
+
+.sidebar-header {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-header span {
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.sidebar-header img {
+    width: 1.5rem;
+}
+
+.sidebar-header a {
+    padding: 0.5rem;
+}
+
+.sidebar-header a:hover {
     background-color: var(--purple-700) !important;
     border-radius: 1rem;
 }
