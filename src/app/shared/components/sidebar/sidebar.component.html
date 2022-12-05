@@ -29,14 +29,14 @@
                 </a>
             </div>
         </div>
-       
+    
     </p-sidebar>
     
     
     <div *ngIf="!expand" class="sidebar bg-primary">
         <div class="content">
             <header (click)="setExpand()" class="item">
-               <a href="javascript:void(0)"><span>Petiscar</span></a>
+            <a href="javascript:void(0)"><span>Petiscar</span></a>
             </header>
             <ng-container *ngFor="let sidebarItem of sidebarItens">
                 <div *ngIf="isRolePermission(sidebarItem)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item item-navigation {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">

@@ -3,7 +3,7 @@ import { IMAGES } from 'src/app/shared/enums/images.enum';
 import { ROLES } from './../../enums/roles.enum';
 import { ICONS } from './../../enums/icons.enum';
 import { SidebarItem } from './../../models/sidebar-item.model';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PermissionService } from '../../services/permission.service';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { URLS } from '../../enums/urls.enum';
@@ -16,7 +16,7 @@ import { SidebarService } from '../../services/sidebar.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
 
   public expand: boolean = false;
   public arrowLeftIcon = ICONS.ARROW_LEFT;
@@ -25,19 +25,24 @@ export class SidebarComponent implements OnInit {
   public sidebarLogout!: SidebarItem;
   public userRoles: string[] = [];
   public user!: UserAuth;
+  public permission: boolean = false;
   
   constructor(
     private _permissionService: PermissionService,
     private _authService: AuthService,
     private _route: ActivatedRoute,
-    private _sidebarService: SidebarService
+    private _sidebarService: SidebarService,
+    private _changeDetectorRef: ChangeDetectorRef
   ) { }
+
+  ngAfterViewInit(): void {
+    
+  }
 
   ngOnInit(): void {
     this._setInfoUser();
     this._setSidebarItens();
     this._setSidebarLogout();
-    this._startSidebar();
   }
 
   public setExpand(): void {
@@ -46,12 +51,19 @@ export class SidebarComponent implements OnInit {
   }
 
   public setStatusExpand(): void {
-    const status = this.expand ? SIDEBAR_STATUS.EXPAND : SIDEBAR_STATUS.HIDE;
+    const status = this._sidebarService.getStatusExpand() ? SIDEBAR_STATUS.EXPAND : SIDEBAR_STATUS.HIDE;
+    this.expand = this._sidebarService.getStatusExpand() ? true : false;
     this._sidebarService.setStatusExpandEvent(status);
   }
 
   public isPermission(): boolean {
-    return this._permissionService.isPermissionSidebar();
+    this.permission = this._permissionService.isPermissionSidebar();
+    if(this.permission) {
+      setTimeout(() => {
+        this.setStatusExpand();
+      }, 0);
+    }
+    return this.permission;
   }
 
   public isRolePermission(sidebarItem: SidebarItem): boolean {
@@ -129,14 +141,5 @@ export class SidebarComponent implements OnInit {
       roles: [],
     }
   }
-
-  private _startSidebar(): void {
-    setTimeout(() => {
-      const status = this._sidebarService.getStatusExpand();
-      this.expand = (status == SIDEBAR_STATUS.EXPAND) ? true : false;
-      this.setStatusExpand();
-    }, 0);
-  }
-
 
 }

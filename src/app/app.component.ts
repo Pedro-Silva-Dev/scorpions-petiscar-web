@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, AfterViewInit } from '@angular/core';
 import { SIDEBAR_STATUS } from './shared/enums/sidebar.enum';
 import { PermissionService } from './shared/services/permission.service';
 import { SidebarService } from './shared/services/sidebar.service';
@@ -19,10 +19,11 @@ export class AppComponent implements OnInit {
     private _changeDetectorRef: ChangeDetectorRef
   ) { }
 
-  
+   
   ngOnInit(): void {
     this._setSidebarStatusEvent();
   }
+
 
   /**************** METHODS PRIVATE ****************/
 
@@ -32,16 +33,15 @@ export class AppComponent implements OnInit {
 
   private _setSidebarStatusEvent(): void {
     this._sidebarService.getStatusExpandEvent().subscribe(res => {
-      if(this._isSidebar()) {
-        if(res == SIDEBAR_STATUS.EXPAND) {
-          this.sidebarClass = `sidebar-expand-content`;
+        if(this._isSidebar()) {
+          if(res == SIDEBAR_STATUS.EXPAND) {
+            this.sidebarClass = `sidebar-expand-content`;
+          }else {
+            this.sidebarClass = `sidebar-content`
+          }
         }else {
-          this.sidebarClass = `sidebar-content`
+          this.sidebarClass = ``;
         }
-      }else {
-        this.sidebarClass = ``;
-      }
-      this._changeDetectorRef.detectChanges();
     });
   }
 
