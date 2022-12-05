@@ -5,6 +5,9 @@
 
 :root {
     --sidebar-width: 5rem;
+    --sidebar-content: 6rem;
+    --sidebar-expand-width: 17rem;
+    --sidebar-expand-content: 18rem;
   }
 
 body {
@@ -1058,7 +1061,7 @@ h5.title {
 }
 
 .sidebar-expand {
-    width: 17rem !important;
+    width: var(--sidebar-expand-width) !important;
     height: 100% !important;
 }
 
