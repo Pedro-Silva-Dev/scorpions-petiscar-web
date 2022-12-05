@@ -40,6 +40,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this._setStatus();
     this._setInfoUser();
     this._setSidebarItens();
     this._setSidebarLogout();
@@ -51,9 +52,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   public setStatusExpand(): void {
-    const status = this._sidebarService.getStatusExpand() ? SIDEBAR_STATUS.EXPAND : SIDEBAR_STATUS.HIDE;
-    this.expand = this._sidebarService.getStatusExpand() ? true : false;
+    const status = this.expand ? SIDEBAR_STATUS.EXPAND : SIDEBAR_STATUS.HIDE;
     this._sidebarService.setStatusExpandEvent(status);
+    setTimeout(() => {
+      this.expand = this._sidebarService.getStatusExpand() == SIDEBAR_STATUS.EXPAND ? true : false;
+    }, 0);
   }
 
   public isPermission(): boolean {
@@ -140,6 +143,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       order: 0,
       roles: [],
     }
+  }
+
+  private _setStatus(): void {
+    this.expand = this._sidebarService.getStatusExpand() == SIDEBAR_STATUS.EXPAND ? true : false;
   }
 
 }
