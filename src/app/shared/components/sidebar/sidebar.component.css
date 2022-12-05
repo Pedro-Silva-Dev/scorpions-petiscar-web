@@ -81,11 +81,13 @@
 /* SIDEBAR EXPAND */
 
 .sidebar-header-expand {
-    margin-top: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
 }
 
 .item-title {
