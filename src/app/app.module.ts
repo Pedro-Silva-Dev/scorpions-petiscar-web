@@ -21,7 +21,7 @@ import { SidebarModule } from './shared/components/sidebar/sidebar.module';
     HttpClientModule,
     MessageModule,
     NavbarModule,
-    SidebarModule
+    SidebarModule,
   ],
   providers: [
     {

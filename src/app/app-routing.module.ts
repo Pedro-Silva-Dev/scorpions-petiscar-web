@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule), canActivate: [IsPermissionGuard], data: {roles: [ROLES.ADMIN]} },
   { path: 'public', loadChildren: () => import('./components/public/public.module').then(m => m.PublicModule) },
   { path: 'sidebar', loadChildren: () => import('./shared/components/sidebar/sidebar.module').then(m => m.SidebarModule) },
+  { path: 'category', loadChildren: () => import('./components/admin/category/category.module').then(m => m.CategoryModule) },
 ];
 
 @NgModule({
