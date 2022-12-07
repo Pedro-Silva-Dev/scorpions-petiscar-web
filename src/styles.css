@@ -998,6 +998,14 @@ a {
 
 /* CONFIG PRIME_NG */
 
+span {
+    color: var(--bluegray-900);
+}
+
+p {
+    color: var(--bluegray-900);
+}
+
 .form-group {
     margin-bottom: 1rem;
 }
@@ -1045,9 +1053,11 @@ a {
 }
 
 h5.title {
-    color: var(--purple-500) !important;
+    color: var(--bluegray-900) !important;
     font-size: 1.4rem;
     margin: 1rem 0rem;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 /* CONFIG SIDEBAR */
@@ -1065,7 +1075,34 @@ h5.title {
     height: 100% !important;
 }
 
+/* *********** */
 
+/* CONFIG TABLE */
+
+.p-datatable .p-datatable-thead > tr > th {
+    background-color: var(--gray-100);
+    border-color: var(--gray-100);
+    text-transform: uppercase;
+    color: var(--bluegray-900);
+    font-weight: 500;
+}
+
+td {
+    color: var(--bluegray-900);
+    text-transform: capitalize;
+}
+
+
+/* *********** */
+
+/* CONFIG CARD */
+
+.ui-card {
+    background: var(--surface-card);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
 /* *********** */
 
 @keyframes slidein {
