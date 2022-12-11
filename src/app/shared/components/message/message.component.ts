@@ -1,8 +1,8 @@
 import { MessageToast } from './model/message-toast.model';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { Unsubscribable } from 'rxjs';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { Unsubscribable, take, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-message',
@@ -12,14 +12,18 @@ import { Unsubscribable } from 'rxjs';
 })
 export class MessageComponent implements OnInit, OnDestroy {
 
+  public loadMessageEvent$ = new BehaviorSubject<boolean>(false);
+
   private _unsubscribe!: Unsubscribable
 
   constructor(
     private _messageService: MessageService,
-    private _toastrService: ToastService
+    private _toastrService: ToastService,
+    private _primengConfig: PrimeNGConfig,
   ) { }
   
   ngOnInit() {
+    this._primengConfig.ripple = true;
     this.registerEvent();
   }
 
@@ -28,7 +32,7 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
   public message(messageToast: MessageToast): void {
-    this._messageService.add({severity:messageToast.type, detail: messageToast.message, closable: false});
+    this._messageService.add({ severity: messageToast.type, detail: messageToast.message, closable: true });
   }
 
 
@@ -36,7 +40,7 @@ export class MessageComponent implements OnInit, OnDestroy {
 
   private registerEvent(): void {
    this._unsubscribe = this._toastrService.getEvent().subscribe(res => {
-      if(res) {
+     if (res) {
         this.message(res);
       }
     });

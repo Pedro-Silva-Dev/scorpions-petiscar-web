@@ -1,0 +1,30 @@
+<app-modal [title]="title" [display]="display" [class]="modal.SM" (closeModalEvent$)="modalEvent(false)">
+    <div modal-body>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="categoryForm">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input formControlName="name" id="name" class="form-input" type="text" pInputText autocomplete="off" placeholder="Nome da Categoria"/>
+                        <p *ngIf="!isFieldValid('name')">Nome da categoria é obrigatório.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div modal-footer>
+        <div class="form-group">
+            <div class="d-flex justify-content-end">
+                <ng-container *ngIf="!(createCategoryEvent$ | async); else spinnerButton">
+                    <button (click)="closeModal()" pButton type="button" label="Voltar" class="p-button-secondary p-button-outlined me-2"></button>
+                    <button (click)="save()" pButton type="button" [disabled]="!isCategoryFormValid()" [label]="labelButtonFinish" class="p-button-outlined"></button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</app-modal>
+
+
+<ng-template #spinnerButton>
+    <button pButton pRipple class="purple" type="button" class="p-button-outlined btn-animation-slidein"><app-spinner-button></app-spinner-button></button>
+</ng-template>

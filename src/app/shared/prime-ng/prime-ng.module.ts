@@ -21,6 +21,11 @@ import {ImageModule} from "primeng/image";
 import {BlockUIModule} from "primeng/blockui";
 import {SidebarModule} from "primeng/sidebar";
 import {TableModule} from "primeng/table";
+import { SpeedDialModule } from "primeng/speeddial";
+import {SplitButtonModule} from "primeng/splitbutton";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import { DialogModule } from "primeng/dialog";
+import {BadgeModule} from 'primeng/badge';
 
 
 @NgModule({
@@ -50,6 +55,11 @@ import {TableModule} from "primeng/table";
 		BlockUIModule,
 		SidebarModule,
 		TableModule,
+		SpeedDialModule,
+		SplitButtonModule,
+		ConfirmDialogModule,
+		DialogModule,
+		BadgeModule,
 	],
 	exports: [
 		CalendarModule,
@@ -73,6 +83,11 @@ import {TableModule} from "primeng/table";
 		BlockUIModule,
 		SidebarModule,
 		TableModule,
+		SpeedDialModule,
+		SplitButtonModule,
+		ConfirmDialogModule,
+		DialogModule,
+		BadgeModule,
 	]
 })
 export class PrimeNgModule { }

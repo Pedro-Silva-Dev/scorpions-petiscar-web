@@ -21,7 +21,6 @@
         "no-eq-null":"off",
         "no-empty-function":"off",
         "indent": [
-            "error",
             "tab"
         ],
         "linebreak-style": [

@@ -100,8 +100,6 @@ export class BaseService {
         if (build[key] != null && build[key] != undefined) {
           //@ts-ignore
           const item = `&${key}=${encodeURIComponent(build[key])}`;
-          console.log(item);
-
           array.push(item);
         }
       });

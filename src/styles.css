@@ -18,6 +18,19 @@ body {
     line-height: 1.5;
 }
 
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+hr {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+
 .map agm-map {
     width: auto !important;
     height: 89vh !important;
@@ -996,6 +1009,23 @@ a {
     color: #EF4444;
 }
 
+.form-input {
+    width: 100%;
+}
+
+button span {
+    color: var(--purple-700) !important;
+}
+
+button.p-button-secondary span {
+    color: var(--bluegray-600) !important;
+}
+
+form label {
+    margin-bottom: 0.5rem;
+}
+
+
 /* CONFIG PRIME_NG */
 
 span {
@@ -1004,6 +1034,33 @@ span {
 
 p {
     color: var(--bluegray-900);
+}
+
+.p-speeddial {
+    position: relative !important;
+}
+
+.p-speeddial-button {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+}
+
+.p-button-icon { 
+    color: var(--purple-700);
+}
+
+.p-speeddial-action-icon {
+    color: var(--purple-900);
+}
+
+.p-speeddial-action {
+    background-color: #fff !important;
+    color: var(--purple-700);
+}
+
+.p-speeddial-action:hover {
+    background-color: var(--purple-100) !important;
+    border-color: var(--purple-700) !important;
 }
 
 .form-group {
@@ -1060,6 +1117,85 @@ h5.title {
     font-weight: 600;
 }
 
+/* CONFIG MODAL */
+
+@media (min-width: 992px) {
+    .modal-xl {
+        width: 950px !important;
+    }
+    .modal-lg {
+        width: 840px !important;
+    }
+    .modal-md {
+        width: 650px !important;
+    }
+    .modal-sm {
+        width: 300px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-xl {
+        width: 950px !important;
+    }
+    .modal-lg {
+        width: 840px !important;
+    }
+    .modal-md {
+        width: 650px !important;
+    }
+    .modal-sm {
+        width: 300px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .modal-xl {
+        width: 1160px !important;
+    }
+    .modal-lg {
+        width: 1080px !important;
+    }
+    .modal-md {
+        width: 780px !important;
+    }
+    .modal-sm {
+        width: 400px !important;
+    }
+}
+
+@media (min-width: 1500px) {
+    .modal-xl {
+        width: 1460px !important;
+    }
+    .modal-lg {
+        width: 1280px !important;
+    }
+    .modal-md {
+        width: 980px !important;
+    }
+    .modal-sm {
+        width: 450px !important;
+    }
+}
+
+@media (min-width: 1800px) {
+    .modal-xl {
+        width: 1760px !important;
+    }
+    .modal-lg {
+        width: 1580px !important;
+    }
+    .modal-md {
+        width: 1080px !important;
+    }
+    .modal-sm {
+        width: 450px !important;
+    }
+}
+
+
+
 /* CONFIG SIDEBAR */
 
 .p-sidebar-content {
@@ -1092,6 +1228,9 @@ td {
     text-transform: capitalize;
 }
 
+.p-datatable .p-datatable-tbody > tr > td {
+    padding: 0.5rem;
+}
 
 /* *********** */
 
