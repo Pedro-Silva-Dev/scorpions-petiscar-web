@@ -1,5 +1,4 @@
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
-import { MessageModule } from './shared/components/message/message.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -9,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './shared/components/navbar/navbar.module';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -19,9 +19,9 @@ import { SidebarModule } from './shared/components/sidebar/sidebar.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MessageModule,
     NavbarModule,
     SidebarModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     {

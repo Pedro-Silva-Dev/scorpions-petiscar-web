@@ -34,7 +34,6 @@ export class SidebarComponent implements OnInit {
     private _authService: AuthService,
     private _route: ActivatedRoute,
     private _sidebarService: SidebarService,
-    private _changeDetectorRef: ChangeDetectorRef
 	) { }
 
 
@@ -44,27 +43,10 @@ export class SidebarComponent implements OnInit {
 		this._setSidebarItens();
 		this._setSidebarLogout();
 	}
-
-	public setExpand(): void {
-		this.expand = !this.expand;
-		this.setStatusExpand();
-	}
-
-	public setStatusExpand(): void {
-		const status = this.expand ? SIDEBAR_STATUS.EXPAND : SIDEBAR_STATUS.HIDE;
-		this._sidebarService.setStatusExpandEvent(status);
-		setTimeout(() => {
-			this.expand = this._sidebarService.getStatusExpand() == SIDEBAR_STATUS.EXPAND ? true : false;
-		}, 0);
-	}
+	
 
 	public isPermission(): boolean {
 		this.permission = this._permissionService.isPermissionSidebar();
-		if(this.permission) {
-			setTimeout(() => {
-				this.setStatusExpand();
-			}, 0);
-		}
 		return this.permission;
 	}
 
@@ -100,9 +82,9 @@ export class SidebarComponent implements OnInit {
 	/***************** METHODS PRIVATE *****************/
 
 	private _setSidebarItens(): void {
-		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, URLS.DASHBOARD, "Dashboard", [ROLES.ADMIN]);
-		this._setSidebarItem("Categorias", ICONS.CATEGORY, URLS.CATEGORIES, "Categorias", [ROLES.ADMIN]);
-		this._setSidebarItem("Usuários", ICONS.USER, URLS.USERS, "Usuários", [ROLES.ADMIN]);
+		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, URLS.DASHBOARD, "Dashboard", [ROLES.ADMIN], 1);
+		this._setSidebarItem("Categorias", ICONS.CATEGORY, URLS.CATEGORIES, "Categorias", [ROLES.ADMIN], 2);
+		this._setSidebarItem("Usuários", ICONS.USER, URLS.USERS, "Usuários", [ROLES.ADMIN], 3);
 
 		this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
 	}

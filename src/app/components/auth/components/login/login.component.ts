@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Login } from "../../models/login.model";
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from "@angular/core";
@@ -6,7 +7,6 @@ import { BehaviorSubject } from "rxjs";
 import { IMAGES } from "src/app/shared/enums/images.enum";
 import { AuthService } from "../../services/auth.service";
 import { AUTH_NAVIGATE } from "../../enums/auth-navigate.enum";
-import { ToastService } from "src/app/shared/services/toast.service";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
-    private _toastrService: ToastService,
+    private _toastrService: ToastrService,
     private _router: Router,
     private _route: ActivatedRoute
   ) { }

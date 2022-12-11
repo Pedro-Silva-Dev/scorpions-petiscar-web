@@ -1,8 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, throwError, take, map, catchError, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class BaseService {
 
   constructor(
     protected readonly http: HttpClient,
-    protected readonly toastrService: ToastService
+    protected readonly toastrService: ToastrService
   ) { }
   
   protected get(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any): Observable<HttpResponse<any>> {

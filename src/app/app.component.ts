@@ -15,34 +15,25 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _permissionService: PermissionService,
-    private _sidebarService: SidebarService,
-    private _changeDetectorRef: ChangeDetectorRef
   ) { }
 
    
   ngOnInit(): void {
-    this._setSidebarStatusEvent();
+  }
+
+  public isSidebar(): boolean {
+    const sidebar = this._permissionService.isPermissionSidebar();
+    if(sidebar) {
+      this.sidebarClass = `sidebar-content`
+    }else {
+      this.sidebarClass = ``
+    }
+    return sidebar;
   }
 
 
   /**************** METHODS PRIVATE ****************/
 
-  private _isSidebar(): boolean {
-    return this._permissionService.isPermissionSidebar();
-  }
-
-  private _setSidebarStatusEvent(): void {
-    this._sidebarService.getStatusExpandEvent().subscribe(res => {
-        if(this._isSidebar()) {
-          if(res == SIDEBAR_STATUS.EXPAND) {
-            this.sidebarClass = `sidebar-expand-content`;
-          }else {
-            this.sidebarClass = `sidebar-content`
-          }
-        }else {
-          this.sidebarClass = ``;
-        }
-    });
-  }
+ 
 
 }

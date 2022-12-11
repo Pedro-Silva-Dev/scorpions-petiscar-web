@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { CategoryProduct } from './../models/category-product.model';
 import { Category } from './../models/category.model';
 import { Page } from './../../../../shared/models/page.model';
@@ -5,7 +6,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BaseService } from 'src/app/shared/services/base.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
 import { CategoryParamBuild } from '../models/category-param.build.model';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class CategoryService extends BaseService {
 
   constructor(
     private _http: HttpClient,
-    private _toastrService: ToastService,
+    private _toastrService: ToastrService,
   ) { 
     super(_http, _toastrService);
   }

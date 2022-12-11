@@ -1,10 +1,10 @@
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { MODAL } from "./../../../../../shared/enums/modal.enum";
 import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Category } from "../../models/category.model";
 import { CategoryService } from '../../services/category.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
 	selector: "app-modal-create-category",
@@ -30,7 +30,7 @@ export class ModalCreateCategoryComponent implements OnInit {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _categoryService: CategoryService,
-		private _toastrService: ToastService
+		private _toastrService: ToastrService
 	) { }
 	
 	ngOnInit(): void {

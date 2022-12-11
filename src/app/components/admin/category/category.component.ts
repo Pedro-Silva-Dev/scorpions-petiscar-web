@@ -1,4 +1,4 @@
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from "rxjs";
 import { CategoryParamBuild } from "./models/category-param.build.model";
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular/core";
@@ -28,7 +28,7 @@ export class CategoryComponent implements OnInit {
 
 	constructor(
 		private _categoryService: CategoryService,
-		private _toastService: ToastService,
+		private _toastService: ToastrService,
 		private _changeDetectorRef: ChangeDetectorRef
 	) { }
 
@@ -88,11 +88,16 @@ export class CategoryComponent implements OnInit {
 	}
 
 	private _updateCategoryInPage(category: Category): void {
+		let isNewCategory = true;
 		this.categories?.forEach((res, index) => {
 			if (res.id == category?.id) {
 				this.categories[index] = { ...category };
+				isNewCategory = false;
 			}
 		});
+		if(isNewCategory) {
+			this.categories.push(category);
+		}
 		this._changeDetectorRef.detectChanges();
 	}
 

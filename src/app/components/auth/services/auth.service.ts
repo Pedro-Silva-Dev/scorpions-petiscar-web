@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { StatusRequest } from 'src/app/shared/models/status-request.model';
 import { BaseService } from 'src/app/shared/services/base.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
 import { Login } from '../models/login.model';
 import { UserAuth } from '../models/user-auth.model';
 import jwt_decode from "jwt-decode";
@@ -15,6 +14,7 @@ import Hashids from "hashids";
 import { ROLES } from 'src/app/shared/enums/roles.enum';
 import { AuthParamBuild } from 'src/app/shared/models/param-build/auth-param.build.model';
 import { User } from '../../admin/user/models/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +28,7 @@ export class AuthService extends BaseService {
 
   constructor(
     private _http: HttpClient,
-    private _toastrService: ToastService,
+    private _toastrService: ToastrService,
     private _router: Router
   ) { 
     super(_http, _toastrService);

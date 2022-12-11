@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { RegisterUser } from '../../models/register-user.model';
 import { BehaviorSubject, map, Observable, Subject, switchMap, timer, Unsubscribable, debounceTime } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
@@ -5,7 +6,6 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { IMAGES } from 'src/app/shared/enums/images.enum';
 import { AuthService } from '../../services/auth.service';
 import { AUTH_NAVIGATE } from '../../enums/auth-navigate.enum';
-import { ToastService } from 'src/app/shared/services/toast.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
-    private _toastrService: ToastService,
+    private _toastrService: ToastrService,
     private _router: Router
   ) { }
 
