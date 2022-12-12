@@ -1,0 +1,23 @@
+<button (click)="setDisplay()" pTooltip="Pesquisar" tooltipPosition="left" pButton pRipple type="text" class="p-button-rounded p-button-outlined {{iconFloat ? 'icon-float' : 'p-button-primary'}}" icon="pi pi-search-plus"></button>
+<p-sidebar [(visible)]="display" position="right" [modal]="true" [dismissible]="false">
+
+    <ng-container *ngTemplateOutlet="headerTemplate ? headerTemplate : headerDefault"></ng-container>
+
+    <div class="body">
+        <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+    </div>
+
+    <div class="footer">
+        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>    
+    </div>
+</p-sidebar>
+
+
+<ng-template #headerDefault>
+    <div class="filter-header">
+        <span>{{title}}</span>
+        <button (click)="setDisplay()" pTooltip="Fechar" tooltipPosition="left" pButton pRipple type="text" class="p-button-rounded p-button-text" icon="pi pi-times"></button>
+    </div>
+    
+</ng-template>
+

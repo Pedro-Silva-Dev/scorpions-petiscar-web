@@ -26,6 +26,7 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DialogModule } from "primeng/dialog";
 import {BadgeModule} from 'primeng/badge';
+import {PaginatorModule} from 'primeng/paginator';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import {BadgeModule} from 'primeng/badge';
 		ConfirmDialogModule,
 		DialogModule,
 		BadgeModule,
+		PaginatorModule,
 	],
 	exports: [
 		CalendarModule,
@@ -88,6 +90,7 @@ import {BadgeModule} from 'primeng/badge';
 		ConfirmDialogModule,
 		DialogModule,
 		BadgeModule,
+		PaginatorModule,
 	]
 })
 export class PrimeNgModule { }

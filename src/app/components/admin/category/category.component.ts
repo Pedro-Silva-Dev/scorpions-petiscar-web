@@ -1,3 +1,4 @@
+import { Paginator } from './../../../shared/components/paginator/models/paginator.model';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from "rxjs";
 import { CategoryParamBuild } from "./models/category-param.build.model";
@@ -5,6 +6,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular
 import { Category } from "./models/category.model";
 import { CategoryService } from "./services/category.service";
 import { Page } from "src/app/shared/models/page.model";
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
 	selector: "app-category",
@@ -21,18 +23,22 @@ export class CategoryComponent implements OnInit {
 	public closeModalEvent$ = new BehaviorSubject<boolean>(false);
 	public modalCategoryEvent$ = new BehaviorSubject<boolean>(false);
 
-	public page: Page<Category> = null;
+	public pagination: Page<Category> = null;
 	public categories: Category[] = [];
 	public category!: Category;
 	public isDisplayModal = false;
+	public isDisplayFilter = false;
+	public filterForm!: FormGroup;
 
 	constructor(
 		private _categoryService: CategoryService,
 		private _toastService: ToastrService,
-		private _changeDetectorRef: ChangeDetectorRef
+		private _changeDetectorRef: ChangeDetectorRef,
+		private _formBuilder: FormBuilder
 	) { }
 
 	ngOnInit(): void {
+		this._setCreateFilterForm();
 		this._setCategoriesPage();
 	}
 
@@ -60,20 +66,50 @@ export class CategoryComponent implements OnInit {
 		}, 0);
 	}
 
+	public closeFilterModal(): void {
+		setTimeout(() => {
+			this.isDisplayFilter = false;
+			this._changeDetectorRef.detectChanges();
+		}, 0);
+	}
+
 	public updateCategoryInPage(category: Category): void { 
 		if (category) {
 			this._updateCategoryInPage(category);
 		}
 	}
 
+	public changePage(page: Paginator): void {
+		this._page = page.page;
+		this._setCategoriesPage();
+	}
+
+	public search(): void {
+		this._page = 0;
+		this._setCategoriesPage();
+		this.closeFilterModal();
+	}
+
+	public clearFilters(): void {
+		this.filterForm.reset();
+		this.search();
+	}
+
 	/********************* METHODS PRIVATE *********************/
 
+	private _setCreateFilterForm(): void {
+		this.filterForm = this._formBuilder.group({
+			name: [null]
+		});
+	}
+
 	private _setCategoriesPage(): void {
-		const build: Partial<CategoryParamBuild> = { page: this._page, size: this._size };
+		const form = this.filterForm.value;
+		const build: Partial<CategoryParamBuild> = { page: this._page, size: this._size, name: form?.name };
 		this._categoryService.getPageCategory(build, this.categoryLoadEvent$).subscribe(res => {
 			if (res.status == 200) {
-				this.page = res.body;
-				this.categories = this.page?.content;
+				this.pagination = res.body;
+				this.categories = this.pagination?.content;
 			}
 		});
 	}

@@ -1,0 +1,3 @@
+<ng-container *ngIf="page">
+    <p-paginator (onPageChange)="changePage($event)" [rows]="page.size" [totalRecords]="page.totalElements"></p-paginator>
+</ng-container>

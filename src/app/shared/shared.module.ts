@@ -5,6 +5,8 @@ import { PrimeNgModule } from "./prime-ng/prime-ng.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SpinnerModule } from "./components/spinner/spinner.module";
 import { ModalComponent } from './components/modal/modal.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 
 
 
@@ -12,7 +14,9 @@ import { ModalComponent } from './components/modal/modal.component';
 	declarations: [
 
 	
-    ModalComponent
+    ModalComponent,
+       PaginatorComponent,
+       FilterBarComponent
   ],
 	imports: [
 		CommonModule,
@@ -27,6 +31,8 @@ import { ModalComponent } from './components/modal/modal.component';
 		SpinnerModule,
 		FormsModule,
   ModalComponent,
+  PaginatorComponent,
+  FilterBarComponent,
 	]
 })
 export class SharedModule { }
