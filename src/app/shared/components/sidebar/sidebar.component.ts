@@ -93,7 +93,8 @@ export class SidebarComponent implements OnInit {
 	private _setSidebarItens(): void {
 		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD,  "Dashboard", [ROLES.ADMIN], 1);
 		this._setSidebarItem("Categorias", ICONS.CATEGORY, ICONS.CATEGORY, ICONS.CATEGORY_WHITE, URLS.CATEGORIES, "Categorias", [ROLES.ADMIN], 2);
-		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER, ICONS.USER_WHITE, URLS.USERS, "Usuários", [ROLES.ADMIN], 3);
+		this._setSidebarItem("Produtos", ICONS.PRODUCT, ICONS.PRODUCT, ICONS.PRODUCT_WHITE, URLS.PRODUCTS, "Produtos", [ROLES.ADMIN], 3);
+		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER, ICONS.USER_WHITE, URLS.USERS, "Usuários", [ROLES.ADMIN], 4);
 
 		this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
 	}

@@ -7,6 +7,8 @@ export enum ICONS {
     CATEGORY_WHITE = `./assets/icons/category_white.svg`,
     LOGOUT = `./assets/icons/logout.svg`,
     LOGOUT_WHITE = `./assets/icons/logout_white.svg`,
+    PRODUCT = `./assets/icons/product.svg`,
+    PRODUCT_WHITE = `./assets/icons/product_white.svg`,
     CLOSE = `./assets/icons/close.svg`,
     ARROW_UP = `./assets/icons/arrow-up.svg`,
     ARROW_RIGHT = `./assets/icons/arrow-right.svg`,

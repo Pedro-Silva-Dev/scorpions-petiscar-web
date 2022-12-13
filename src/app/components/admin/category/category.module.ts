@@ -10,7 +10,7 @@ import { ModalCreateCategoryComponent } from './components/modal-create-category
 @NgModule({
 	declarations: [
 		CategoryComponent,
-  ModalCreateCategoryComponent
+  		ModalCreateCategoryComponent
 	],
 	imports: [
 		CommonModule,
@@ -18,7 +18,7 @@ import { ModalCreateCategoryComponent } from './components/modal-create-category
 		SharedModule
 	],
 	exports: [
-   ModalCreateCategoryComponent
+   		ModalCreateCategoryComponent
 	]
 })
 export class CategoryModule { }
