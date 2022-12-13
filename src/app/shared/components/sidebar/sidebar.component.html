@@ -1,17 +1,17 @@
 <ng-container *ngIf="isPermission()">
-    <div class="sidebar bg-primary">
+    <div class="sidebar">
         <div class="content">
             <header class="item">
             <a href="javascript:void(0)"><span>Petiscar</span></a>
             </header>
             <ng-container *ngFor="let sidebarItem of sidebarItens">
-                <div *ngIf="isRolePermission(sidebarItem)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item item-navigation {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">
-                    <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarItem.icon" [alt]="sidebarItem.name"></a>
+                <div *ngIf="isRolePermission(sidebarItem)" (mouseover)="getSidebarIcon(sidebarItem, true)" (mouseout)="getSidebarIcon(sidebarItem, false)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item item-navigation {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">
+                    <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarItem.selected ? sidebarItem.iconColor : sidebarItem.icon" [alt]="sidebarItem.name"></a>
                 </div>
             </ng-container>
         </div>
         <div class="footer">
-            <div (click)="logout()" [pTooltip]="sidebarLogout.tooltip" class="item item-navigation">
+            <div (click)="logout()" (mouseover)="getSidebarIcon(sidebarLogout, true)" (mouseout)="getSidebarIcon(sidebarLogout, false)" [pTooltip]="sidebarLogout.tooltip" class="item item-navigation">
                 <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarLogout.icon" [alt]="sidebarLogout.name"></a>
             </div>
         </div>

@@ -1,8 +1,14 @@
+import { URLS } from './../enums/urls.enum';
+import { ICONS } from './../enums/icons.enum';
+
 export interface SidebarItem {
-    icon: string;
+    icon: ICONS;
+    iconDefault: ICONS;
+    iconColor: ICONS;
     name: string;
-    url: string;
+    url: URLS;
     tooltip: string;
     order: number;
     roles: string[];
+    selected: boolean;
 }

@@ -12,7 +12,7 @@ import { URLS } from "../../enums/urls.enum";
 import { ActivatedRoute } from "@angular/router";
 import { UserAuth } from "src/app/components/auth/models/user-auth.model";
 import { SidebarService } from "../../services/sidebar.service";
-
+// 763cad
 @Component({
 	selector: "app-sidebar",
 	templateUrl: "./sidebar.component.html",
@@ -72,6 +72,7 @@ export class SidebarComponent implements OnInit {
 		//@ts-ignore
 		const url: string = this._route.snapshot["_routerState"]?.url;
 		const isSelected = url?.toLowerCase().includes(sidebarItem.url);
+		sidebarItem.selected = isSelected; 
 		return isSelected;
 	}
 
@@ -79,26 +80,37 @@ export class SidebarComponent implements OnInit {
 		this._authService.logout();
 	}
 
+	public getSidebarIcon(item: SidebarItem, selected: boolean): void {
+		if (selected) { 
+			item.icon = item.iconColor;
+		} else {
+			item.icon = item.iconDefault;
+		}
+	}
+
 	/***************** METHODS PRIVATE *****************/
 
 	private _setSidebarItens(): void {
-		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, URLS.DASHBOARD, "Dashboard", [ROLES.ADMIN], 1);
-		this._setSidebarItem("Categorias", ICONS.CATEGORY, URLS.CATEGORIES, "Categorias", [ROLES.ADMIN], 2);
-		this._setSidebarItem("Usuários", ICONS.USER, URLS.USERS, "Usuários", [ROLES.ADMIN], 3);
+		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD,  "Dashboard", [ROLES.ADMIN], 1);
+		this._setSidebarItem("Categorias", ICONS.CATEGORY, ICONS.CATEGORY, ICONS.CATEGORY_WHITE, URLS.CATEGORIES, "Categorias", [ROLES.ADMIN], 2);
+		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER, ICONS.USER_WHITE, URLS.USERS, "Usuários", [ROLES.ADMIN], 3);
 
 		this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
 	}
 
-	private _setSidebarItem(name: string, icon: ICONS, url: URLS, tooltip: string, rolesItem?: ROLES[], orderItem?: number): void {
+	private _setSidebarItem(name: string, icon: ICONS, iconDefault: ICONS, iconColor: ICONS, url: URLS, tooltip: string, rolesItem?: ROLES[], orderItem?: number): void {
 		const order = orderItem ? orderItem : this._getLastOrderSidebarItem();
 		const roles = rolesItem?.length ? rolesItem : [];
 		const item: SidebarItem = {
 			name,
 			icon,
+			iconColor,
+			iconDefault,
 			url,
 			tooltip,
 			order,
-			roles
+			roles,
+			selected: false,
 		};
 		this.sidebarItens.push(item);
 	}
@@ -119,15 +131,19 @@ export class SidebarComponent implements OnInit {
 		this.sidebarLogout = {
 			name: "Sair",
 			icon: ICONS.LOGOUT,
-			url: "",
+			iconColor: ICONS.LOGOUT_WHITE,
+			iconDefault: ICONS.LOGOUT,
+			url: URLS.EMPTY,
 			tooltip: "Sair",
 			order: 0,
 			roles: [],
+			selected: false,
 		};
 	}
 
 	private _setStatus(): void {
 		this.expand = this._sidebarService.getStatusExpand() == SIDEBAR_STATUS.EXPAND ? true : false;
 	}
+
 
 }
