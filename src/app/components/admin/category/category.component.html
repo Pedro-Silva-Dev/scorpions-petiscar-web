@@ -9,7 +9,7 @@
         </div>
         <hr class="page-header">
         <div class="ui-card">
-            <p-table [value]="categories">
+            <p-table *ngIf="!(categoryLoadEvent$ | async) && categories?.length" [value]="categories">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Nome</th>
@@ -30,6 +30,9 @@
                     </tr>
                 </ng-template>
             </p-table>
+            <div *ngIf="!(categoryLoadEvent$ | async) && !categories?.length" class="mt-4">
+                <p-message severity="info" text="Nenhuma Informação Encontrada" styleClass="d-flex"></p-message>
+            </div>
             <div class="mt-2">
                 <app-paginator
                 [page]="pagination" (changePageEvent$)="changePage($event)"

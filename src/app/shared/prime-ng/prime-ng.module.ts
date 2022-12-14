@@ -27,6 +27,9 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DialogModule } from "primeng/dialog";
 import {BadgeModule} from 'primeng/badge';
 import {PaginatorModule} from 'primeng/paginator';
+import {MessageModule} from 'primeng/message';
+import {MessagesModule} from 'primeng/messages';
+
 
 
 @NgModule({
@@ -62,6 +65,8 @@ import {PaginatorModule} from 'primeng/paginator';
 		DialogModule,
 		BadgeModule,
 		PaginatorModule,
+		MessageModule,
+		MessagesModule,
 	],
 	exports: [
 		CalendarModule,
@@ -91,6 +96,8 @@ import {PaginatorModule} from 'primeng/paginator';
 		DialogModule,
 		BadgeModule,
 		PaginatorModule,
+		MessageModule,
+		MessagesModule,
 	]
 })
 export class PrimeNgModule { }

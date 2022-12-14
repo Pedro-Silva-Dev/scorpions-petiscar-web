@@ -1011,7 +1011,11 @@ a {
 }
 
 .form-input {
-    width: 100%;
+    width: 100% !important;
+}
+
+.p-inputnumber {
+    width: 100% !important;
 }
 
 button span {
