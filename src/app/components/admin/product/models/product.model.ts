@@ -8,6 +8,8 @@ export interface Product {
     dhc: string;
     dhu: string;
     active: boolean;
+    categories?: string;
+    categoryIds?: string;
     companyId: number;
 }
 

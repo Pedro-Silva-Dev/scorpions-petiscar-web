@@ -45,7 +45,7 @@
 
 <ng-container *ngIf="(modalProductEvent$ | async)">
     <app-modal-create-product
-        (finishEvent$)="updateProductInPage($event)"
+        (finishEvent$)="updateProductInPage($event)" 
         [product]="product" [(display)]="isDisplayModal" [categories]="categories"
     ></app-modal-create-product>
 </ng-container> 

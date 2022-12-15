@@ -38,10 +38,10 @@ export class ProductService extends BaseService {
     return this.get(url, loadEvent, msgError, build);
   }
 
-  public createProduct(product: Partial<Product>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<Product>> {
+  public createProduct(product: Partial<Product>, build: Partial<ProductParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<Product>> {
     const url = `/product/admin/create.json`;
     const msgError = `Não foi possível cadastrar o produto, por favor contate o suporte.`;
-    return this.post(url, product, loadEvent, msgError);
+    return this.post(url, product, loadEvent, msgError, build);
   }
 
   public updateProduct(id: number, product: Partial<Product>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<Product>> {

@@ -16,16 +16,15 @@
                                 <p *ngIf="!isFieldValid('price')">O preço do produto é obrigatório.</p>
                             </div>
                             <div class="col-6">
-                                <!-- <label for="price">Categoria</label> -->
-                                <p-dropdown [options]="categories" formControlName="categoryId" optionValue="id" class="form-input" placeholder="Selecione a Categoria" optionLabel="name" [showClear]="true"></p-dropdown>
+                                <label for="category">Categoria</label>
+                                <p-dropdown [options]="categories" formControlName="categoryId" optionValue="id" class="form-input" id="category" placeholder="Selecione a Categoria" optionLabel="name" [showClear]="true"></p-dropdown>
                             </div>
                         </div>
                         
                     </div>
                     <div class="form-group">
                         <label for="price">Descrição</label>
-                        <textarea rows="5" cols="30" class="form-input" pInputTextarea [autoResize]="true"></textarea>
-                        <!-- <p-inputNumber inputId="currency-brazil" mode="currency" currency="BRL" locale="pt-BR" id="price" [maxlength]="10" class="form-input" formControlName="price" autocomplete="off" placeholder="0.00"></p-inputNumber> -->
+                        <textarea rows="5" cols="30" formControlName="description" placeholder="Descreva o seu produto." autocomplete="off" class="form-input" pInputTextarea [autoResize]="true"></textarea>
                     </div>
                 </form>
             </div>
@@ -43,5 +42,5 @@
 
 
 <ng-template #spinnerButton>
-    <button pButton pRipple class="purple" type="button" class="p-button-outlined btn-animation-slidein"><app-spinner-button></app-spinner-button></button>
+    <button pButton pRipple class="purple" type="button" class="p-button-outlined"><app-spinner-button></app-spinner-button></button>
 </ng-template>

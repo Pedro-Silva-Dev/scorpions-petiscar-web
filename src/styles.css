@@ -1018,6 +1018,10 @@ a {
     width: 100% !important;
 }
 
+.p-dropdown {
+    width: 100% !important;
+}
+
 button span {
     color: var(--purple-700) !important;
 }

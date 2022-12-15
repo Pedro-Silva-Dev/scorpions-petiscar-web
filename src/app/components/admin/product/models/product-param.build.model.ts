@@ -6,6 +6,7 @@ export interface ProductParamBuild  extends Product{
     size: number;
     priceMin: number;
     priceMax: number;
+    categoryId: number;
 }
 
 export interface ProductParamBuildForm  {

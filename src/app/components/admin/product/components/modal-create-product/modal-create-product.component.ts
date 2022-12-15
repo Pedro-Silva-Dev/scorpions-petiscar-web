@@ -1,3 +1,4 @@
+import { ProductParamBuild } from './../../models/product-param.build.model';
 import { Category } from './../../../category/models/category.model';
 import { FormControl } from '@angular/forms';
 import { ProductService } from './../../services/product.service';
@@ -15,12 +16,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ModalCreateProductComponent implements OnInit {
 
-  @Output() closeModalEvent$ = new EventEmitter();
+ 	@Output() closeModalEvent$ = new EventEmitter();
 	@Output() finishEvent$ = new EventEmitter();
 	@Output() displayChange = new EventEmitter<boolean>();
-	
+
 	@Input() product!: Product;
-  @Input() categories: Category[];
+  	@Input() categories: Category[];
 	@Input() display = false;
 
 	public createProductEvent$ = new BehaviorSubject<boolean>(false);
@@ -51,15 +52,13 @@ export class ModalCreateProductComponent implements OnInit {
 	}
 
 	public save(): void {
-    console.log(this.productForm.value);
-    
-		// if (this.isProductFormValid()) {
-		// 	if (this.product?.id) {
-		// 		this._updateProduct(this.product.id, this.productForm.value);
-		// 	} else {
-		// 		this._createProduct(this.productForm.value);
-		// 	}
-		// }
+		if (this.isProductFormValid()) {
+			if (this.product?.id) {
+				this._updateProduct(this.product.id, this.productForm.value);
+			} else {
+				this._createProduct(this.productForm.value);
+			}
+		}
 	}
 
 	public closeModal(): void {		
@@ -75,13 +74,13 @@ export class ModalCreateProductComponent implements OnInit {
 
 	private _createProductForm(): void {
     this.productForm = new FormGroup<Partial<ProductForm>>({
-      id: new FormControl(this.product?.id ? this.product.id : null),
-			name: new FormControl(this.product?.name ? this.product.name : null, [Validators.required]),
-      price: new FormControl(this.product?.price ? this.product.price : null, [Validators.required]),
-      description: new FormControl(this.product?.description ? this.product.description : null),
-      urlPhoto: new FormControl(this.product?.urlPhoto ? this.product.urlPhoto : null),
-      categoryId: new FormControl(null),
-			active: new FormControl((this.product?.active == null || this.product?.active == undefined) ? true : this.product.active)
+      	id: new FormControl(this.product?.id ? this.product.id : null),
+		name: new FormControl(this.product?.name ? this.product.name : null, [Validators.required]),
+      	price: new FormControl(this.product?.price ? this.product.price : null, [Validators.required]),
+      	description: new FormControl(this.product?.description ? this.product.description : null),
+      	urlPhoto: new FormControl(this.product?.urlPhoto ? this.product.urlPhoto : null),
+      	categoryId: new FormControl(this.product?.categoryIds ? this.getCategoryId(this.product.categoryIds) : null),
+		active: new FormControl((this.product?.active == null || this.product?.active == undefined) ? true : this.product.active)
     });
 		
 	}
@@ -92,7 +91,8 @@ export class ModalCreateProductComponent implements OnInit {
 	}
 
 	private _createProduct(product: Product): void {
-		this._productService.createProduct(product, this.createProductEvent$).subscribe(res => {
+		const build: Partial<ProductParamBuild> = {categoryId: this.productForm?.get('categoryId')?.value}
+		this._productService.createProduct(product, build, this.createProductEvent$).subscribe(res => {
 			if (res.status == 201) {
 				this._toastrService.success(`Produto cadastrada com sucesso!`);
 				this.finishEvent$.emit(res.body);
@@ -109,6 +109,15 @@ export class ModalCreateProductComponent implements OnInit {
 				this.modalEvent(false);
 			}
 		});
+	}
+
+	private getCategoryId(categoryIds: string): number {
+		const categories = categoryIds?.split(',');
+		if(categories?.length) {
+			const category = categories[0];
+			return category ? Number.parseInt(category) : null
+		}
+		return null;
 	}
 
 }

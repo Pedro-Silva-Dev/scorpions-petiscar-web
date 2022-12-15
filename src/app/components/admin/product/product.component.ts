@@ -63,10 +63,10 @@ export class ProductComponent implements OnInit {
 		this._updateProduct(product?.id, product);
 	}
 
-  public changePage(page: Paginator): void {
-		this._page = page.page;
-		this._setPageProduct();
-	}
+	public changePage(page: Paginator): void {
+			this._page = page.page;
+			this._setPageProduct();
+		}
 
 	public search(): void {
 		this._page = 0;
@@ -79,12 +79,12 @@ export class ProductComponent implements OnInit {
 		this.search();
 	}
 
-  public closeModal(): void {
-		setTimeout(() => {
-			this.isDisplayModal = false;
-			this._changeDetectorRef.detectChanges();
-		}, 0);
-	}
+	public closeModal(): void {
+			setTimeout(() => {
+				this.isDisplayModal = false;
+				this._changeDetectorRef.detectChanges();
+			}, 0);
+		}
 
 	public closeFilterModal(): void {
 		setTimeout(() => {
@@ -93,11 +93,12 @@ export class ProductComponent implements OnInit {
 		}, 0);
 	}
 
-  public updateProductInPage(product: Product): void { 
+	public updateProductInPage(product: Product): void { 
 		if (product) {
 			this._updateProductInPage(product);
 		}
 	}
+
 
   /******************** METHODS PRIVATE ********************/
 
