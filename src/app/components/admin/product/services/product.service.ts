@@ -44,10 +44,10 @@ export class ProductService extends BaseService {
     return this.post(url, product, loadEvent, msgError, build);
   }
 
-  public updateProduct(id: number, product: Partial<Product>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<Product>> {
+  public updateProduct(id: number, product: Partial<Product>, build: Partial<ProductParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<Product>> {
     const url = `/product/admin/${id}.json`;
     const msgError = `Não foi possível atualizar o produto, por favor contate o suporte.`;
-    return this.put(url, product, loadEvent, msgError);
+    return this.put(url, product, loadEvent, msgError, build);
   }
 
 }

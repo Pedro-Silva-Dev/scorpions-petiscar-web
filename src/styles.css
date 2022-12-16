@@ -1022,6 +1022,10 @@ a {
     width: 100% !important;
 }
 
+.p-multiselect {
+    width: 100% !important;
+}
+
 button span {
     color: var(--purple-700) !important;
 }

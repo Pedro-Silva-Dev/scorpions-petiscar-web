@@ -8,8 +8,8 @@ export interface Product {
     dhc: string;
     dhu: string;
     active: boolean;
-    categories?: string;
-    categoryIds?: string;
+    categories?: any;
+    categoryIds?: number[];
     companyId: number;
 }
 
@@ -22,6 +22,6 @@ export interface ProductForm {
     dhc: FormControl<string>;
     dhu: FormControl<string>;
     active: FormControl<boolean>;
-    categoryId: FormControl<number>;
+    categoryIds: FormControl<number[]>;
     companyId: FormControl<number>;
 }

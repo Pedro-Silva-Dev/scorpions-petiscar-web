@@ -73,16 +73,15 @@ export class ModalCreateProductComponent implements OnInit {
 	/***************** METHODS PRIVATE *****************/
 
 	private _createProductForm(): void {
-    this.productForm = new FormGroup<Partial<ProductForm>>({
-      	id: new FormControl(this.product?.id ? this.product.id : null),
-		name: new FormControl(this.product?.name ? this.product.name : null, [Validators.required]),
-      	price: new FormControl(this.product?.price ? this.product.price : null, [Validators.required]),
-      	description: new FormControl(this.product?.description ? this.product.description : null),
-      	urlPhoto: new FormControl(this.product?.urlPhoto ? this.product.urlPhoto : null),
-      	categoryId: new FormControl(this.product?.categoryIds ? this.getCategoryId(this.product.categoryIds) : null),
-		active: new FormControl((this.product?.active == null || this.product?.active == undefined) ? true : this.product.active)
-    });
-		
+		this.productForm = new FormGroup<Partial<ProductForm>>({
+			id: new FormControl(this.product?.id ? this.product.id : null),
+			name: new FormControl(this.product?.name ? this.product.name : null, [Validators.required]),
+			price: new FormControl(this.product?.price ? this.product.price : null, [Validators.required]),
+			description: new FormControl(this.product?.description ? this.product.description : null),
+			urlPhoto: new FormControl(this.product?.urlPhoto ? this.product.urlPhoto : null),
+			categoryIds: new FormControl(this.product?.categoryIds ? this.getCategoryIds(this.product.categoryIds) : null, [Validators.required]),
+			active: new FormControl((this.product?.active == null || this.product?.active == undefined) ? true : this.product.active)
+		});
 	}
 
 	private _setInfoForm(): void {
@@ -91,7 +90,7 @@ export class ModalCreateProductComponent implements OnInit {
 	}
 
 	private _createProduct(product: Product): void {
-		const build: Partial<ProductParamBuild> = {categoryId: this.productForm?.get('categoryId')?.value}
+		const build: Partial<ProductParamBuild> = {categoryIds: this.productForm?.get('categoryIds')?.value}
 		this._productService.createProduct(product, build, this.createProductEvent$).subscribe(res => {
 			if (res.status == 201) {
 				this._toastrService.success(`Produto cadastrada com sucesso!`);
@@ -102,7 +101,8 @@ export class ModalCreateProductComponent implements OnInit {
 	}
 
 	private _updateProduct(id: number, product: Product): void { 
-		this._productService.updateProduct(id, product, this.createProductEvent$).subscribe(res => {
+		const build: Partial<ProductParamBuild> = {categoryIds: this.productForm?.get('categoryIds')?.value}
+		this._productService.updateProduct(id, product, build, this.createProductEvent$).subscribe(res => {
 			if (res.status == 202) {
 				this._toastrService.success(`Produto atualizada com sucesso!`);
 				this.finishEvent$.emit(res.body);
@@ -111,13 +111,9 @@ export class ModalCreateProductComponent implements OnInit {
 		});
 	}
 
-	private getCategoryId(categoryIds: string): number {
-		const categories = categoryIds?.split(',');
-		if(categories?.length) {
-			const category = categories[0];
-			return category ? Number.parseInt(category) : null
-		}
-		return null;
+	private getCategoryIds(categoryIds: number[]): number[] {
+		const ids = categoryIds?.map(res => Number.parseInt(res.toString()));
+		return ids?.length ? ids : [];
 	}
 
 }

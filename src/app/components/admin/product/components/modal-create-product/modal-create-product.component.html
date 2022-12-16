@@ -4,23 +4,23 @@
             <div class="col-12">
                 <form [formGroup]="productForm">
                     <div class="form-group">
-                        <label for="name">Nome</label>
-                        <input formControlName="name" id="name" class="form-input" type="text" pInputText autocomplete="off" placeholder="Nome do Produto"/>
-                        <p *ngIf="!isFieldValid('name')">Nome do produto é obrigatório.</p>
-                    </div> 
-                    <div class="form-group">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-8">
+                                <label for="name">Nome</label>
+                                <input formControlName="name" id="name" class="form-input" type="text" pInputText autocomplete="off" placeholder="Nome do Produto"/>
+                                <p *ngIf="!isFieldValid('name')">Nome do produto é obrigatório.</p>
+                            </div>
+                            <div class="col-4">
                                 <label for="price">Preço</label>
                                 <p-inputNumber inputId="currency-brazil" mode="currency" currency="BRL" locale="pt-BR" id="price" [maxlength]="10" class="form-input" formControlName="price" autocomplete="off" placeholder="0.00"></p-inputNumber>
                                 <p *ngIf="!isFieldValid('price')">O preço do produto é obrigatório.</p>
                             </div>
-                            <div class="col-6">
-                                <label for="category">Categoria</label>
-                                <p-dropdown [options]="categories" formControlName="categoryId" optionValue="id" class="form-input" id="category" placeholder="Selecione a Categoria" optionLabel="name" [showClear]="true"></p-dropdown>
-                            </div>
                         </div>
-                        
+                    </div> 
+                    <div class="form-group">
+                        <label for="category">Categoria</label>
+                        <p-multiSelect [options]="categories" formControlName="categoryIds" defaultLabel="Selecione a Categoria" optionValue="id" class="form-input" id="category" placeholder="Selecione a Categoria" optionLabel="name" display="chip"></p-multiSelect>
+                        <p *ngIf="!isFieldValid('categoryIds')">O produto deve ter pelo menos uma categoria associada.</p>
                     </div>
                     <div class="form-group">
                         <label for="price">Descrição</label>

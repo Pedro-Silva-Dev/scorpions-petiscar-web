@@ -14,4 +14,6 @@ export interface ProductParamBuildForm  {
     description: FormControl<string>;
     priceMin: FormControl<number>;
     priceMax: FormControl<number>;
+    categoryId: FormControl<number>;
+    status: FormControl<boolean>;
 }
