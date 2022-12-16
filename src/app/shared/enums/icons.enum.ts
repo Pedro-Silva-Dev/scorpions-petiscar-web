@@ -1,6 +1,10 @@
 export enum ICONS {
     DASHBOARD = `./assets/icons/dashboard.svg`,
     DASHBOARD_WHITE = `./assets/icons/dashboard_white.svg`,
+    SHOP = `./assets/icons/shop.svg`,
+    SHOP_WHITE = `./assets/icons/shop_white.svg`,
+    STORE = `./assets/icons/store.svg`,
+    STORE_WHITE = `./assets/icons/store_white.svg`,
     USER = `./assets/icons/user.svg`,
     USER_WHITE = `./assets/icons/user_white.svg`,
     CATEGORY = `./assets/icons/category.svg`,

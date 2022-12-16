@@ -1,3 +1,4 @@
+import { PACKS } from './../../enums/packs.enum';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { SIDEBAR_STATUS } from "./../../enums/sidebar.enum";
@@ -53,18 +54,15 @@ export class SidebarComponent implements OnInit {
 	public isRolePermission(sidebarItem: SidebarItem): boolean {
 		let permission = false;
 		const userRoles = this._authService.getUserRoles();
+		const packs = this._authService.getCompanyPacks();
+
+		const permissionRole = this._isPermissionRole(sidebarItem, userRoles)
+		const permissionPack = this._isPermissionPack(sidebarItem, packs);
     
-		if(!sidebarItem?.roles?.length) {
+		if(permissionRole && permissionPack) {
 			permission = true;
 		}
-		if(sidebarItem?.roles && userRoles?.length) {
-			userRoles?.forEach(userRole => {
-				const rolePermission = sidebarItem?.roles?.find(itemRole => itemRole == userRole);
-				if(rolePermission) {
-					permission = true;
-				}
-			});
-		}
+		
 		return permission;
 	}
 
@@ -91,15 +89,15 @@ export class SidebarComponent implements OnInit {
 	/***************** METHODS PRIVATE *****************/
 
 	private _setSidebarItens(): void {
-		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD,  "Dashboard", [ROLES.ADMIN], 1);
-		this._setSidebarItem("Categorias", ICONS.CATEGORY, ICONS.CATEGORY, ICONS.CATEGORY_WHITE, URLS.CATEGORIES, "Categorias", [ROLES.ADMIN], 2);
-		this._setSidebarItem("Produtos", ICONS.PRODUCT, ICONS.PRODUCT, ICONS.PRODUCT_WHITE, URLS.PRODUCTS, "Produtos", [ROLES.ADMIN], 3);
-		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER, ICONS.USER_WHITE, URLS.USERS, "Usuários", [ROLES.ADMIN], 4);
+		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD, PACKS.EMPTY, "Dashboard", [ROLES.ADMIN], 1);
+		this._setSidebarItem("Categorias", ICONS.CATEGORY, ICONS.CATEGORY, ICONS.CATEGORY_WHITE, URLS.CATEGORIES, PACKS.SHOP, "Categorias", [ROLES.ADMIN], 2);
+		this._setSidebarItem("Produtos", ICONS.PRODUCT, ICONS.PRODUCT, ICONS.PRODUCT_WHITE, URLS.PRODUCTS, PACKS.SHOP, "Produtos", [ROLES.ADMIN], 3);
+		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER, ICONS.USER_WHITE, URLS.USERS, PACKS.EMPTY, "Usuários", [ROLES.ADMIN], 4);
 
 		this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
 	}
 
-	private _setSidebarItem(name: string, icon: ICONS, iconDefault: ICONS, iconColor: ICONS, url: URLS, tooltip: string, rolesItem?: ROLES[], orderItem?: number): void {
+	private _setSidebarItem(name: string, icon: ICONS, iconDefault: ICONS, iconColor: ICONS, url: URLS, pack: PACKS, tooltip: string, rolesItem?: ROLES[], orderItem?: number): void {
 		const order = orderItem ? orderItem : this._getLastOrderSidebarItem();
 		const roles = rolesItem?.length ? rolesItem : [];
 		const item: SidebarItem = {
@@ -110,6 +108,7 @@ export class SidebarComponent implements OnInit {
 			url,
 			tooltip,
 			order,
+			pack,
 			roles,
 			selected: false,
 		};
@@ -135,6 +134,7 @@ export class SidebarComponent implements OnInit {
 			iconColor: ICONS.LOGOUT_WHITE,
 			iconDefault: ICONS.LOGOUT,
 			url: URLS.EMPTY,
+			pack: PACKS.EMPTY,
 			tooltip: "Sair",
 			order: 0,
 			roles: [],
@@ -146,5 +146,30 @@ export class SidebarComponent implements OnInit {
 		this.expand = this._sidebarService.getStatusExpand() == SIDEBAR_STATUS.EXPAND ? true : false;
 	}
 
+	private _isPermissionRole(sidebarItem: SidebarItem, roles: string[]): boolean {
+		let permission = false;
+		if(sidebarItem?.roles && roles?.length) {
+			roles?.forEach(userRole => {
+				const rolePermission = sidebarItem?.roles?.find(itemRole => itemRole == userRole);
+				if(rolePermission) {
+					permission = true;
+				}
+			});
+		}
+		return permission;
+	}
+
+	private _isPermissionPack(sidebarItem: SidebarItem, packs: PACKS[]): boolean {
+		let permission = false;
+		if(sidebarItem?.pack) {
+		const packPermission = packs?.find(pack => pack == sidebarItem.pack);
+			if(packPermission) {
+				permission = true;
+			}
+		}else {
+			permission = true;
+		}
+		return permission;
+	}
 
 }
