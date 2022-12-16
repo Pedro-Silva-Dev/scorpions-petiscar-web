@@ -1,3 +1,4 @@
+import { PACKS } from './../../../shared/enums/packs.enum';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { RegisterUser } from '../models/register-user.model';
@@ -109,6 +110,15 @@ export class AuthService extends BaseService {
       roles = user.roles?.split(',');
     }
     return roles;
+  }
+
+  public getCompanyPacks(): PACKS[] {
+    let packs: any[] = [];
+    const user = this.getUser();
+    if(user) {
+      packs = user.packs?.split(',');
+    }
+    return packs;
   }
 
   public isEmailValid(build: Partial<AuthParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<StatusRequest>> {

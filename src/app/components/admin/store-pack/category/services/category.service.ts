@@ -1,7 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
-import { CategoryProduct } from './../models/category-product.model';
-import { Category } from './../models/category.model';
-import { Page } from './../../../../shared/models/page.model';
+import { CategoryProduct } from '../models/category-product.model';
+import { Category } from '../models/category.model';
+import { Page } from '../../../../../shared/models/page.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';

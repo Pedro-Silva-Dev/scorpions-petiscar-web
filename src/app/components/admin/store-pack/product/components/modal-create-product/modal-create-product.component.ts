@@ -1,8 +1,8 @@
-import { ProductParamBuild } from './../../models/product-param.build.model';
-import { Category } from './../../../category/models/category.model';
+import { ProductParamBuild } from '../../models/product-param.build.model';
+import { Category } from '../../../category/models/category.model';
 import { FormControl } from '@angular/forms';
-import { ProductService } from './../../services/product.service';
-import { Product, ProductForm } from './../../models/product.model';
+import { ProductService } from '../../services/product.service';
+import { Product, ProductForm } from '../../models/product.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MODAL } from 'src/app/shared/enums/modal.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

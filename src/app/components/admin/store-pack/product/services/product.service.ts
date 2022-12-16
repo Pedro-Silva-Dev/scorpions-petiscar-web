@@ -1,5 +1,5 @@
-import { Product } from './../models/product.model';
-import { ProductParamBuild } from './../models/product-param.build.model';
+import { Product } from '../models/product.model';
+import { ProductParamBuild } from '../models/product-param.build.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';

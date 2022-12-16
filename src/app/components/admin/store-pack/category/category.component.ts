@@ -1,4 +1,4 @@
-import { Paginator } from './../../../shared/components/paginator/models/paginator.model';
+import { Paginator } from '../../../../shared/components/paginator/models/paginator.model';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from "rxjs";
 import { CategoryParamBuild } from "./models/category-param.build.model";

@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { NavbarModule } from './shared/components/navbar/navbar.module';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 import { ToastrModule } from 'ngx-toastr';
-import { ProductModule } from './components/admin/product/product.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { ProductModule } from './components/admin/product/product.module';
     NavbarModule,
     SidebarModule,
     ToastrModule.forRoot(),
-    ProductModule,
   ],
   providers: [
     {

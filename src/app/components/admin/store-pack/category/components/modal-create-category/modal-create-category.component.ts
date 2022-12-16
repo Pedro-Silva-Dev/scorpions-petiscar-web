@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { MODAL } from "./../../../../../shared/enums/modal.enum";
+import { MODAL } from "../../../../../../shared/enums/modal.enum";
 import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Category } from "../../models/category.model";
