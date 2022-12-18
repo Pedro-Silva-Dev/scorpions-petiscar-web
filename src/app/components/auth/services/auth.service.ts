@@ -113,12 +113,12 @@ export class AuthService extends BaseService {
   }
 
   public getCompanyPacks(): PACKS[] {
-    let packs: any[] = [];
+    let modules: any[] = [];
     const user = this.getUser();
     if(user) {
-      packs = user.packs?.split(',');
+      modules = user.modules?.split(',');
     }
-    return packs;
+    return modules;
   }
 
   public isEmailValid(build: Partial<AuthParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<StatusRequest>> {

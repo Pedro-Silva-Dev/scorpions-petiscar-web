@@ -4,7 +4,7 @@ export interface UserAuth {
     urlPhoto: string;
     office: string;
     roles: string;
-    packs: string;
+    modules: string;
     userKey: string;
     officeKey: string;
     companyKey: string;
