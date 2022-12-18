@@ -7,6 +7,8 @@ import { IMAGES } from 'src/app/shared/enums/images.enum';
 import { AuthService } from '../../services/auth.service';
 import { AUTH_NAVIGATE } from '../../enums/auth-navigate.enum';
 import { Router } from '@angular/router';
+import { SIDEBAR_STATUS } from 'src/app/shared/enums/sidebar.enum';
+import { SidebarService } from 'src/app/shared/services/sidebar.service';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +30,7 @@ export class RegisterComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
     private _toastrService: ToastrService,
-    private _router: Router
+    private _router: Router,
   ) { }
 
   ngOnInit(): void {

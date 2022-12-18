@@ -28,7 +28,9 @@ import { DialogModule } from "primeng/dialog";
 import {BadgeModule} from 'primeng/badge';
 import {PaginatorModule} from 'primeng/paginator';
 import {MessageModule} from 'primeng/message';
-import {MessagesModule} from 'primeng/messages';
+import { MessagesModule } from 'primeng/messages';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import {MenuModule} from 'primeng/menu';
 
 
 
@@ -67,6 +69,8 @@ import {MessagesModule} from 'primeng/messages';
 		PaginatorModule,
 		MessageModule,
 		MessagesModule,
+		PanelMenuModule,
+		MenuModule,
 	],
 	exports: [
 		CalendarModule,
@@ -98,6 +102,8 @@ import {MessagesModule} from 'primeng/messages';
 		PaginatorModule,
 		MessageModule,
 		MessagesModule,
+		PanelMenuModule,
+		MenuModule,
 	]
 })
 export class PrimeNgModule { }

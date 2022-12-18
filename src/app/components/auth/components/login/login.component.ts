@@ -8,6 +8,8 @@ import { IMAGES } from "src/app/shared/enums/images.enum";
 import { AuthService } from "../../services/auth.service";
 import { AUTH_NAVIGATE } from "../../enums/auth-navigate.enum";
 import { ActivatedRoute, Router } from "@angular/router";
+import { SidebarService } from 'src/app/shared/services/sidebar.service';
+import { SIDEBAR_STATUS } from 'src/app/shared/enums/sidebar.enum';
 
 @Component({
 	selector: "app-login",
@@ -30,7 +32,7 @@ export class LoginComponent implements OnInit {
     private _authService: AuthService,
     private _toastrService: ToastrService,
     private _router: Router,
-    private _route: ActivatedRoute
+	private _route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -103,7 +105,7 @@ export class LoginComponent implements OnInit {
 
   private _navigateUser(): void {
   	if(this._isPageAuth()) {
-  		this._router.navigate(["/admin"]);
+		this._router.navigate(["/admin"]);
   	}else {
   		this._router.navigate(["/"]);
   	}

@@ -5,9 +5,17 @@
             <a href="javascript:void(0)"><span>Petiscar</span></a>
             </header>
             <ng-container *ngFor="let sidebarItem of sidebarItens">
-                <div *ngIf="isRolePermission(sidebarItem)" (mouseover)="getSidebarIcon(sidebarItem, true)" (mouseout)="getSidebarIcon(sidebarItem, false)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item item-navigation {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">
-                    <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarItem.selected ? sidebarItem.iconColor : sidebarItem.icon" [alt]="sidebarItem.name"></a>
-                </div>
+                <ng-container #dropdownMenu *ngIf="sidebarItem?.items?.length">
+                    <div *ngIf="isRolePermission(sidebarItem)" (mouseover)="getSidebarIcon(sidebarItem, true)" (mouseout)="getSidebarIcon(sidebarItem, false)" (click)="menu.toggle($event)"  [pTooltip]="sidebarItem.tooltip" class="item item-navigation {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">
+                        <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarItem.selected ? sidebarItem.iconColor : sidebarItem.icon" [alt]="sidebarItem.name"></a>
+                    </div>
+                    <p-menu #menu [popup]="true" [model]="sidebarItem.items"></p-menu>
+                </ng-container>
+                <ng-container #staticMenu *ngIf="!sidebarItem?.items?.length">
+                    <div *ngIf="isRolePermission(sidebarItem)" (mouseover)="getSidebarIcon(sidebarItem, true)" (mouseout)="getSidebarIcon(sidebarItem, false)" [routerLink]="sidebarItem.url" [pTooltip]="sidebarItem.tooltip" class="item item-navigation {{isItemSelected(sidebarItem) ? 'item-selected' : ''}}">
+                        <a href="javascript:void(0)" routerLinkActive="router-link-active" ><img [src]="sidebarItem.selected ? sidebarItem.iconColor : sidebarItem.icon" [alt]="sidebarItem.name"></a>
+                    </div>
+                </ng-container>
             </ng-container>
         </div>
         <div class="footer">
@@ -17,4 +25,3 @@
         </div>
     </div>
 </ng-container>
-

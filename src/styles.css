@@ -19,6 +19,11 @@ body {
     line-height: 1.5;
 }
 
+.w100 {
+    width: 100% !important;
+    background-color: var(--bluegray-100);
+}
+
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -1246,6 +1251,32 @@ td {
 }
 
 /* *********** */
+
+/* CONFIG MENU */
+
+.sidebar .item {
+    display: block;
+}
+
+.p-menu-overlay {
+    position: absolute !important;
+    margin-top: -4rem;
+    left: 5rem !important;
+    background-color: var(--gray-100) !important;
+}
+
+.p-menu-overlay a:hover {
+    background-color: var(--purple-500) !important;
+}
+
+.p-menu-overlay a span {
+    color: var(--purple-700) !important;
+}
+
+.p-menu-overlay a:hover span {
+    color: #fff !important;
+}
+
 
 /* CONFIG CARD */
 

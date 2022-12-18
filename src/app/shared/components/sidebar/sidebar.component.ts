@@ -5,21 +5,26 @@ import { SIDEBAR_STATUS } from "./../../enums/sidebar.enum";
 import { IMAGES } from "src/app/shared/enums/images.enum";
 import { ROLES } from "./../../enums/roles.enum";
 import { ICONS } from "./../../enums/icons.enum";
-import { SidebarItem } from "./../../models/sidebar-item.model";
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ItemMenu, SidebarItem } from "./../../models/sidebar-item.model";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { PermissionService } from "../../services/permission.service";
 import { AuthService } from "src/app/components/auth/services/auth.service";
 import { URLS } from "../../enums/urls.enum";
 import { ActivatedRoute } from "@angular/router";
 import { UserAuth } from "src/app/components/auth/models/user-auth.model";
 import { SidebarService } from "../../services/sidebar.service";
-// 763cad
+import {MenuItem} from 'primeng/api';
+import { Unsubscribable } from 'rxjs';
+
+
 @Component({
 	selector: "app-sidebar",
 	templateUrl: "./sidebar.component.html",
 	styleUrls: ["./sidebar.component.css"]
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
+
+	private _unsubscribe: Unsubscribable;
 
 	public expand = false;
 	public arrowLeftIcon = ICONS.ARROW_LEFT;
@@ -36,7 +41,7 @@ export class SidebarComponent implements OnInit {
     private _route: ActivatedRoute,
     private _sidebarService: SidebarService,
 	) { }
-
+	
 
 	ngOnInit(): void {
 		this._setStatus();
@@ -45,6 +50,9 @@ export class SidebarComponent implements OnInit {
 		this._setSidebarLogout();
 	}
 	
+	ngOnDestroy(): void {
+		this._unsubscribe?.unsubscribe();
+	}
 
 	public isPermission(): boolean {
 		this.permission = this._permissionService.isPermissionSidebar();
@@ -58,7 +66,7 @@ export class SidebarComponent implements OnInit {
 
 		const permissionRole = this._isPermissionRole(sidebarItem, userRoles)
 		const permissionPack = this._isPermissionPack(sidebarItem, packs);
-    
+
 		if(permissionRole && permissionPack) {
 			permission = true;
 		}
@@ -69,9 +77,11 @@ export class SidebarComponent implements OnInit {
 	public isItemSelected(sidebarItem: SidebarItem): boolean {
 		//@ts-ignore
 		const url: string = this._route.snapshot["_routerState"]?.url;
-		const isSelected = url?.toLowerCase().includes(sidebarItem.url);
-		sidebarItem.selected = isSelected; 
-		return isSelected;
+		const isSelectedPage = (sidebarItem?.url && url?.toLowerCase().includes(sidebarItem.url)) ? true : false;
+		const isSelectedPack = (sidebarItem?.pack && url?.toLowerCase().includes(sidebarItem.pack?.toLowerCase())) ? true : false;
+		const selected = (isSelectedPage || isSelectedPack) ? true : false; 
+		sidebarItem.selected = selected
+		return selected;
 	}
 
 	public logout(): void {
@@ -89,28 +99,29 @@ export class SidebarComponent implements OnInit {
 	/***************** METHODS PRIVATE *****************/
 
 	private _setSidebarItens(): void {
-		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD, PACKS.EMPTY, "Dashboard", [ROLES.ADMIN], 1);
-		this._setSidebarItem("Categorias", ICONS.CATEGORY, ICONS.CATEGORY, ICONS.CATEGORY_WHITE, URLS.CATEGORIES, PACKS.SHOP, "Categorias", [ROLES.ADMIN], 2);
-		this._setSidebarItem("Produtos", ICONS.PRODUCT, ICONS.PRODUCT, ICONS.PRODUCT_WHITE, URLS.PRODUCTS, PACKS.SHOP, "Produtos", [ROLES.ADMIN], 3);
-		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER, ICONS.USER_WHITE, URLS.USERS, PACKS.EMPTY, "Usuários", [ROLES.ADMIN], 4);
+		this.sidebarItens = [];
+		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD, PACKS.EMPTY, "Dashboard", null, [ROLES.ADMIN], 1);
+		this._setSidebarItem("Loja", ICONS.STORE, ICONS.STORE_WHITE, URLS.EMPTY, PACKS.STORE, "Gestão da Loja", this._getItemsMenu({name: `Categorias`, url: URLS.CATEGORIES}, {name: `Produtos`, url: URLS.PRODUCTS}), [ROLES.ADMIN], 2);
+		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER_WHITE, URLS.USERS, PACKS.EMPTY, "Usuários", null, [ROLES.ADMIN], 3);
 
 		this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
 	}
 
-	private _setSidebarItem(name: string, icon: ICONS, iconDefault: ICONS, iconColor: ICONS, url: URLS, pack: PACKS, tooltip: string, rolesItem?: ROLES[], orderItem?: number): void {
+	private _setSidebarItem(name: string, icon: ICONS, iconColor: ICONS, url: URLS, pack: PACKS, tooltip: string, items: MenuItem[] = [], rolesItem?: ROLES[], orderItem?: number): void {
 		const order = orderItem ? orderItem : this._getLastOrderSidebarItem();
 		const roles = rolesItem?.length ? rolesItem : [];
 		const item: SidebarItem = {
 			name,
 			icon,
 			iconColor,
-			iconDefault,
+			iconDefault: icon,
 			url,
 			tooltip,
 			order,
 			pack,
 			roles,
 			selected: false,
+			items
 		};
 		this.sidebarItens.push(item);
 	}
@@ -138,6 +149,7 @@ export class SidebarComponent implements OnInit {
 			tooltip: "Sair",
 			order: 0,
 			roles: [],
+			items: null,
 			selected: false,
 		};
 	}
@@ -162,7 +174,7 @@ export class SidebarComponent implements OnInit {
 	private _isPermissionPack(sidebarItem: SidebarItem, packs: PACKS[]): boolean {
 		let permission = false;
 		if(sidebarItem?.pack) {
-		const packPermission = packs?.find(pack => pack == sidebarItem.pack);
+			const packPermission = packs?.find(pack => pack?.toLowerCase()?.trim() == sidebarItem.pack?.toLowerCase()?.trim());
 			if(packPermission) {
 				permission = true;
 			}
@@ -170,6 +182,14 @@ export class SidebarComponent implements OnInit {
 			permission = true;
 		}
 		return permission;
+	}
+
+	private _getItemsMenu(...items: ItemMenu[]): MenuItem[] {
+		let menuItems: MenuItem[] = [];
+		items?.forEach(item => {
+			menuItems.push({ label: item.name, routerLink: item.url });
+		});
+		return menuItems;
 	}
 
 }
