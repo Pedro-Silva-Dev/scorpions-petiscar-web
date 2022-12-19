@@ -101,7 +101,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 	private _setSidebarItens(): void {
 		this.sidebarItens = [];
 		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD, PACKS.EMPTY, "Dashboard", null, [ROLES.ADMIN], 1);
-		this._setSidebarItem("Loja", ICONS.STORE, ICONS.STORE_WHITE, URLS.EMPTY, PACKS.STORE, "Gestão da Loja", this._getItemsMenu({name: `Categorias`, url: URLS.CATEGORIES}, {name: `Produtos`, url: URLS.PRODUCTS}), [ROLES.ADMIN], 2);
+		this._setSidebarItem("Loja", ICONS.STORE, ICONS.STORE_WHITE, URLS.EMPTY, PACKS.STORE, "Gestão da Loja", this._getItemsMenu(this._getItemsStoreMenu()), [ROLES.ADMIN], 2);
 		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER_WHITE, URLS.USERS, PACKS.EMPTY, "Usuários", null, [ROLES.ADMIN], 3);
 
 		this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
@@ -184,12 +184,23 @@ export class SidebarComponent implements OnInit, OnDestroy {
 		return permission;
 	}
 
-	private _getItemsMenu(...items: ItemMenu[]): MenuItem[] {
+	private _getItemsMenu(items: ItemMenu[]): MenuItem[] {
 		let menuItems: MenuItem[] = [];
 		items?.forEach(item => {
 			menuItems.push({ label: item.name, routerLink: item.url });
 		});
 		return menuItems;
+	}
+
+	private _getItemsStoreMenu(): ItemMenu[] {
+		let items: ItemMenu[] = [];
+		const category: ItemMenu = {name: `Categorias`, url: URLS.CATEGORIES};
+		const product: ItemMenu = {name: `Produtos`, url: URLS.PRODUCTS};
+		const promotion: ItemMenu = {name: `Promoções`, url: URLS.PROMOTIONS};
+
+		items.push(category, product, promotion);
+		return items;
+
 	}
 
 }

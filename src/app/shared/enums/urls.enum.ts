@@ -4,6 +4,7 @@ export enum URLS {
     USERS = `/admin/users`,
     CATEGORIES = `/admin/store/categories`,
     PRODUCTS = `/admin/store/products`,
+    PROMOTIONS = `/admin/store/promotions`,
 }
 
 
