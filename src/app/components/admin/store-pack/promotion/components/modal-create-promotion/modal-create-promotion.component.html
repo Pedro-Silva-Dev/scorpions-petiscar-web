@@ -12,12 +12,12 @@
                         <div class="row">
                             <div class="col-6">
                                 <label class="d-flex" for="dhi">Data Inicial</label>
-                                <p-calendar (onSelect)="validDate('dhi')" [minDate]="minDate"  dateFormat="dd/mm/yy" formControlName="dhi" id="dhi" class="form-input" autocomplete="off" appendTo="body" placeholder="Data inicial da promoção"></p-calendar>
+                                <p-calendar (onSelect)="validDate('dhi')" [minDate]="minDate" [showClear]="true"  dateFormat="dd/mm/yy" [required]="true" formControlName="dhi" id="dhi" class="form-input" autocomplete="off" appendTo="body" placeholder="Data inicial da promoção"></p-calendar>
                                 <p *ngIf="!isFieldValid('dhi')">Data inicial da promoção é obrigatório.</p>
                             </div>
                             <div class="col-6">
                                 <label class="d-flex" for="dhf">Data Final</label>
-                                <p-calendar (onSelect)="validDate('dhf')" [minDate]="minDate" dateFormat="dd/mm/yy" formControlName="dhf" id="dhf" autocomplete="off" appendTo="body" placeholder="Data final da promoção"></p-calendar>
+                                <p-calendar (onSelect)="validDate('dhf')" [minDate]="minDate" [showClear]="true" dateFormat="dd/mm/yy" [required]="true" formControlName="dhf" id="dhf" autocomplete="off" appendTo="body" placeholder="Data final da promoção"></p-calendar>
                                 <p *ngIf="!isFieldValid('dhf')">Data final da promoção é obrigatório.</p>
                             </div>
                         </div>

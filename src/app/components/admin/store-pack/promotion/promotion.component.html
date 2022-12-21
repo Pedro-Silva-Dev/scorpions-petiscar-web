@@ -77,11 +77,11 @@
         </div>
         <div class="form-group">
             <label for="dhi">Data de início</label>
-            <p-calendar dateFormat="dd/mm/yy" formControlName="dhi" id="dhi" class="form-input" autocomplete="off" appendTo="body" placeholder="Data inicial da promoção"></p-calendar>
+            <p-calendar dateFormat="dd/mm/yy" formControlName="dhi" [showClear]="true" id="dhi" class="form-input" autocomplete="off" appendTo="body" placeholder="Data inicial da promoção"></p-calendar>
         </div>
         <div class="form-group">
-            <label for="dhf">Data de início</label>
-            <p-calendar dateFormat="dd/mm/yy" formControlName="dhf" id="dhf" autocomplete="off" appendTo="body" placeholder="Data final da promoção"></p-calendar>
+            <label for="dhf">Data final</label>
+            <p-calendar dateFormat="dd/mm/yy" formControlName="dhf" id="dhf" [showClear]="true" autocomplete="off" appendTo="body" placeholder="Data final da promoção"></p-calendar>
         </div>
         <div class="form-group">
             <label for="status">Status</label>

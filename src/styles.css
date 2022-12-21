@@ -1009,7 +1009,7 @@ a {
     color: #8B5CF6
 }
 
-.form-group > p {
+.form-group p {
     margin-bottom: 0;
     font-size: 0.7rem;
     color: #EF4444;
