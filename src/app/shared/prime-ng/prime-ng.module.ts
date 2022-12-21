@@ -31,6 +31,7 @@ import {MessageModule} from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import {MenuModule} from 'primeng/menu';
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 
 
@@ -71,6 +72,7 @@ import {MenuModule} from 'primeng/menu';
 		MessagesModule,
 		PanelMenuModule,
 		MenuModule,
+		InputSwitchModule,
 	],
 	exports: [
 		CalendarModule,
@@ -104,6 +106,7 @@ import {MenuModule} from 'primeng/menu';
 		MessagesModule,
 		PanelMenuModule,
 		MenuModule,
+		InputSwitchModule
 	]
 })
 export class PrimeNgModule { }

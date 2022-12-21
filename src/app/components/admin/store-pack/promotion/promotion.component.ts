@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { Page } from 'src/app/shared/models/page.model';
 import { Paginator } from 'src/app/shared/components/paginator/models/paginator.model';
+import { Status } from 'src/app/shared/models/status.model';
 
 @Component({
   selector: 'app-promotion',
@@ -29,6 +30,8 @@ export class PromotionComponent implements OnInit {
 	public isDisplayModal = false;
 	public isDisplayFilter = false;
 	public filterForm!: FormGroup;
+	public status: Status[] = [];
+	public typeDiscounts: Status[] = [];
 
 	constructor(
 		private _promotionService: PromotionService,
@@ -38,6 +41,8 @@ export class PromotionComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		this._setStatus();
+		this._setTypeDiscounts();
 		this._setCreateFilterForm();
 		this._setPromotionsPage();
 	}
@@ -73,7 +78,7 @@ export class PromotionComponent implements OnInit {
 		}, 0);
 	}
 
-	public updateCategoryInPage(promotion: Promotion): void { 
+	public updatePromotionInPage(promotion: Promotion): void { 
 		if (promotion) {
 			this._updatePromotionInPage(promotion);
 		}
@@ -99,13 +104,19 @@ export class PromotionComponent implements OnInit {
 
 	private _setCreateFilterForm(): void {
 		this.filterForm = this._formBuilder.group({
-			name: [null]
+			name: [null],
+			discountMin: [null],
+			discountMax: [null],
+			dhi: [null],
+			dhf: [null],
+			status: [null],
+			percentageDiscount: [null],
 		});
 	}
 
 	private _setPromotionsPage(): void {
 		const form = this.filterForm.value;
-		const build: Partial<PromotionParamBuild> = { page: this._page, size: this._size, name: form?.name };
+		const build: Partial<PromotionParamBuild> = { page: this._page, size: this._size, name: form?.name, discountMin: form?.discountMin, discountMax: form?.discountMax, dhi: form?.dhi, dhf: form?.dhf, status: form?.status, percentageDiscount: form?.percentageDiscount };
 		this._promotionService.getPagePromotion(build, this.promotionLoadEvent$).subscribe(res => {
 			if (res.status == 200) {
 				this.pagination = res.body;
@@ -136,5 +147,18 @@ export class PromotionComponent implements OnInit {
 		}
 		this._changeDetectorRef.detectChanges();
 	}
+
+	private _setStatus(): void {
+		const active: Status =  {id: 1, name: `Habilitado`, status: true};
+		const disable: Status =  {id: 2, name: `Desabilitado`, status: false};
+		this.status = [active, disable];
+   	}
+
+	   private _setTypeDiscounts(): void {
+		const money: Status =  {id: 1, name: `Dinheiro`, status: false};
+		const percentage: Status =  {id: 2, name: `Percentual`, status: true};
+		this.typeDiscounts = [percentage, money];
+   	}
+
 
 }

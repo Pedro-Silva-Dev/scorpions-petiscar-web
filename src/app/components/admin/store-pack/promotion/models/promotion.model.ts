@@ -9,5 +9,6 @@ export interface Promotion {
     dhc: string;
     dhu: string;
     active: boolean;
+    percentageDiscount: boolean;
     companyId: number;
 }

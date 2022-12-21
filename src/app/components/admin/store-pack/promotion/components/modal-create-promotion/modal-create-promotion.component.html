@@ -1,0 +1,60 @@
+<app-modal [title]="title" [display]="display" [class]="modal.MD" (closeModalEvent$)="modalEvent(false)">
+    <div modal-body>
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="promotionForm">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input formControlName="name" id="name" class="form-input" type="text" pInputText autocomplete="off" placeholder="Nome da Promoção"/>
+                        <p *ngIf="!isFieldValid('name')">Nome da promoção é obrigatório.</p>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="d-flex" for="dhi">Data Inicial</label>
+                                <p-calendar (onSelect)="validDate('dhi')" [minDate]="minDate"  dateFormat="dd/mm/yy" formControlName="dhi" id="dhi" class="form-input" autocomplete="off" appendTo="body" placeholder="Data inicial da promoção"></p-calendar>
+                                <p *ngIf="!isFieldValid('dhi')">Data inicial da promoção é obrigatório.</p>
+                            </div>
+                            <div class="col-6">
+                                <label class="d-flex" for="dhf">Data Final</label>
+                                <p-calendar (onSelect)="validDate('dhf')" [minDate]="minDate" dateFormat="dd/mm/yy" formControlName="dhf" id="dhf" autocomplete="off" appendTo="body" placeholder="Data final da promoção"></p-calendar>
+                                <p *ngIf="!isFieldValid('dhf')">Data final da promoção é obrigatório.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-3">
+                                <label class="d-flex" for="active">Ativo</label>
+                                <p-inputSwitch formControlName="active" id="active" class="d-flex pt-2"></p-inputSwitch>
+                            </div>
+                            <div class="col-3">
+                                <label class="d-flex" for="percentageDiscount">Desconto em Percentual</label>
+                                <p-inputSwitch (onChange)="setDiscountDefault()" formControlName="percentageDiscount" id="percentageDiscount" class="d-flex pt-2"></p-inputSwitch>
+                            </div>
+                            <div class="col-6">
+                                <label for="discount">Desconto</label>
+                                <p-inputNumber *ngIf="isDiscountPercentage()" formControlName="discount" id="discount" autocomplete="off" [max]="100" [maxlength]="3" placeholder="0.00%" class="form-input" inputId="percent" suffix="%"></p-inputNumber>
+                                <p-inputNumber *ngIf="!isDiscountPercentage()" inputId="currency-brazil" mode="currency" currency="BRL" locale="pt-BR" id="price" [maxlength]="10" formControlName="discount" id="discount" autocomplete="off" class="form-input" placeholder="0.00"></p-inputNumber>
+                                <p *ngIf="!isFieldValid('discount')">Valor do desconto da promoção é obrigatório.</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div modal-footer>
+        <div class="d-flex justify-content-end">
+            <ng-container *ngIf="!(createPromotionEvent$ | async); else spinnerButton">
+                <button (click)="closeModal()" pButton type="button" label="Voltar" class="p-button-secondary p-button-outlined me-2"></button>
+                <button (click)="save()" pButton type="button" [disabled]="!isPromotionFormValid()" [label]="labelButtonFinish" class="p-button-outlined"></button>
+            </ng-container>
+        </div>
+    </div>
+</app-modal>
+
+
+<ng-template #spinnerButton>
+    <button pButton pRipple class="purple" type="button" class="p-button-outlined"><app-spinner-button></app-spinner-button></button>
+</ng-template>

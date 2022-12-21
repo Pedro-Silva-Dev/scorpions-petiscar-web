@@ -1031,6 +1031,15 @@ a {
     width: 100% !important;
 }
 
+.p-calendar {
+    width: 100% !important;
+}
+
+.ui-datepicker{
+    overflow: visible;
+    z-index: 999;
+  }
+
 button span {
     color: var(--purple-700) !important;
 }
