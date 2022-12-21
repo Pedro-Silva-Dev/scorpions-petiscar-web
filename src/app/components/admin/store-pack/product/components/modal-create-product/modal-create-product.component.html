@@ -18,9 +18,17 @@
                         </div>
                     </div> 
                     <div class="form-group">
-                        <label for="category">Categoria</label>
-                        <p-multiSelect [options]="categories" formControlName="categoryIds" defaultLabel="Selecione a Categoria" optionValue="id" class="form-input" id="category" placeholder="Selecione a Categoria" optionLabel="name" display="chip"></p-multiSelect>
-                        <p *ngIf="!isFieldValid('categoryIds')">O produto deve ter pelo menos uma categoria associada.</p>
+                        <div class="row">
+                            <div class="col-8">
+                                <label for="category">Categoria</label>
+                                <p-multiSelect [options]="categories" formControlName="categoryIds" defaultLabel="Selecione a Categoria" optionValue="id" class="form-input" id="category" placeholder="Selecione a Categoria" optionLabel="name" display="chip"></p-multiSelect>
+                                <p *ngIf="!isFieldValid('categoryIds')">O produto deve ter pelo menos uma categoria associada.</p>
+                            </div>
+                            <div class="col-4">
+                                <label class="d-flex" for="active">Ativo</label>
+                                <p-inputSwitch formControlName="active" id="active" class="d-flex pt-2"></p-inputSwitch>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="price">Descrição</label>
