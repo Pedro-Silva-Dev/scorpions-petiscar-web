@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { CategoryProduct } from '../models/category-product.model';
+import { CategoryProductPromotion } from '../models/category-product.model';
 import { Category } from '../models/category.model';
 import { Page } from '../../../../../shared/models/page.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -50,14 +50,14 @@ export class CategoryService extends BaseService {
     return this.put(url, category, loadEvent, msgError);
   }
 
-  public getPageProductsCategory(build: Partial<CategoryParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<Page<CategoryProduct>>> {
-    const url = `/public/products-index.json`;
+  public getPageCategoryProductsPromotion(categoryId: number, build: Partial<CategoryParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<Page<CategoryProductPromotion>>> {
+    const url = `/category/admin/${categoryId}/products-index.json`;
     const msgError = `Não foi possível obter a página de produtos associados a categoria, por favor contate o suporte.`;
     return this.get(url, loadEvent, msgError, build);
   }
 
-  public getListProductsCategory(build: Partial<CategoryParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<CategoryProduct[]>> {
-    const url = `/public/products-list.json`;
+  public getListProductsCategory(categoryId: number, build: Partial<CategoryParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<CategoryProductPromotion[]>> {
+    const url = `/category/admin/${categoryId}/products-list.json`;
     const msgError = `Não foi possível obter a lista de produtos associados a categoria, por favor contate o suporte.`;
     return this.get(url, loadEvent, msgError, build);
   }

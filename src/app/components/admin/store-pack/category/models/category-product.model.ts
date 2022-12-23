@@ -1,13 +1,20 @@
-export interface CategoryProduct {
-    id: number;
-    productId: number;
+export interface CategoryProductPromotion {
+    id: number; //Id do produto.
     product: string;
-    description: string;
-    urlPhoto: string;
-    productActive: boolean;
+    productDescription: string;
+    productUrlPhoto: string;
     price: number;
-    categoryId: number;
-    category: string;
-    categoryActive: boolean;
+    productActive: boolean;
+    discount: number;
+    discountPercentage: boolean;
+    promotionId: number;
+    promotion: string;
+    promotionDescription: string;
+    promotionUrlPhoto: string;
+    promotionActive: boolean;
+    promotionDhi: string;
+    promotionDhf: string;
+    categoryIds: string[];
+    categories: string[];
     companyId: number;
 }

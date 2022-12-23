@@ -1004,6 +1004,7 @@ h3.title {
 }
 
 
+
 a {
     text-decoration: none;
     color: #8B5CF6
@@ -1142,6 +1143,10 @@ h5.title {
     margin: 1rem 0rem;
     text-transform: uppercase;
     font-weight: 600;
+}
+
+h5.title small {
+    font-size: 1.1rem;
 }
 
 /* CONFIG MODAL */
