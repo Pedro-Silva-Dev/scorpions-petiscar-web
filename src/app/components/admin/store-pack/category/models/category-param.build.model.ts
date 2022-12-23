@@ -5,6 +5,7 @@ export interface CategoryParamBuild extends Category{
     size: number;
     productId: number;
     product: string;
+    productIds: number[];
     categoryId: number;
     category: string;
     description: string;

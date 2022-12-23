@@ -20,6 +20,7 @@ export class PageCategoryProductsComponent implements OnInit {
 	private _size = 10;
 
 	public categoryProductsLoadEvent$ = new BehaviorSubject<boolean>(false);
+	public removeCategoryProductsEvent$ = new BehaviorSubject<boolean>(false);
 	public closeModalEvent$ = new BehaviorSubject<boolean>(false);
 	public modalCategoryEvent$ = new BehaviorSubject<boolean>(false);
 
@@ -72,6 +73,20 @@ export class PageCategoryProductsComponent implements OnInit {
 	public clearFilters(): void {
 		this.filterForm.reset();
 		this.search();
+	}
+
+	public removeProductCategory(productId: number): void {
+		const build: Partial<CategoryParamBuild> = { productIds: [productId]}
+		this._categoryService.removeProductsCategory(this.categoryId, build, this.removeCategoryProductsEvent$).subscribe(res => {
+			if (res.status == 200) {
+				if (res.body?.success) {
+					this._toastService.success(`Produto removido com sucesso!`);
+					this._setCategoriesProductsPage();
+				} else {
+					this._toastService.warning(`Não foi possível remover o produto, por favor tente novamente.`);
+				}
+			}
+		});
 	}
 
 	/********************* METHODS PRIVATE *********************/

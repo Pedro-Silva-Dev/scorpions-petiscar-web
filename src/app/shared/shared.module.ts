@@ -7,32 +7,34 @@ import { SpinnerModule } from "./components/spinner/spinner.module";
 import { ModalComponent } from './components/modal/modal.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+
 
 
 
 @NgModule({
 	declarations: [
-
-	
-    ModalComponent,
-       PaginatorComponent,
-       FilterBarComponent
-  ],
+    	ModalComponent,
+        PaginatorComponent,
+		FilterBarComponent
+	],
 	imports: [
 		CommonModule,
 		PrimeNgModule,
 		ReactiveFormsModule,
 		SpinnerModule,
 		FormsModule,
+		SweetAlert2Module.forRoot()
 	],
 	exports: [
 		PrimeNgModule,
 		ReactiveFormsModule,
 		SpinnerModule,
 		FormsModule,
-  ModalComponent,
-  PaginatorComponent,
-  FilterBarComponent,
+		ModalComponent,
+		PaginatorComponent,
+		FilterBarComponent,
+		SweetAlert2Module,
 	]
 })
 export class SharedModule { }

@@ -31,7 +31,7 @@
                             {{category?.promotion ? category?.promotion : '-'}}
                         </td>
                         <td>
-                            <button pTooltip="Remover" pButton pRipple type="button" icon="pi pi-trash" class="p-button-primary p-button-rounded p-button-text"></button>
+                            <button [swal]="removeProduct" (confirm)="removeProductCategory(category.id)" pTooltip="Remover" pButton pRipple type="button" icon="pi pi-trash" class="p-button-primary p-button-rounded p-button-text"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -48,7 +48,7 @@
     </div>
 </div>
 
-<ng-container *ngIf="(categoryProductsLoadEvent$ | async)">
+<ng-container *ngIf="(categoryProductsLoadEvent$ | async) || (removeCategoryProductsEvent$ | async)">
     <app-spinner></app-spinner>
 </ng-container>
 
@@ -68,3 +68,15 @@
         <button (click)="clearFilters()" pTooltip="Limpar" tooltipPosition="left" pButton pRipple type="text" class="p-button-rounded p-button-primary p-button-outlined" icon="pi pi-trash"></button>
     </div>
 </ng-template>
+
+<swal #removeProduct 
+    type="warning" 
+    title="Aviso"
+    text="Deseja remover esse produto? essa ação é irreversível."
+    confirmButtonText="Confirmar" 
+    confirmButtonColor="#7E57C2" 
+    cancelButtonText="Cancelar" 
+    cancelButtonColor="#9E9E9E"
+    [showCancelButton]="true" 
+    [focusCancel]="true">
+</swal>
