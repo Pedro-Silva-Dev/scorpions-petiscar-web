@@ -4,17 +4,16 @@ import { CommonModule } from "@angular/common";
 import { PrimeNgModule } from "./prime-ng/prime-ng.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SpinnerModule } from "./components/spinner/spinner.module";
-import { ModalComponent } from './components/modal/modal.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+import { ModalsModule } from './components/modals/modals.module';
 
 
 
 
 @NgModule({
 	declarations: [
-    	ModalComponent,
         PaginatorComponent,
 		FilterBarComponent
 	],
@@ -24,14 +23,13 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 		ReactiveFormsModule,
 		SpinnerModule,
 		FormsModule,
-		SweetAlert2Module.forRoot()
+		SweetAlert2Module.forRoot(),
 	],
 	exports: [
 		PrimeNgModule,
 		ReactiveFormsModule,
 		SpinnerModule,
 		FormsModule,
-		ModalComponent,
 		PaginatorComponent,
 		FilterBarComponent,
 		SweetAlert2Module,

@@ -1,3 +1,4 @@
+import { ModalsModule } from './shared/components/modals/modals.module';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +25,7 @@ registerLocaleData(localeBr, 'pt')
     HttpClientModule,
     NavbarModule,
     SidebarModule,
+    ModalsModule,
     ToastrModule.forRoot(),
     
   ],

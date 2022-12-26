@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ProductParamBuild, ProductParamBuildForm } from './models/product-param.build.model';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProductService } from './services/product.service';
 import { Product } from './models/product.model';
@@ -11,6 +11,10 @@ import { Paginator } from 'src/app/shared/components/paginator/models/paginator.
 import { Category } from '../category/models/category.model';
 import { CategoryService } from '../category/services/category.service';
 import { Status } from 'src/app/shared/models/status.model';
+import { ModalService } from 'src/app/shared/services/modal.service';
+import { Modal } from 'src/app/shared/models/modal.model';
+import { MODAL_TYPE } from 'src/app/shared/enums/modal-type.model';
+import { MODAL } from 'src/app/shared/enums/modal.enum';
 
 @Component({
   selector: 'app-product',
@@ -40,6 +44,7 @@ export class ProductComponent implements OnInit {
     private _changeDetectorRef: ChangeDetectorRef,
     private _toastService: ToastrService,
     private _categoryService: CategoryService,
+	private _modalService: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -49,16 +54,14 @@ export class ProductComponent implements OnInit {
     this._setCategoriesList();
   }
 
-  public displayModalCategory(product?: Product): void {
-		this.modalProductEvent$.next(false);
-		this._changeDetectorRef.detectChanges();
+  public displayModalCategory(template: TemplateRef<any>, product?: Product): void {
 		if (product) {
 			this.product = {...product};
 		} else {
 			this.product = null;
 		}
-		this.isDisplayModal = true;
-		this.modalProductEvent$.next(true);
+		const modal: Modal = {template, title: this.product ? `Atualizar Produto` : `Cadastrar Produto`, type: MODAL_TYPE.DEFAULT, class: MODAL.MD}
+		this._modalService.show(modal);
 	}
 
 	public updateStatusCategory(product: Product): void {

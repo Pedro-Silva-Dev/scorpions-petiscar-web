@@ -1,0 +1,11 @@
+<ng-container *ngIf="displayModal">
+    <app-modal
+        [title]="modal.title" [class]="modal.class" [display]="display" [template]="modal.template"
+    ></app-modal>
+</ng-container>
+
+<ng-container *ngIf="displayLargeModal">
+    <app-modal-large
+        [title]="modal.title" [display]="display"
+    ></app-modal-large>
+</ng-container>

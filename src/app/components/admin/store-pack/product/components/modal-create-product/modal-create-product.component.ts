@@ -8,6 +8,7 @@ import { MODAL } from 'src/app/shared/enums/modal.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-modal-create-product',
@@ -16,7 +17,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ModalCreateProductComponent implements OnInit {
 
- 	@Output() closeModalEvent$ = new EventEmitter();
 	@Output() finishEvent$ = new EventEmitter();
 	@Output() displayChange = new EventEmitter<boolean>();
 
@@ -34,7 +34,8 @@ export class ModalCreateProductComponent implements OnInit {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _productService: ProductService,
-		private _toastrService: ToastrService
+		private _toastrService: ToastrService,
+		private _modalService: ModalService
 	) { }
 	
 	ngOnInit(): void {
@@ -62,12 +63,7 @@ export class ModalCreateProductComponent implements OnInit {
 	}
 
 	public closeModal(): void {		
-		this.modalEvent(false);
-	}
-
-	public modalEvent(event: boolean): void { 
-		this.display = event;
-		this.displayChange.emit(this.display);
+		this._modalService.close();
 	}
 
 	/***************** METHODS PRIVATE *****************/
@@ -95,7 +91,7 @@ export class ModalCreateProductComponent implements OnInit {
 			if (res.status == 201) {
 				this._toastrService.success(`Produto cadastrada com sucesso!`);
 				this.finishEvent$.emit(res.body);
-				this.modalEvent(false);
+				this.closeModal();
 			}
 		});
 	}
@@ -106,7 +102,7 @@ export class ModalCreateProductComponent implements OnInit {
 			if (res.status == 202) {
 				this._toastrService.success(`Produto atualizada com sucesso!`);
 				this.finishEvent$.emit(res.body);
-				this.modalEvent(false);
+				this.closeModal();
 			}
 		});
 	}

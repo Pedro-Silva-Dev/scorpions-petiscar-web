@@ -4,7 +4,7 @@
             <h5 class="title">Produtos</h5>
            <div>
                 <app-filter-bar [(display)]="isDisplayFilter" [bodyTemplate]="filterBody" [footerTemplate]="filterFooter"></app-filter-bar>
-                <button (click)="displayModalCategory()" pTooltip="Adicionar" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-primary p-button-outlined ms-2"></button>
+                <button (click)="displayModalCategory(modalProductForm)" pTooltip="Adicionar" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-primary p-button-outlined ms-2"></button>
            </div>
         </div>
         <hr class="page-header">
@@ -31,7 +31,7 @@
                             {{product.categories}}
                         </td>
                         <td>
-                            <button (click)="displayModalCategory(product)" pTooltip="Editar" pButton pRipple type="button" icon="pi pi-pencil" class="me-2 p-button-primary p-button-rounded p-button-text"></button>
+                            <button (click)="displayModalCategory(modalProductForm, product)" pTooltip="Editar" pButton pRipple type="button" icon="pi pi-pencil" class="me-2 p-button-primary p-button-rounded p-button-text"></button>
                             <button *ngIf="product?.active" (click)="updateStatusCategory(product)" pTooltip="Desabilitar" pButton pRipple type="button" icon="pi pi-times" class="p-button-primary p-button-rounded p-button-text"></button>
                             <button *ngIf="!product?.active" (click)="updateStatusCategory(product)" pTooltip="Habilitar" pButton pRipple type="button" icon="pi pi-check" class="p-button-primary p-button-rounded p-button-text"></button>
                         </td>
@@ -50,13 +50,12 @@
     </div>
 </div>
 
-
-<ng-container *ngIf="(modalProductEvent$ | async)">
+<ng-template #modalProductForm>
     <app-modal-create-product
         (finishEvent$)="updateProductInPage($event)" 
         [product]="product" [(display)]="isDisplayModal" [categories]="categories"
     ></app-modal-create-product>
-</ng-container> 
+</ng-template>
 
 <ng-container *ngIf="(loadProductEvent$ | async) || (updateProductEvent$ | async)">
     <app-spinner></app-spinner>

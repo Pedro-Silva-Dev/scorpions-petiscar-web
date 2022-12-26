@@ -1,13 +1,17 @@
 import { PromotionParamBuild } from './models/promotion-param.build.model';
 import { PromotionService } from './services/promotion.service';
 import { Promotion } from './models/promotion.model';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { Page } from 'src/app/shared/models/page.model';
 import { Paginator } from 'src/app/shared/components/paginator/models/paginator.model';
 import { Status } from 'src/app/shared/models/status.model';
+import { ModalService } from 'src/app/shared/services/modal.service';
+import { MODAL_TYPE } from 'src/app/shared/enums/modal-type.model';
+import { MODAL } from 'src/app/shared/enums/modal.enum';
+import { Modal } from 'src/app/shared/models/modal.model';
 
 @Component({
   selector: 'app-promotion',
@@ -37,7 +41,8 @@ export class PromotionComponent implements OnInit {
 		private _promotionService: PromotionService,
 		private _toastService: ToastrService,
 		private _changeDetectorRef: ChangeDetectorRef,
-		private _formBuilder: FormBuilder
+		private _formBuilder: FormBuilder,
+		private _modalService: ModalService
 	) { }
 
 	ngOnInit(): void {
@@ -47,16 +52,14 @@ export class PromotionComponent implements OnInit {
 		this._setPromotionsPage();
 	}
 
-	public displayModalPromotion(promotion?: Promotion): void {
-		this.modalPromotionEvent$.next(false);
-		this._changeDetectorRef.detectChanges();
+	public displayModalPromotion(template: TemplateRef<any>, promotion?: Promotion): void {
 		if (promotion) {
 			this.promotion = {...promotion};
 		} else {
 			this.promotion = null;
 		}
-		this.isDisplayModal = true;
-		this.modalPromotionEvent$.next(true);
+		const modal: Modal = {template, title: this.promotion ? `Atualizar Promoção` : `Cadastrar Promoção`, type: MODAL_TYPE.DEFAULT, class: MODAL.MD}
+		this._modalService.show(modal);
 	}
 
 	public updateStatusPromotion(promotion: Promotion): void {
@@ -64,12 +67,6 @@ export class PromotionComponent implements OnInit {
 		this._updatePromotion(promotion?.id, promotion);
 	}
 
-	public closeModal(): void {
-		setTimeout(() => {
-			this.isDisplayModal = false;
-			this._changeDetectorRef.detectChanges();
-		}, 0);
-	}
 
 	public closeFilterModal(): void {
 		setTimeout(() => {

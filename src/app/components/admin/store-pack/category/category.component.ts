@@ -1,12 +1,16 @@
+import { MODAL } from 'src/app/shared/enums/modal.enum';
 import { Paginator } from '../../../../shared/components/paginator/models/paginator.model';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from "rxjs";
 import { CategoryParamBuild } from "./models/category-param.build.model";
-import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, TemplateRef } from "@angular/core";
 import { Category } from "./models/category.model";
 import { CategoryService } from "./services/category.service";
 import { Page } from "src/app/shared/models/page.model";
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ModalService } from 'src/app/shared/services/modal.service';
+import { Modal } from 'src/app/shared/models/modal.model';
+import { MODAL_TYPE } from 'src/app/shared/enums/modal-type.model';
 
 @Component({
 	selector: "app-category",
@@ -34,7 +38,8 @@ export class CategoryComponent implements OnInit {
 		private _categoryService: CategoryService,
 		private _toastService: ToastrService,
 		private _changeDetectorRef: ChangeDetectorRef,
-		private _formBuilder: FormBuilder
+		private _formBuilder: FormBuilder,
+		private _modalService: ModalService
 	) { }
 
 	ngOnInit(): void {
@@ -42,16 +47,14 @@ export class CategoryComponent implements OnInit {
 		this._setCategoriesPage();
 	}
 
-	public displayModalCategory(category?: Category): void {
-		this.modalCategoryEvent$.next(false);
-		this._changeDetectorRef.detectChanges();
+	public displayModalCategory(template: TemplateRef<any>, category?: Category): void {
 		if (category) {
 			this.category = {...category};
 		} else {
 			this.category = null;
 		}
-		this.isDisplayModal = true;
-		this.modalCategoryEvent$.next(true);
+		const modal: Modal = {template, title: this.category ? `Atualizar Categoria` : `Cadastrar Categoria`, type: MODAL_TYPE.DEFAULT, class: MODAL.MD}
+		this._modalService.show(modal);
 	}
 
 	public updateStatusCategory(category: Category): void {

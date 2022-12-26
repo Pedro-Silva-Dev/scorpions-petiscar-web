@@ -5,6 +5,7 @@ import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, Ev
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Category } from "../../models/category.model";
 import { CategoryService } from '../../services/category.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
 	selector: "app-modal-create-category",
@@ -13,7 +14,6 @@ import { CategoryService } from '../../services/category.service';
 })
 export class ModalCreateCategoryComponent implements OnInit {
 
-	@Output() closeModalEvent$ = new EventEmitter();
 	@Output() finishEvent$ = new EventEmitter();
 	@Output() displayChange = new EventEmitter<boolean>();
 	
@@ -30,7 +30,8 @@ export class ModalCreateCategoryComponent implements OnInit {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _categoryService: CategoryService,
-		private _toastrService: ToastrService
+		private _toastrService: ToastrService,
+		private _modalService: ModalService
 	) { }
 	
 	ngOnInit(): void {
@@ -58,12 +59,7 @@ export class ModalCreateCategoryComponent implements OnInit {
 	}
 
 	public closeModal(): void {		
-		this.modalEvent(false);
-	}
-
-	public modalEvent(event: boolean): void { 
-		this.display = event;
-		this.displayChange.emit(this.display);
+		this._modalService.close();
 	}
 
 	/***************** METHODS PRIVATE *****************/
@@ -86,7 +82,7 @@ export class ModalCreateCategoryComponent implements OnInit {
 			if (res.status == 201) {
 				this._toastrService.success(`Categoria cadastrada com sucesso!`);
 				this.finishEvent$.emit(res.body);
-				this.modalEvent(false);
+				this.closeModal();
 			}
 		});
 	}
@@ -96,7 +92,7 @@ export class ModalCreateCategoryComponent implements OnInit {
 			if (res.status == 202) {
 				this._toastrService.success(`Categoria atualizada com sucesso!`);
 				this.finishEvent$.emit(res.body);
-				this.modalEvent(false);
+				this.closeModal();
 			}
 		});
 	}

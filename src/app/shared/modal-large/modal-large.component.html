@@ -1,4 +1,4 @@
-<p-dialog [styleClass]="class" [header]="title" [(visible)]="display" (onHide)="closeModal()" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog styleClass="large-modal" [header]="title" [(visible)]="display" (onHide)="closeModal()" [modal]="true" [draggable]="false" [resizable]="false">
     <ng-content select="[modal-header]"></ng-content>
     <div class="mt-2">
         <ng-content select="[modal-body]"></ng-content>

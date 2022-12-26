@@ -4,7 +4,7 @@
             <h5 class="title">Categorias</h5>
            <div>
                 <app-filter-bar [(display)]="isDisplayFilter" [bodyTemplate]="filterBody" [footerTemplate]="filterFooter"></app-filter-bar>
-                <button (click)="displayModalCategory()" pTooltip="Adicionar" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-primary p-button-outlined ms-2"></button>
+                <button (click)="displayModalCategory(modalCategoryForm)" pTooltip="Adicionar" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-primary p-button-outlined ms-2"></button>
            </div>
         </div>
         <hr class="page-header">
@@ -23,7 +23,7 @@
                             <p-badge *ngIf="!category?.active" class="ms-1" value="Desabilitado"  severity="danger"  severity="danger"></p-badge>
                         </td>
                         <td>
-                            <button (click)="displayModalCategory(category)" pTooltip="Editar" pButton pRipple type="button" icon="pi pi-pencil" class="me-2 p-button-primary p-button-rounded p-button-text"></button>
+                            <button (click)="displayModalCategory(modalCategoryForm, category)" pTooltip="Editar" pButton pRipple type="button" icon="pi pi-pencil" class="me-2 p-button-primary p-button-rounded p-button-text"></button>
                             <button *ngIf="category?.active" (click)="updateStatusCategory(category)" pTooltip="Desabilitar" pButton pRipple type="button" icon="pi pi-times" class="p-button-primary p-button-rounded p-button-text"></button>
                             <button *ngIf="!category?.active" (click)="updateStatusCategory(category)" pTooltip="Habilitar" pButton pRipple type="button" icon="pi pi-check" class="p-button-primary p-button-rounded p-button-text"></button>
                         </td>
@@ -42,12 +42,12 @@
     </div>
 </div>
 
-<ng-container *ngIf="(modalCategoryEvent$ | async)">
+<ng-template #modalCategoryForm>
     <app-modal-create-category
         (finishEvent$)="updateCategoryInPage($event)"
         [category]="category" [(display)]="isDisplayModal" 
     ></app-modal-create-category>
-</ng-container>
+</ng-template>
 
 <ng-container *ngIf="(categoryLoadEvent$ | async) || (categoryUpdateEvent$ | async)">
     <app-spinner></app-spinner>

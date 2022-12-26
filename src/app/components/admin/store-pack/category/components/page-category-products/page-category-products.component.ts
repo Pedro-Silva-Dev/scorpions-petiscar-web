@@ -1,10 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { Paginator } from 'src/app/shared/components/paginator/models/paginator.model';
+import { MODAL_TYPE } from 'src/app/shared/enums/modal-type.model';
+import { MODAL } from 'src/app/shared/enums/modal.enum';
+import { Modal } from 'src/app/shared/models/modal.model';
 import { Page } from 'src/app/shared/models/page.model';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { CategoryParamBuild } from '../../models/category-param.build.model';
 import { CategoryProductPromotion } from '../../models/category-product.model';
 import { Category } from '../../models/category.model';
@@ -36,7 +40,8 @@ export class PageCategoryProductsComponent implements OnInit {
 		private _toastService: ToastrService,
 		private _changeDetectorRef: ChangeDetectorRef,
 		private _formBuilder: FormBuilder,
-		private _activatedRoute: ActivatedRoute
+		private _activatedRoute: ActivatedRoute,
+		private _modalService: ModalService
 	) { }
 
 	ngOnInit(): void {
@@ -87,6 +92,11 @@ export class PageCategoryProductsComponent implements OnInit {
 				}
 			}
 		});
+	}
+
+	public displayModalAddProductsCategory(template: TemplateRef<any>): void {
+		const modal: Modal = {class: MODAL.MD, title: 'TESTE', type: MODAL_TYPE.DEFAULT, template};
+		this._modalService.show(modal);
 	}
 
 	/********************* METHODS PRIVATE *********************/

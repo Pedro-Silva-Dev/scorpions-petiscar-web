@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { MODAL } from 'src/app/shared/enums/modal.enum';
 import { formatDate } from '@angular/common';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class ModalCreatePromotionComponent implements OnInit {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _promotionService: PromotionService,
-		private _toastrService: ToastrService
+		private _toastrService: ToastrService,
+		private _modalService: ModalService
 	) { }
 	
 	ngOnInit(): void {
@@ -62,13 +64,9 @@ export class ModalCreatePromotionComponent implements OnInit {
 	}
 
 	public closeModal(): void {		
-		this.modalEvent(false);
+		this._modalService.close();
 	}
 
-	public modalEvent(event: boolean): void { 
-		this.display = event;
-		this.displayChange.emit(this.display);
-	}
 
   public isDiscountPercentage(): boolean {
     const percentageDiscount = this.promotionForm.get('percentageDiscount')?.value;
@@ -87,44 +85,44 @@ export class ModalCreatePromotionComponent implements OnInit {
   }
 
 
-/***************** METHODS PRIVATE *****************/
+	/***************** METHODS PRIVATE *****************/
 
-private _createPromotionForm(): void {
-	this.promotionForm = this._formBuilder.group({
-		id: [this.promotion?.id ? this.promotion.id : null],
-		name: [this.promotion?.name ? this.promotion.name : null, [Validators.required]],
-		discount: [this.promotion?.discount ? this.promotion.discount : null, [Validators.required]],
-		dhi: [this.promotion?.dhi ? this.promotion.dhi : null, [Validators.required]],
-		dhf: [this.promotion?.dhf ? this.promotion.dhf : null, [Validators.required]],
-		active: [(this.promotion?.active == null || this.promotion?.active == undefined) ? true : this.promotion.active],
-		percentageDiscount: [(this.promotion?.percentageDiscount == null || this.promotion?.percentageDiscount == undefined) ? true : this.promotion.percentageDiscount],
-	});
-}
+	private _createPromotionForm(): void {
+		this.promotionForm = this._formBuilder.group({
+			id: [this.promotion?.id ? this.promotion.id : null],
+			name: [this.promotion?.name ? this.promotion.name : null, [Validators.required]],
+			discount: [this.promotion?.discount ? this.promotion.discount : null, [Validators.required]],
+			dhi: [this.promotion?.dhi ? this.promotion.dhi : null, [Validators.required]],
+			dhf: [this.promotion?.dhf ? this.promotion.dhf : null, [Validators.required]],
+			active: [(this.promotion?.active == null || this.promotion?.active == undefined) ? true : this.promotion.active],
+			percentageDiscount: [(this.promotion?.percentageDiscount == null || this.promotion?.percentageDiscount == undefined) ? true : this.promotion.percentageDiscount],
+		});
+	}
 
-private _setInfoForm(): void {
-	this.title = this.promotion?.id ? `Atualizar Promoção` : `Cadastrar Promoção`;
-	this.labelButtonFinish = this.promotion?.id ? `Atualizar` : `Cadastrar`;
-}
+	private _setInfoForm(): void {
+		this.title = this.promotion?.id ? `Atualizar Promoção` : `Cadastrar Promoção`;
+		this.labelButtonFinish = this.promotion?.id ? `Atualizar` : `Cadastrar`;
+	}
 
-private _createPromotion(promotion: Promotion): void {
-	this._promotionService.createPromotion(promotion, this.createPromotionEvent$).subscribe(res => {
-		if (res.status == 201) {
-			this._toastrService.success(`Promoção cadastrada com sucesso!`);
-			this.finishEvent$.emit(res.body);
-			this.modalEvent(false);
-		}
-	});
-}
+	private _createPromotion(promotion: Promotion): void {
+		this._promotionService.createPromotion(promotion, this.createPromotionEvent$).subscribe(res => {
+			if (res.status == 201) {
+				this._toastrService.success(`Promoção cadastrada com sucesso!`);
+				this.finishEvent$.emit(res.body);
+				this.closeModal();
+			}
+		});
+	}
 
-private _updatePromotion(id: number, promotion: Promotion): void { 
-	this._promotionService.updatePromotion(id, promotion, this.createPromotionEvent$).subscribe(res => {
-		if (res.status == 202) {
-			this._toastrService.success(`Promoção atualizada com sucesso!`);
-			this.finishEvent$.emit(res.body);
-			this.modalEvent(false);
-		}
-	});
-}
+	private _updatePromotion(id: number, promotion: Promotion): void { 
+		this._promotionService.updatePromotion(id, promotion, this.createPromotionEvent$).subscribe(res => {
+			if (res.status == 202) {
+				this._toastrService.success(`Promoção atualizada com sucesso!`);
+				this.finishEvent$.emit(res.body);
+				this.closeModal();
+			}
+		});
+	}
 
 	private _normalizeDateForm(): void {
 		const dhi = this.promotionForm.get('dhi').value;
