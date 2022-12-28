@@ -1,6 +1,5 @@
 {
     "env": {
-        "browser": true,
         "es2021": true
     },
     "extends": [
@@ -18,9 +17,9 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-eq-null":"off",
-        "no-empty-function":"off",
+        "no-mixed-spaces-and-tabs": "off" ,
         "indent": [
+            "error",
             "tab"
         ],
         "linebreak-style": [
@@ -29,7 +28,7 @@
         ],
         "quotes": [
             "error",
-            "double"
+            "single"
         ],
         "semi": [
             "error",

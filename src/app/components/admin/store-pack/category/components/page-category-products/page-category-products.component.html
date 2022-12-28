@@ -4,7 +4,7 @@
             <h5 class="title">Categorias / <small><a [routerLink]="['/admin/store/categories']" href="javascript:void(0)">Voltar</a></small></h5>
            <div>
                 <app-filter-bar [(display)]="isDisplayFilter" [bodyTemplate]="filterBody" [footerTemplate]="filterFooter"></app-filter-bar>
-                <button (click)="displayModalAddProductsCategory(modals)" pTooltip="Adicionar" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-primary p-button-outlined ms-2"></button>
+                <button (click)="displayModalAddProductsCategory(modalAddProductCategoryForm, modalFilterAddProductForm)" pTooltip="Adicionar" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-primary p-button-outlined ms-2"></button>
            </div>
         </div>
         <hr class="page-header">
@@ -81,11 +81,10 @@
     [focusCancel]="true">
 </swal>
 
-<ng-template #modals let-data="dataFormatada">
-   <div class="modal-body">
-    BODY
-   </div>
-   <div class="modal-footer">
-    FOOTER
-   </div>
+<ng-template #modalAddProductCategoryForm>
+   <app-modal-add-product-category></app-modal-add-product-category>
 </ng-template>
+
+<ng-template #modalFilterAddProductForm>
+    <app-modal-filter-add-product></app-modal-filter-add-product>
+ </ng-template>

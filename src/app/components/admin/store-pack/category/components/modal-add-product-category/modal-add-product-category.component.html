@@ -1,0 +1,32 @@
+<!-- <div class="modal-body">
+    <p-table *ngIf="!(categoryProductsLoadEvent$ | async) && categoryProducts?.length" [value]="categoryProducts">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Produto</th>
+                <th>Valor</th>
+                <th>Promoção</th>
+                <th>Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category>
+            <tr>
+                <td>
+                    <a [routerLink]="[category.id, 'products']" href="javascript:void(0)">{{category?.product?.toLowerCase()}}</a>
+                    <p-badge *ngIf="!category?.productActive" class="ms-1" value="Desabilitado"  severity="danger"  severity="danger"></p-badge>
+                </td>
+                <td>
+                    {{category?.price?.toFixed(2)}}
+                </td>
+                <td>
+                    {{category?.promotion ? category?.promotion : '-'}}
+                </td>
+                <td>
+                    <button [swal]="removeProduct" (confirm)="removeProductCategory(category.id)" pTooltip="Remover" pButton pRipple type="button" icon="pi pi-trash" class="p-button-primary p-button-rounded p-button-text"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<div class="modal-footer">
+    FOOTER
+</div> -->

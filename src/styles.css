@@ -1151,6 +1151,20 @@ h5.title small {
 
 /* CONFIG MODAL */
 
+.large-modal {
+    width: 95vw !important;
+    height: 100vh !important;
+}
+
+.large-modal .p-dialog-header {
+    padding: 1rem !important;
+}
+
+.large-modal .p-dialog-content {
+    padding: 1rem !important;
+}
+
+
 @media (min-width: 992px) {
     .modal-xl {
         width: 950px !important;

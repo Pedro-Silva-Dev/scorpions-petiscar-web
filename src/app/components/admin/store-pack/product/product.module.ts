@@ -5,12 +5,14 @@ import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductComponent } from './product.component';
 import { ModalCreateProductComponent } from './components/modal-create-product/modal-create-product.component';
+import { TableProductsComponent } from './components/table-products/table-products.component';
 
 
 @NgModule({
   declarations: [
     ProductComponent,
-    ModalCreateProductComponent
+    ModalCreateProductComponent,
+    TableProductsComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { ModalCreateProductComponent } from './components/modal-create-product/m
     SharedModule
   ],
   exports: [
-    ModalCreateProductComponent
+    ModalCreateProductComponent,
+    TableProductsComponent
   ]
 })
 export class ProductModule { }

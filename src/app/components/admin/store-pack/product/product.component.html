@@ -9,43 +9,10 @@
         </div>
         <hr class="page-header">
         <div class="ui-card">
-            <p-table *ngIf="!(loadProductEvent$ | async) && products?.length" [value]="products">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Categorias</th>
-                        <th>Ações</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>
-                            {{product.name.toLowerCase()}}
-                            <p-badge *ngIf="!product?.active" class="ms-1" value="Desabilitado"  severity="danger"  severity="danger"></p-badge>
-                        </td>
-                        <td>
-                            {{'R$ '+product.price?.toFixed(2)}}
-                        </td>
-                        <td>
-                            {{product.categories}}
-                        </td>
-                        <td>
-                            <button (click)="displayModalCategory(modalProductForm, product)" pTooltip="Editar" pButton pRipple type="button" icon="pi pi-pencil" class="me-2 p-button-primary p-button-rounded p-button-text"></button>
-                            <button *ngIf="product?.active" (click)="updateStatusCategory(product)" pTooltip="Desabilitar" pButton pRipple type="button" icon="pi pi-times" class="p-button-primary p-button-rounded p-button-text"></button>
-                            <button *ngIf="!product?.active" (click)="updateStatusCategory(product)" pTooltip="Habilitar" pButton pRipple type="button" icon="pi pi-check" class="p-button-primary p-button-rounded p-button-text"></button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-            <div *ngIf="!(loadProductEvent$ | async) && !products?.length" class="mt-4">
-                <p-message severity="info" text="Nenhuma Informação Encontrada" styleClass="d-flex"></p-message>
-            </div>
-            <div class="mt-2">
-                <app-paginator
-                [page]="pagination" (changePageEvent$)="changePage($event)"
-            ></app-paginator>
-            </div>
+            <app-table-products *ngIf="!(loadProductEvent$ | async)"
+                (editProductEvent$)="displayModalCategory(modalProductForm, $event)" (updateStatusEvent$)="updateStatusCategory($event)"
+                [isEditProduct]="true" [isUpdateStatus]="true" [build]="build"
+            ></app-table-products>
         </div>
     </div>
 </div>
@@ -57,7 +24,7 @@
     ></app-modal-create-product>
 </ng-template>
 
-<ng-container *ngIf="(loadProductEvent$ | async) || (updateProductEvent$ | async)">
+<ng-container *ngIf="(updateProductEvent$ | async)">
     <app-spinner></app-spinner>
 </ng-container>
 

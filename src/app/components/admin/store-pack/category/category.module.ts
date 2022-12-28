@@ -6,13 +6,17 @@ import { CategoryRoutingModule } from "./category-routing.module";
 import { CategoryComponent } from "./category.component";
 import { ModalCreateCategoryComponent } from './components/modal-create-category/modal-create-category.component';
 import { PageCategoryProductsComponent } from './components/page-category-products/page-category-products.component';
+import { ModalAddProductCategoryComponent } from './components/modal-add-product-category/modal-add-product-category.component';
+import { ModalFilterAddProductComponent } from './components/modal-filter-add-product/modal-filter-add-product.component';
 
 
 @NgModule({
 	declarations: [
 		CategoryComponent,
   		ModalCreateCategoryComponent,
-    	PageCategoryProductsComponent
+    	PageCategoryProductsComponent,
+     ModalAddProductCategoryComponent,
+     ModalFilterAddProductComponent
 	],
 	imports: [
 		CommonModule,
@@ -20,7 +24,9 @@ import { PageCategoryProductsComponent } from './components/page-category-produc
 		SharedModule
 	],
 	exports: [
-   		ModalCreateCategoryComponent
+   		ModalCreateCategoryComponent,
+     ModalAddProductCategoryComponent,
+     ModalFilterAddProductComponent
 	]
 })
 export class CategoryModule { }

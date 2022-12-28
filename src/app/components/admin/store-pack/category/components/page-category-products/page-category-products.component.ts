@@ -15,12 +15,12 @@ import { Category } from '../../models/category.model';
 import { CategoryService } from '../../services/category.service';
 
 @Component({
-  templateUrl: './page-category-products.component.html',
-  styleUrls: ['./page-category-products.component.css']
+	templateUrl: './page-category-products.component.html',
+	styleUrls: ['./page-category-products.component.css']
 })
 export class PageCategoryProductsComponent implements OnInit {
 
-  private _page = 0;
+	private _page = 0;
 	private _size = 10;
 
 	public categoryProductsLoadEvent$ = new BehaviorSubject<boolean>(false);
@@ -51,10 +51,7 @@ export class PageCategoryProductsComponent implements OnInit {
 	}
 
 	public closeModal(): void {
-		setTimeout(() => {
-			this.isDisplayModal = false;
-			this._changeDetectorRef.detectChanges();
-		}, 0);
+		this._modalService.close();
 	}
 
 	public closeFilterModal(): void {
@@ -81,21 +78,21 @@ export class PageCategoryProductsComponent implements OnInit {
 	}
 
 	public removeProductCategory(productId: number): void {
-		const build: Partial<CategoryParamBuild> = { productIds: [productId]}
+		const build: Partial<CategoryParamBuild> = { productIds: [productId]};
 		this._categoryService.removeProductsCategory(this.categoryId, build, this.removeCategoryProductsEvent$).subscribe(res => {
 			if (res.status == 200) {
 				if (res.body?.success) {
-					this._toastService.success(`Produto removido com sucesso!`);
+					this._toastService.success('Produto removido com sucesso!');
 					this._setCategoriesProductsPage();
 				} else {
-					this._toastService.warning(`Não foi possível remover o produto, por favor tente novamente.`);
+					this._toastService.warning('Não foi possível remover o produto, por favor tente novamente.');
 				}
 			}
 		});
 	}
 
-	public displayModalAddProductsCategory(template: TemplateRef<any>): void {
-		const modal: Modal = {class: MODAL.MD, title: 'TESTE', type: MODAL_TYPE.DEFAULT, template};
+	public displayModalAddProductsCategory(template: TemplateRef<any>, filterTemplate: TemplateRef<any>): void {
+		const modal: Modal = {class: MODAL.MD, title: `Associar Produtos á ${this.categoryId}`, type: MODAL_TYPE.LARGE, template, filterTemplate};
 		this._modalService.show(modal);
 	}
 

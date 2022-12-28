@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./components/auth/auth.module').then(m => m.AuthModule), canActivate: [PrepareLoginGuard] },
   { path: 'admin', loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule), canActivate: [IsPermissionGuard], data: {roles: [ROLES.ADMIN]} },
   { path: 'public', loadChildren: () => import('./components/public/public.module').then(m => m.PublicModule) },
-  { path: 'modals', loadChildren: () => import('./shared/components/modals/modals.module').then(m => m.ModalsModule) },
 ];
 
 @NgModule({

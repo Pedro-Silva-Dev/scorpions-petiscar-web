@@ -1,0 +1,11 @@
+<p-dialog styleClass="large-modal" [header]="title" [(visible)]="display" (onHide)="closeModal()" [modal]="true" [draggable]="false" [resizable]="false">
+    <div class="row container-modal">
+        <div class="{{filterTemplate ? 'col-9' : 'col-12'}} content-modal">
+            <ng-container *ngTemplateOutlet="template"></ng-container>
+        </div>
+        <div *ngIf="filterTemplate" class="col-3 filter-modal">
+            <ng-container *ngTemplateOutlet="filterTemplate"></ng-container>
+        </div>
+    </div>
+</p-dialog>
+

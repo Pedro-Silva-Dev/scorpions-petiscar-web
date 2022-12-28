@@ -1,4 +1,4 @@
-import { ModalLargeComponent } from '../../modal-large/modal-large.component';
+import { ModalLargeComponent } from './modal-large/modal-large.component';
 import { ModalComponent } from './modal/modal.component';
 import { PrimeNgModule } from './../../prime-ng/prime-ng.module';
 import { NgModule } from '@angular/core';
