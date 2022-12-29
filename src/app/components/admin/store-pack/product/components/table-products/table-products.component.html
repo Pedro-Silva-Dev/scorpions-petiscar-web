@@ -1,6 +1,7 @@
 <p-table *ngIf="!(loadProductEvent$ | async) && products?.length" [value]="products">
     <ng-template pTemplate="header">
         <tr>
+            <th *ngIf="isSelectProduct" class="text-left ps-2"><p-toggleButton (click)="selectedListProducts(products)" [(ngModel)]="isSelectedAll" [onIcon]="'pi pi-check'" offIcon="pi pi-times"></p-toggleButton></th>
             <th>Nome</th>
             <th>Preço</th>
             <th>Categorias</th>
@@ -9,6 +10,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
+            <td *ngIf="isSelectProduct" class="text-left ps-2">
+                <p-toggleButton (click)="selectedProduct(product)" [(ngModel)]="product.selected" [onIcon]="'pi pi-check'" offIcon="pi pi-times"></p-toggleButton>
+            </td>
             <td>
                 {{product.name.toLowerCase()}}
                 <p-badge *ngIf="!product?.active" class="ms-1" value="Desabilitado"  severity="danger"  severity="danger"></p-badge>

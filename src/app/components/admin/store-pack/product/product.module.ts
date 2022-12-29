@@ -9,19 +9,19 @@ import { TableProductsComponent } from './components/table-products/table-produc
 
 
 @NgModule({
-  declarations: [
-    ProductComponent,
-    ModalCreateProductComponent,
-    TableProductsComponent
-  ],
-  imports: [
-    CommonModule,
-    ProductRoutingModule,
-    SharedModule
-  ],
-  exports: [
-    ModalCreateProductComponent,
-    TableProductsComponent
-  ]
+	declarations: [
+		ProductComponent,
+		ModalCreateProductComponent,
+		TableProductsComponent
+	],
+	imports: [
+		CommonModule,
+		ProductRoutingModule,
+		SharedModule
+	],
+	exports: [
+		ModalCreateProductComponent,
+		TableProductsComponent
+	]
 })
 export class ProductModule { }

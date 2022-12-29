@@ -82,7 +82,10 @@
 </swal>
 
 <ng-template #modalAddProductCategoryForm>
-   <app-modal-add-product-category></app-modal-add-product-category>
+   <app-modal-add-product-category
+        (finishEvent$)="refreshPage()"
+        [products]="categoryProducts" [categoryId]="categoryId"
+   ></app-modal-add-product-category>
 </ng-template>
 
 <ng-template #modalFilterAddProductForm>

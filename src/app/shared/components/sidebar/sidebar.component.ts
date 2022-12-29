@@ -1,26 +1,26 @@
 import { PACKS } from './../../enums/packs.enum';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { SIDEBAR_STATUS } from "./../../enums/sidebar.enum";
-import { IMAGES } from "src/app/shared/enums/images.enum";
-import { ROLES } from "./../../enums/roles.enum";
-import { ICONS } from "./../../enums/icons.enum";
-import { ItemMenu, SidebarItem } from "./../../models/sidebar-item.model";
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { PermissionService } from "../../services/permission.service";
-import { AuthService } from "src/app/components/auth/services/auth.service";
-import { URLS } from "../../enums/urls.enum";
-import { ActivatedRoute } from "@angular/router";
-import { UserAuth } from "src/app/components/auth/models/user-auth.model";
-import { SidebarService } from "../../services/sidebar.service";
+import { SIDEBAR_STATUS } from './../../enums/sidebar.enum';
+import { IMAGES } from 'src/app/shared/enums/images.enum';
+import { ROLES } from './../../enums/roles.enum';
+import { ICONS } from './../../enums/icons.enum';
+import { ItemMenu, SidebarItem } from './../../models/sidebar-item.model';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { PermissionService } from '../../services/permission.service';
+import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { URLS } from '../../enums/urls.enum';
+import { ActivatedRoute } from '@angular/router';
+import { UserAuth } from 'src/app/components/auth/models/user-auth.model';
+import { SidebarService } from '../../services/sidebar.service';
 import {MenuItem} from 'primeng/api';
 import { Unsubscribable } from 'rxjs';
 
 
 @Component({
-	selector: "app-sidebar",
-	templateUrl: "./sidebar.component.html",
-	styleUrls: ["./sidebar.component.css"]
+	selector: 'app-sidebar',
+	templateUrl: './sidebar.component.html',
+	styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 
@@ -64,7 +64,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 		const userRoles = this._authService.getUserRoles();
 		const packs = this._authService.getCompanyPacks();
 
-		const permissionRole = this._isPermissionRole(sidebarItem, userRoles)
+		const permissionRole = this._isPermissionRole(sidebarItem, userRoles);
 		const permissionPack = this._isPermissionPack(sidebarItem, packs);
 
 		if(permissionRole && permissionPack) {
@@ -76,11 +76,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
 	public isItemSelected(sidebarItem: SidebarItem): boolean {
 		//@ts-ignore
-		const url: string = this._route.snapshot["_routerState"]?.url;
+		const url: string = this._route.snapshot['_routerState']?.url;
 		const isSelectedPage = (sidebarItem?.url && url?.toLowerCase().includes(sidebarItem.url)) ? true : false;
 		const isSelectedPack = (sidebarItem?.pack && url?.toLowerCase().includes(sidebarItem.pack?.toLowerCase())) ? true : false;
 		const selected = (isSelectedPage || isSelectedPack) ? true : false; 
-		sidebarItem.selected = selected
+		sidebarItem.selected = selected;
 		return selected;
 	}
 
@@ -100,9 +100,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
 	private _setSidebarItens(): void {
 		this.sidebarItens = [];
-		this._setSidebarItem("Dashboard", ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD, PACKS.EMPTY, "Dashboard", null, [ROLES.ADMIN], 1);
-		this._setSidebarItem("Loja", ICONS.STORE, ICONS.STORE_WHITE, URLS.EMPTY, PACKS.STORE, "Gestão da Loja", this._getItemsMenu(this._getItemsStoreMenu()), [ROLES.ADMIN], 2);
-		this._setSidebarItem("Usuários", ICONS.USER, ICONS.USER_WHITE, URLS.USERS, PACKS.EMPTY, "Usuários", null, [ROLES.ADMIN], 3);
+		this._setSidebarItem('Dashboard', ICONS.DASHBOARD, ICONS.DASHBOARD_WHITE, URLS.DASHBOARD, PACKS.EMPTY, 'Dashboard', null, [ROLES.ADMIN], 1);
+		this._setSidebarItem('Loja', ICONS.STORE, ICONS.STORE_WHITE, URLS.EMPTY, PACKS.STORE, 'Gestão da Loja', this._getItemsMenu(this._getItemsStoreMenu()), [ROLES.ADMIN], 2);
+		this._setSidebarItem('Usuários', ICONS.USER, ICONS.USER_WHITE, URLS.USERS, PACKS.EMPTY, 'Usuários', null, [ROLES.ADMIN], 3);
 
 		this.sidebarItens?.sort((a,b) => a.order > b.order ? 1 : -1);
 	}
@@ -140,13 +140,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
 	private _setSidebarLogout(): void {
 		this.sidebarLogout = {
-			name: "Sair",
+			name: 'Sair',
 			icon: ICONS.LOGOUT,
 			iconColor: ICONS.LOGOUT_WHITE,
 			iconDefault: ICONS.LOGOUT,
 			url: URLS.EMPTY,
 			pack: PACKS.EMPTY,
-			tooltip: "Sair",
+			tooltip: 'Sair',
 			order: 0,
 			roles: [],
 			items: null,
@@ -185,7 +185,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 	}
 
 	private _getItemsMenu(items: ItemMenu[]): MenuItem[] {
-		let menuItems: MenuItem[] = [];
+		const menuItems: MenuItem[] = [];
 		items?.forEach(item => {
 			menuItems.push({ label: item.name, routerLink: item.url });
 		});
@@ -193,10 +193,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
 	}
 
 	private _getItemsStoreMenu(): ItemMenu[] {
-		let items: ItemMenu[] = [];
-		const category: ItemMenu = {name: `Categorias`, url: URLS.CATEGORIES};
-		const product: ItemMenu = {name: `Produtos`, url: URLS.PRODUCTS};
-		const promotion: ItemMenu = {name: `Promoções`, url: URLS.PROMOTIONS};
+		const items: ItemMenu[] = [];
+		const category: ItemMenu = {name: 'Categorias', url: URLS.CATEGORIES};
+		const product: ItemMenu = {name: 'Produtos', url: URLS.PRODUCTS};
+		const promotion: ItemMenu = {name: 'Promoções', url: URLS.PROMOTIONS};
 
 		items.push(category, product, promotion);
 		return items;

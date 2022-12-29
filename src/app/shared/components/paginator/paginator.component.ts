@@ -3,9 +3,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Paginator } from 'primeng/paginator';
 
 @Component({
-  selector: 'app-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.css']
+	selector: 'app-paginator',
+	templateUrl: './paginator.component.html',
+	styleUrls: ['./paginator.component.css']
 })
 export class PaginatorComponent implements OnInit {
 
@@ -13,13 +13,21 @@ export class PaginatorComponent implements OnInit {
 
   @Input() page: Page<any> = null;
 
-  constructor() { }
+  constructor() {
+  	//empty
+  }
 
   ngOnInit(): void {
+  	//empty
   }
 
   public changePage(page: Paginator): void {
-    this.changePageEvent$.emit(page);
+  	this.changePageEvent$.emit(page);
   }
+
+  public isDisplayPage(): boolean { 
+  	return (this.page?.totalElements > this.page?.size) ? true : false;
+  }
+
 
 }

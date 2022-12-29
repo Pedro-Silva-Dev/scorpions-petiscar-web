@@ -1,32 +1,25 @@
-<!-- <div class="modal-body">
-    <p-table *ngIf="!(categoryProductsLoadEvent$ | async) && categoryProducts?.length" [value]="categoryProducts">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Produto</th>
-                <th>Valor</th>
-                <th>Promoção</th>
-                <th>Ações</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-category>
-            <tr>
-                <td>
-                    <a [routerLink]="[category.id, 'products']" href="javascript:void(0)">{{category?.product?.toLowerCase()}}</a>
-                    <p-badge *ngIf="!category?.productActive" class="ms-1" value="Desabilitado"  severity="danger"  severity="danger"></p-badge>
-                </td>
-                <td>
-                    {{category?.price?.toFixed(2)}}
-                </td>
-                <td>
-                    {{category?.promotion ? category?.promotion : '-'}}
-                </td>
-                <td>
-                    <button [swal]="removeProduct" (confirm)="removeProductCategory(category.id)" pTooltip="Remover" pButton pRipple type="button" icon="pi pi-trash" class="p-button-primary p-button-rounded p-button-text"></button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+<div class="modal-body">
+   <app-table-products
+        [isSelectProduct]="true" [(productsSelected)]="productsSelected"
+   ></app-table-products>
 </div>
 <div class="modal-footer">
-    FOOTER
-</div> -->
+    <button (click)="closeModal()" pButton type="button" label="Voltar" class="p-button-secondary p-button-outlined me-2"></button>
+    <button [swal]="confirmFinish" (confirm)="save()" pButton type="button" [label]="'Finalizar'" class="p-button-outlined"></button>
+</div>
+
+<ng-container *ngIf="(finishLoadEvent$ | async)">
+    <app-spinner></app-spinner>
+</ng-container>
+
+<swal #confirmFinish
+    type="warning" 
+    title="Aviso"
+    text="Deseja finalizar as alteração realizadas? essa ação é irreversível."
+    confirmButtonText="Confirmar" 
+    confirmButtonColor="#7E57C2" 
+    cancelButtonText="Cancelar" 
+    cancelButtonColor="#9E9E9E"
+    [showCancelButton]="true" 
+    [focusCancel]="true">
+</swal>

@@ -1149,6 +1149,12 @@ h5.title small {
     font-size: 1.1rem;
 }
 
+/* CONFIG SWAL */
+
+.swal2-container {
+    z-index: 99999 !important;
+}
+
 /* CONFIG MODAL */
 
 .large-modal {
@@ -1162,6 +1168,14 @@ h5.title small {
 
 .large-modal .p-dialog-content {
     padding: 1rem !important;
+}
+
+.large-modal .modal-body {
+    height: 90% !important;
+}
+
+.large-modal .modal-footer {
+    height: 10% !important;
 }
 
 

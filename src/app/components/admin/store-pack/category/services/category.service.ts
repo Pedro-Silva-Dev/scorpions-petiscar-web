@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { BaseService } from 'src/app/shared/services/base.service';
 import { CategoryParamBuild } from '../models/category-param.build.model';
 import { StatusRequest } from 'src/app/shared/models/status-request.model';
+import { CategoryProductForm } from '../models/category-product-form.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -67,6 +68,12 @@ export class CategoryService extends BaseService {
 		const url = `/category/admin/${categoryId}/remove-products.json`;
 		const msgError = 'Não foi possível remover os produtos da categoria, por favor contate o suporte.';
 		return this.delete(url, loadEvent, msgError, build);
+	}
+  
+	public addProductsCategory(categoryId: number, categoryProductForm: CategoryProductForm, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<StatusRequest>> {
+		const url = `/category/admin/${categoryId}/products.json`;
+		const msgError = 'Não foi possível adicionar os produtos da categoria, por favor contate o suporte.';
+		return this.post(url, categoryProductForm, loadEvent, msgError);
 	}
 
 

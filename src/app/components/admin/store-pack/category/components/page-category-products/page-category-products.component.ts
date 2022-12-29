@@ -77,6 +77,10 @@ export class PageCategoryProductsComponent implements OnInit {
 		this.search();
 	}
 
+	public refreshPage(): void {
+		this._setCategoriesProductsPage();
+	}
+
 	public removeProductCategory(productId: number): void {
 		const build: Partial<CategoryParamBuild> = { productIds: [productId]};
 		this._categoryService.removeProductsCategory(this.categoryId, build, this.removeCategoryProductsEvent$).subscribe(res => {

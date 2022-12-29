@@ -57,7 +57,7 @@ export class ModalsComponent implements OnInit, OnDestroy {
 		setTimeout(() => {
 			this.displayModal = false;
 			this.displayLargeModal = false;  
-		}, 500);
+		}, 300);
     
 	}
 

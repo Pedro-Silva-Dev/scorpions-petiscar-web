@@ -1,16 +1,16 @@
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { MODAL } from "../../../../../../shared/enums/modal.enum";
-import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Category } from "../../models/category.model";
+import { MODAL } from '../../../../../../shared/enums/modal.enum';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Category } from '../../models/category.model';
 import { CategoryService } from '../../services/category.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
-	selector: "app-modal-create-category",
-	templateUrl: "./modal-create-category.component.html",
-	styleUrls: ["./modal-create-category.component.css"],
+	selector: 'app-modal-create-category',
+	templateUrl: './modal-create-category.component.html',
+	styleUrls: ['./modal-create-category.component.css'],
 })
 export class ModalCreateCategoryComponent implements OnInit {
 
@@ -23,8 +23,8 @@ export class ModalCreateCategoryComponent implements OnInit {
 	public createCategoryEvent$ = new BehaviorSubject<boolean>(false);
 	
 	public modal = MODAL;
-	public title = "";
-	public labelButtonFinish = "";
+	public title = '';
+	public labelButtonFinish = '';
 	public categoryForm!: FormGroup;
 
 	constructor(
@@ -73,14 +73,14 @@ export class ModalCreateCategoryComponent implements OnInit {
 	}
 
 	private _setInfoForm(): void {
-		this.title = this.category?.id ? `Atualizar Categoria` : `Cadastrar Categoria`;
-		this.labelButtonFinish = this.category?.id ? `Atualizar` : `Cadastrar`;
+		this.title = this.category?.id ? 'Atualizar Categoria' : 'Cadastrar Categoria';
+		this.labelButtonFinish = this.category?.id ? 'Atualizar' : 'Cadastrar';
 	}
 
 	private _createCategory(category: Category): void {
 		this._categoryService.createCategory(category, this.createCategoryEvent$).subscribe(res => {
 			if (res.status == 201) {
-				this._toastrService.success(`Categoria cadastrada com sucesso!`);
+				this._toastrService.success('Categoria cadastrada com sucesso!');
 				this.finishEvent$.emit(res.body);
 				this.closeModal();
 			}
@@ -90,7 +90,7 @@ export class ModalCreateCategoryComponent implements OnInit {
 	private _updateCategory(id: number, category: Category): void { 
 		this._categoryService.updateCategory(id, category, this.createCategoryEvent$).subscribe(res => {
 			if (res.status == 202) {
-				this._toastrService.success(`Categoria atualizada com sucesso!`);
+				this._toastrService.success('Categoria atualizada com sucesso!');
 				this.finishEvent$.emit(res.body);
 				this.closeModal();
 			}

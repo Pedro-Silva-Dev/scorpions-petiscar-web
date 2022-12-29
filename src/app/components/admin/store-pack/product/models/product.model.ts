@@ -11,6 +11,7 @@ export interface Product {
     categories?: any;
     categoryIds?: number[];
     companyId: number;
+    selected: boolean;
 }
 
 export interface ProductForm {
