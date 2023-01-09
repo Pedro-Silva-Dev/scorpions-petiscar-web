@@ -1,21 +1,21 @@
 import { MODAL } from 'src/app/shared/enums/modal.enum';
 import { Paginator } from '../../../../shared/components/paginator/models/paginator.model';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject } from "rxjs";
-import { CategoryParamBuild } from "./models/category-param.build.model";
-import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, TemplateRef } from "@angular/core";
-import { Category } from "./models/category.model";
-import { CategoryService } from "./services/category.service";
-import { Page } from "src/app/shared/models/page.model";
+import { BehaviorSubject } from 'rxjs';
+import { CategoryParamBuild } from './models/category-param.build.model';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
+import { Category } from './models/category.model';
+import { CategoryService } from './services/category.service';
+import { Page } from 'src/app/shared/models/page.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { Modal } from 'src/app/shared/models/modal.model';
 import { MODAL_TYPE } from 'src/app/shared/enums/modal-type.model';
 
 @Component({
-	selector: "app-category",
-	templateUrl: "./category.component.html",
-	styleUrls: ["./category.component.css"],
+	selector: 'app-category',
+	templateUrl: './category.component.html',
+	styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
 
@@ -53,7 +53,7 @@ export class CategoryComponent implements OnInit {
 		} else {
 			this.category = null;
 		}
-		const modal: Modal = {template, title: this.category ? `Atualizar Categoria` : `Cadastrar Categoria`, type: MODAL_TYPE.DEFAULT, class: MODAL.MD}
+		const modal: Modal = {template, title: this.category ? 'Atualizar Categoria' : 'Cadastrar Categoria', type: MODAL_TYPE.DEFAULT, class: MODAL.MD};
 		this._modalService.show(modal);
 	}
 
@@ -120,7 +120,7 @@ export class CategoryComponent implements OnInit {
 	private _updateCategory(id: number, category: Category): void { 
 		this._categoryService.updateCategory(id, category, this.categoryUpdateEvent$).subscribe(res => {
 			if (res.status == 202) {
-				this._toastService.success(`Categoria atualizada com sucesso!`);
+				this._toastService.success('Categoria atualizada com sucesso!');
 				this._updateCategoryInPage(category);
 			}
 		});

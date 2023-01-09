@@ -61,6 +61,8 @@ export class ModalAddProductCategoryComponent implements OnInit {
   		const selected: ProductSelected = { productId: res.id };
   		return selected;
   	});
+  	console.log(this.productsSelected);
+		
   }
 
   private _getProductsForRemove(): CategoryProductPromotion[] {

@@ -8,5 +8,5 @@
 
 .filter-modal {
     height: 100% !important;
-    border-left: 0.2rem solid var(--purple-300);
+    border-left: 0.2rem solid var(--gray-100);
 }

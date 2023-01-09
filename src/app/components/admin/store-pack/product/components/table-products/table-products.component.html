@@ -14,8 +14,8 @@
                 <p-toggleButton (click)="selectedProduct(product)" [(ngModel)]="product.selected" [onIcon]="'pi pi-check'" offIcon="pi pi-times"></p-toggleButton>
             </td>
             <td>
-                {{product.name.toLowerCase()}}
-                <p-badge *ngIf="!product?.active" class="ms-1" value="Desabilitado"  severity="danger"  severity="danger"></p-badge>
+                {{product?.product?.toLowerCase()}}
+                <p-badge *ngIf="!product?.productActive" class="ms-1" value="Desabilitado"  severity="danger"  severity="danger"></p-badge>
             </td>
             <td>
                 {{'R$ '+product.price?.toFixed(2)}}
@@ -25,8 +25,8 @@
             </td>
             <td *ngIf="isDisplayActions()">
                 <button *ngIf="isUpdateStatus" (click)="editProduct(product)" pTooltip="Editar" pButton pRipple type="button" icon="pi pi-pencil" class="me-2 p-button-primary p-button-rounded p-button-text"></button>
-                <button *ngIf="product?.active && isEditProduct" [swal]="confirmUpdateStatusProduct" (confirm)="updateStatusProduct(product)" pTooltip="Desabilitar" pButton pRipple type="button" icon="pi pi-times" class="p-button-primary p-button-rounded p-button-text"></button>
-                <button *ngIf="!product?.active && isEditProduct" [swal]="confirmUpdateStatusProduct" (confirm)="updateStatusProduct(product)" pTooltip="Habilitar" pButton pRipple type="button" icon="pi pi-check" class="p-button-primary p-button-rounded p-button-text"></button>
+                <button *ngIf="product?.productActive && isEditProduct" [swal]="confirmUpdateStatusProduct" (confirm)="updateStatusProduct(product)" pTooltip="Desabilitar" pButton pRipple type="button" icon="pi pi-times" class="p-button-primary p-button-rounded p-button-text"></button>
+                <button *ngIf="!product?.productActive && isEditProduct" [swal]="confirmUpdateStatusProduct" (confirm)="updateStatusProduct(product)" pTooltip="Habilitar" pButton pRipple type="button" icon="pi pi-check" class="p-button-primary p-button-rounded p-button-text"></button>
             </td>
         </tr>
     </ng-template>

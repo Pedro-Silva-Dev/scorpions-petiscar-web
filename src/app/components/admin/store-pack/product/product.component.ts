@@ -13,6 +13,8 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 import { Modal } from 'src/app/shared/models/modal.model';
 import { MODAL_TYPE } from 'src/app/shared/enums/modal-type.model';
 import { MODAL } from 'src/app/shared/enums/modal.enum';
+import { ProductDetailView } from './models/product-detail-view.model';
+import { ProductDetailViewParamBuild } from './models/product-detail-view-form.model';
 
 @Component({
 	selector: 'app-product',
@@ -31,7 +33,7 @@ export class ProductComponent implements OnInit {
 	public status: Status[] = [];
 	public isDisplayModal = false;
 	public isDisplayFilter = false;
-	public build: Partial<ProductParamBuild>;
+	public build: Partial<ProductDetailViewParamBuild>;
 
 	constructor(
 		private _productService: ProductService,
@@ -47,9 +49,9 @@ export class ProductComponent implements OnInit {
 		this._setCategoriesList();
 	}
 
-	public displayModalCategory(template: TemplateRef<any>, product?: Product): void {
+	public displayModalCategory(template: TemplateRef<any>, product?: ProductDetailView): void {
 		if (product) {
-			this.product = {...product};
+			this.product = this._getProduct(product);
 		} else {
 			this.product = null;
 		}
@@ -57,7 +59,8 @@ export class ProductComponent implements OnInit {
 		this._modalService.show(modal);
 	}
 
-	public updateStatusCategory(product: Product): void {
+	public updateStatusCategory(productDetail: ProductDetailView): void {
+		const product = this._getProduct(productDetail);
 		const updateProduct = {...product, active: !product.active};
 		this._updateProduct(product?.id, updateProduct);
 	}
@@ -90,7 +93,7 @@ export class ProductComponent implements OnInit {
 
 	public search(): void {
 		const form = this.filterForm.value;
-		this.build = { name: form?.name, description: form?.description, priceMax: form?.priceMax, priceMin: form?.priceMin, categoryId: form?.categoryId, active: form?.status };
+		this.build = { product: form?.name, productDescription: form?.description, priceMax: form?.priceMax, priceMin: form?.priceMin, categoryId: form?.categoryId, productActive: form?.status };
 		this._refreshPage();
 		this.closeFilterModal();
 	}
@@ -138,6 +141,21 @@ export class ProductComponent implements OnInit {
 		setTimeout(() => {
 			this.loadProductEvent$.next(false);
 		}, 0);
+	}
+
+	private _getProduct(productDetail: ProductDetailView): Product { 
+		const product: Product = {
+			id: productDetail?.id,
+			name: productDetail?.product,
+			active: productDetail?.productActive,
+			price: productDetail?.price,
+			description: productDetail?.productDescription,
+			dhc: null,
+			dhu: null,
+			urlPhoto: productDetail?.productUrlPhoto,
+			companyId: productDetail?.companyId
+		};
+		return product;
 	}
 
 }

@@ -1,5 +1,5 @@
-import { FormControl } from "@angular/forms";
-import { Product } from "./product.model";
+import { FormControl } from '@angular/forms';
+import { Product } from './product.model';
 
 export interface ProductParamBuild  extends Product{
     page: number;

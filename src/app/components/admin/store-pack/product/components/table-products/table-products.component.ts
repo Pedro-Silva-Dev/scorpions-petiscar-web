@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { BehaviorSubject } from 'rxjs';
 import { Paginator } from 'src/app/shared/components/paginator/models/paginator.model';
 import { Page } from 'src/app/shared/models/page.model';
+import { ProductDetailViewParamBuild } from '../../models/product-detail-view-form.model';
+import { ProductDetailView } from '../../models/product-detail-view.model';
 import { ProductParamBuild } from '../../models/product-param.build.model';
 import { ProductSelected } from '../../models/product-selected.model';
 import { Product } from '../../models/product.model';
@@ -15,11 +17,11 @@ import { ProductService } from '../../services/product.service';
 export class TableProductsComponent implements OnInit {
 
   @Output() productsSelectedChange = new EventEmitter<ProductSelected[]>();
-  @Output() updateStatusEvent$ = new EventEmitter<Product>();
-  @Output() editProductEvent$ = new EventEmitter<Product>();
+  @Output() updateStatusEvent$ = new EventEmitter<ProductDetailView>();
+  @Output() editProductEvent$ = new EventEmitter<ProductDetailView>();
 
   @Input() productsSelected: ProductSelected[] = [];
-  @Input() build: Partial<ProductParamBuild>;
+  @Input() build: Partial<ProductDetailViewParamBuild>;
   @Input() isUpdateStatus = false;
   @Input() isEditProduct = false;
   @Input() isSelectProduct = false;
@@ -29,8 +31,8 @@ export class TableProductsComponent implements OnInit {
 
   public loadProductEvent$ = new BehaviorSubject<boolean>(false);
 
-  public pagination!: Page<Product>;
-  public products!: Product[];
+  public pagination!: Page<ProductDetailView>;
+  public products!: ProductDetailView[];
   public isSelectedAll = false;
 
   constructor(
@@ -53,12 +55,12 @@ export class TableProductsComponent implements OnInit {
   	this._setPageProduct();
   }
 
-  public editProduct(product: Product): void {
+  public editProduct(product: ProductDetailView): void {
   	this.editProductEvent$.emit(product);
   }
 
-  public updateStatusProduct(product: Product): void {
-  	product.active = !product.active;
+  public updateStatusProduct(product: ProductDetailView): void {
+  	product.productActive = !product.productActive;
   	this.updateStatusEvent$.emit(product);
   }
 
@@ -66,7 +68,7 @@ export class TableProductsComponent implements OnInit {
   	return this.isUpdateStatus || this.isEditProduct ? true : false;
   }
 
-  public selectedProduct(product: Product): void {
+  public selectedProduct(product: ProductDetailView): void {
   	if (this._isProductSelected(product)) {
   		this._removeProductSelected(product);
   	} else {
@@ -75,7 +77,7 @@ export class TableProductsComponent implements OnInit {
   	this.isSelectedAll = this.isSelectedAllProducts(this.products);
   }
 
-  public selectedListProducts(products: Product[]): void {
+  public selectedListProducts(products: ProductDetailView[]): void {
   	if (this.isSelectedAllProducts(products)) {
   		products?.forEach(res => {
   			this._removeProductSelected(res);
@@ -89,7 +91,7 @@ export class TableProductsComponent implements OnInit {
   	}
   }
 
-  public isSelectedAllProducts(products: Product[]): boolean { 
+  public isSelectedAllProducts(products: ProductDetailView[]): boolean { 
   	let selectedAll = true;
   	products?.forEach(res => {
   		if (!this._isProductSelected(res)) {
@@ -108,7 +110,6 @@ export class TableProductsComponent implements OnInit {
   			this.products = res.body.content;
   			this.products?.forEach(product => {
   				product.selected = this._isProductSelected(product);
-  				product.categories = this._getCategoryNames(product.categories);
   			});
   			this.isSelectedAll = this.isSelectedAllProducts(this.products);
   		}
@@ -126,18 +127,18 @@ export class TableProductsComponent implements OnInit {
   	return catgoryNames;
   }
 
-  private _isProductSelected(product: Product): boolean { 
+  private _isProductSelected(product: ProductDetailView): boolean { 
   	const selected = this.productsSelected?.find(res => res.productId === product?.id);
   	return selected ? true : false;
   }
 
-  private _removeProductSelected(product: Product): void {
+  private _removeProductSelected(product: ProductDetailView): void {
   	product.selected = false;
   	this.productsSelected = this.productsSelected?.filter(res => res.productId != product.id);
   	this.productsSelectedChange.emit(this.productsSelected);
   }
 
-  private _addProductSelected(product: Product): void {
+  private _addProductSelected(product: ProductDetailView): void {
   	product.selected = true;
   	const selected: ProductSelected = { productId: product.id };
   	this.productsSelected.push(selected);
