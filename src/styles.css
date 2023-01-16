@@ -1178,6 +1178,11 @@ h5.title small {
     height: 10% !important;
 }
 
+.large-modal .p-dialog-header {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
 
 @media (min-width: 992px) {
     .modal-xl {

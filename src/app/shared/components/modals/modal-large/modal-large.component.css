@@ -1,6 +1,4 @@
-.container-modal {
-    height: 100% !important;
-}
+
 
 .content-modal {
     height: 100% !important;
@@ -9,4 +7,41 @@
 .filter-modal {
     height: 100% !important;
     border-left: 0.2rem solid var(--gray-100);
+}
+
+
+
+.header-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+@media (min-width: 1080px) {
+    .container-modal {
+        height: 90% !important;
+    }
+
+    .header-modal {
+        height: 10% !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-modal {
+        height: 90% !important;
+    }
+
+    .header-modal {
+        height: 10% !important;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container-modal {
+        height: 94% !important;
+    }
+
+    .header-modal {
+        height: 6% !important;
+    }
 }
