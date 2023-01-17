@@ -19,7 +19,7 @@
                 <ng-template pTemplate="body" let-category>
                     <tr>
                         <td>
-                            <a [routerLink]="[category.id, 'products']" href="javascript:void(0)">{{category.name.toLowerCase()}}</a>
+                            <a (click)="navigateByCategory(category)" href="javascript:void(0)">{{category.name.toLowerCase()}}</a>
                             <p-badge *ngIf="!category?.active" class="ms-1" value="Desabilitado"  severity="danger"  severity="danger"></p-badge>
                         </td>
                         <td>

@@ -9,6 +9,7 @@ import { MODAL } from 'src/app/shared/enums/modal.enum';
 import { Modal } from 'src/app/shared/models/modal.model';
 import { Page } from 'src/app/shared/models/page.model';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { ProductDetailViewParamBuild } from '../../../product/models/product-detail-view-form.model';
 import { CategoryParamBuild } from '../../models/category-param.build.model';
 import { CategoryProductPromotion } from '../../models/category-product.model';
 import { Category } from '../../models/category.model';
@@ -25,15 +26,18 @@ export class PageCategoryProductsComponent implements OnInit {
 
 	public categoryProductsLoadEvent$ = new BehaviorSubject<boolean>(false);
 	public removeCategoryProductsEvent$ = new BehaviorSubject<boolean>(false);
+	public loadModalAddProductsEvent$ = new BehaviorSubject<boolean>(false);
 	public closeModalEvent$ = new BehaviorSubject<boolean>(false);
 	public modalCategoryEvent$ = new BehaviorSubject<boolean>(false);
 
 	public pagination: Page<CategoryProductPromotion> = null;
 	public categoryProducts: CategoryProductPromotion[] = [];
 	public categoryId!: number;
+	public category!: Category;
 	public isDisplayModal = false;
 	public isDisplayFilter = false;
 	public filterForm!: FormGroup;
+	public buildFilter: Partial<ProductDetailViewParamBuild> = {};
 
 	constructor(
 		private _categoryService: CategoryService,
@@ -96,8 +100,16 @@ export class PageCategoryProductsComponent implements OnInit {
 	}
 
 	public displayModalAddProductsCategory(template: TemplateRef<any>, filterTemplate: TemplateRef<any>): void {
-		const modal: Modal = {class: MODAL.MD, title: `Associar Produtos á ${this.categoryId}`, type: MODAL_TYPE.LARGE, template, filterTemplate};
+		const modal: Modal = {class: MODAL.MD, title: `Associar Produtos a categoria ${this.category?.name}`, type: MODAL_TYPE.LARGE, template, filterTemplate};
 		this._modalService.show(modal);
+	}
+
+	public searchProductsModalAdd(build: Partial<ProductDetailViewParamBuild>): void {
+		this.buildFilter = build;
+		this.loadModalAddProductsEvent$.next(true);
+		setTimeout(() => {
+			this.loadModalAddProductsEvent$.next(false);
+		}, 0);
 	}
 
 	/********************* METHODS PRIVATE *********************/
@@ -121,6 +133,7 @@ export class PageCategoryProductsComponent implements OnInit {
 
 	private _setInfoCategory(): void { 
 		this.categoryId = this._activatedRoute.snapshot.params['categoryId'];
+		this.category = this._categoryService.getCategoryStorage();
 	}
 	
 

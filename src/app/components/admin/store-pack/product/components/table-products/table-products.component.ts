@@ -16,7 +16,8 @@ import { ProductService } from '../../services/product.service';
 })
 export class TableProductsComponent implements OnInit {
 
-  @Output() productsSelectedChange = new EventEmitter<ProductSelected[]>();
+	@Output() productsSelectedChange = new EventEmitter<ProductSelected[]>();
+	@Output() buildChange = new EventEmitter<Partial<ProductDetailViewParamBuild>>();
   @Output() updateStatusEvent$ = new EventEmitter<ProductDetailView>();
   @Output() editProductEvent$ = new EventEmitter<ProductDetailView>();
 
@@ -26,8 +27,8 @@ export class TableProductsComponent implements OnInit {
   @Input() isEditProduct = false;
   @Input() isSelectProduct = false;
 
-  private _page: number;
-  private _size: number;
+  private _page = 0;
+  private _size = 10;
 
   public loadProductEvent$ = new BehaviorSubject<boolean>(false);
 
@@ -40,6 +41,7 @@ export class TableProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  	this._setPaginator(null);
   	this._setPageProduct();
   }
 
@@ -52,6 +54,9 @@ export class TableProductsComponent implements OnInit {
 
   public changePage(page: Paginator): void {
   	this._page = page.page;
+  	const build = { ...this.build, page: this._page };
+  	this._setPaginator(build);
+  	this.buildChange.emit(this.build);
   	this._setPageProduct();
   }
 
@@ -104,6 +109,8 @@ export class TableProductsComponent implements OnInit {
   /******************** METHODS PRIVATE ********************/
 
   private _setPageProduct(): void {
+  	console.log(this.build);
+		
   	this._productService.getPageProduct(this.build, this.loadProductEvent$).subscribe(res => {
   		if(res.status == 200) {
   			this.pagination = res.body;
@@ -145,6 +152,13 @@ export class TableProductsComponent implements OnInit {
   	this.productsSelectedChange.emit(this.productsSelected);
   }
 
-
+  private _setPaginator(build: Partial<ProductDetailViewParamBuild>): void {
+  	if (!build) {
+  		this.build = { size: this._size, page: this._page };	
+  	} else {
+  		this.build = build;
+  	}
+  	
+  }
 
 }

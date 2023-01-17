@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <div class="page-header">
-            <h5 class="title">Categorias / <small><a [routerLink]="['/admin/store/categories']" href="javascript:void(0)">Voltar</a></small></h5>
+            <h5 class="title">{{category?.name}} / <small><a [routerLink]="['/admin/store/categories']" href="javascript:void(0)">Voltar</a></small></h5>
            <div>
                 <app-filter-bar [(display)]="isDisplayFilter" [bodyTemplate]="filterBody" [footerTemplate]="filterFooter"></app-filter-bar>
                 <button (click)="displayModalAddProductsCategory(modalAddProductCategoryForm, modalFilterAddProductForm)" pTooltip="Adicionar" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-primary p-button-outlined ms-2"></button>
@@ -82,12 +82,14 @@
 </swal>
 
 <ng-template #modalAddProductCategoryForm>
-   <app-modal-add-product-category
+   <app-modal-add-product-category *ngIf="!(loadModalAddProductsEvent$ | async)"
         (finishEvent$)="refreshPage()"
-        [products]="categoryProducts" [categoryId]="categoryId"
+        [products]="categoryProducts" [categoryId]="categoryId" [(build)]="buildFilter"
    ></app-modal-add-product-category>
 </ng-template>
 
 <ng-template #modalFilterAddProductForm>
-    <app-modal-filter-add-product></app-modal-filter-add-product>
+    <app-modal-filter-add-product
+        (searchFilterEvent$)="searchProductsModalAdd($event)"
+    ></app-modal-filter-add-product>
  </ng-template>

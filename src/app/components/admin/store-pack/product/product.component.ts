@@ -15,6 +15,7 @@ import { MODAL_TYPE } from 'src/app/shared/enums/modal-type.model';
 import { MODAL } from 'src/app/shared/enums/modal.enum';
 import { ProductDetailView } from './models/product-detail-view.model';
 import { ProductDetailViewParamBuild } from './models/product-detail-view-form.model';
+import { StatusService } from 'src/app/shared/services/status.service';
 
 @Component({
 	selector: 'app-product',
@@ -40,7 +41,8 @@ export class ProductComponent implements OnInit {
 		private _changeDetectorRef: ChangeDetectorRef,
 		private _toastService: ToastrService,
 		private _categoryService: CategoryService,
-		private _modalService: ModalService
+		private _modalService: ModalService,
+		private _statusService: StatusService
 	) { }
 
 	ngOnInit(): void {
@@ -131,9 +133,7 @@ export class ProductComponent implements OnInit {
 	}
 
 	private _setStatus(): void {
-		const active: Status =  {id: 1, name: 'Habilitado', status: true};
-		const disable: Status =  {id: 2, name: 'Desabilitado', status: false};
-		this.status = [active, disable];
+		this.status = this._statusService.getListStatus();
 	}
 
 	private _refreshPage(): void {

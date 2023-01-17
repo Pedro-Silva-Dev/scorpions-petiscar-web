@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { Modal } from 'src/app/shared/models/modal.model';
 import { MODAL_TYPE } from 'src/app/shared/enums/modal-type.model';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-category',
@@ -39,7 +40,8 @@ export class CategoryComponent implements OnInit {
 		private _toastService: ToastrService,
 		private _changeDetectorRef: ChangeDetectorRef,
 		private _formBuilder: FormBuilder,
-		private _modalService: ModalService
+		private _modalService: ModalService,
+		private _router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -96,6 +98,11 @@ export class CategoryComponent implements OnInit {
 	public clearFilters(): void {
 		this.filterForm.reset();
 		this.search();
+	}
+
+	public navigateByCategory(category: Category): void {
+		this._categoryService.setCategoryStorage(category);
+		this._router.navigate([`/admin/store/categories/${category?.id}/products`]);
 	}
 
 	/********************* METHODS PRIVATE *********************/

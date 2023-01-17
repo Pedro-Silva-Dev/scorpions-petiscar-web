@@ -15,11 +15,27 @@ import { CategoryProductForm } from '../models/category-product-form.model';
 })
 export class CategoryService extends BaseService {
 
+	private _categoryKey = 'CATEGORY_KEY';
+
 	constructor(
     private _http: HttpClient,
     private _toastrService: ToastrService,
 	) { 
 		super(_http, _toastrService);
+	}
+
+	public setCategoryStorage(category: Category): void {
+		this.removeCategoryStorage();
+		window.sessionStorage.setItem(this._categoryKey, JSON.stringify(category));
+	}
+
+	public removeCategoryStorage(): void {
+		window.sessionStorage.removeItem(this._categoryKey);
+	}
+
+	public getCategoryStorage(): Category {
+		const category = window.sessionStorage.getItem(this._categoryKey);
+		return category ? JSON.parse(category) : null;
 	}
 
 	public getPageCategory(build: Partial<CategoryParamBuild>, loadEvent?: BehaviorSubject<boolean>): Observable<HttpResponse<Page<Category>>> {

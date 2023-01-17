@@ -1,8 +1,31 @@
 
 <div class="modal-body">
-    
+    <form [formGroup]="filterForm">
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" id="name" class="form-input" pInputText autocomplete="off" placeholder="Nome do produto" formControlName="product" />
+        </div>
+        <div class="form-group">
+            <label for="description">Descrição</label>
+            <input type="text" id="description" class="form-input" pInputText autocomplete="off" placeholder="Descrição do produto" formControlName="productDescription" />
+        </div>
+        <div class="form-group">
+            <label for="priceMin">Preço Minimo</label>
+            <p-inputNumber inputId="currency-brazil" mode="currency" currency="BRL" locale="pt-BR" id="priceMin" [maxlength]="10" class="form-input" formControlName="priceMin" autocomplete="off" placeholder="0.00"></p-inputNumber>
+        </div>
+        <div class="form-group">
+            <label for="priceMax">Preço Maximo</label>
+            <p-inputNumber inputId="currency-brazil" mode="currency" currency="BRL" locale="pt-BR" id="priceMax" [maxlength]="10" class="form-input" formControlName="priceMax" autocomplete="off" placeholder="0.00"></p-inputNumber>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <p-dropdown [options]="status" formControlName="productActive" id="status" [emptyMessage]="'Selecione um status'" [showClear]="true" [placeholder]="'Selecione um status'" optionValue="status" optionLabel="name"></p-dropdown>
+        </div>
+    </form>
  </div>
- <div class="modal-footer">
-     <button pButton type="button" label="Voltar" class="p-button-secondary p-button-outlined me-2"></button>
-     <button pButton type="button" [label]="'Finalizar'" class="p-button-outlined"></button>
+ <div class="modal-footer d-flex justify-content-center">
+    <div class="form-group align-items-center">
+        <button (click)="search()" pTooltip="Pesquisar" tooltipPosition="left" pButton pRipple type="text" class="p-button-rounded p-button-primary p-button-outlined me-4" icon="pi pi-search"></button>
+        <button (click)="clearFilters()" pTooltip="Limpar" tooltipPosition="left" pButton pRipple type="text" class="p-button-rounded p-button-primary p-button-outlined" icon="pi pi-trash"></button>
+    </div>
  </div>
