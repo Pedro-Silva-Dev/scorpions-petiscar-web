@@ -22,11 +22,11 @@ export class ModalAddProductCategoryComponent implements OnInit {
 	@Output() buildChange = new EventEmitter<Partial<ProductDetailViewParamBuild>>();
 
   @Input() categoryId: number;		
-	@Input() products: CategoryProductPromotion[] = [];
 	@Input() build: Partial<ProductDetailViewParamBuild>;
 
+	public productLoadEvent$ = new BehaviorSubject<boolean>(false);
 	public finishLoadEvent$ = new BehaviorSubject<boolean>(false);
-	
+	public products: CategoryProductPromotion[] = [];
 	public productsSelected: ProductSelected[] = [];
 
 	constructor(
@@ -38,8 +38,9 @@ export class ModalAddProductCategoryComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this._setPaginator(this.build);
-  	this._setProductsSelected();
+		this._setListProducts();
+		this._setPaginator();
+		
 	}
 
 	public closeModal(): void {
@@ -66,6 +67,7 @@ export class ModalAddProductCategoryComponent implements OnInit {
   		const selected: ProductSelected = { productId: res.id };
   		return selected;
   	});
+		this._changeDetector.detectChanges();
 	}
 
 	private _getProductsForRemove(): CategoryProductPromotion[] {
@@ -125,13 +127,18 @@ export class ModalAddProductCategoryComponent implements OnInit {
   	this._removeProducts(productsRemove, productsAdd);
 	}
 
-	private _setPaginator(build: Partial<ProductDetailViewParamBuild>): void {
-  	if (!build) {
-			this.build = { size: 10, page: 0 };
-			// this._changeDetector.detectChanges();
-		} else {
-			this.build = { ...build };
-		}
+	private _setPaginator(): void {
+  	this.build = {...this.build, size: 10};
+	}
+
+	private _setListProducts(): void {
+		const build = {};
+		this._categoryService.getListProductsCategory(this.categoryId, build, this.productLoadEvent$).subscribe(res => {
+			if(res.status == 200) {
+				this.products = res.body;
+				this._setProductsSelected();
+			}
+		});
 	}
 
 }

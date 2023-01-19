@@ -84,7 +84,7 @@
 <ng-template #modalAddProductCategoryForm>
    <app-modal-add-product-category *ngIf="!(loadModalAddProductsEvent$ | async)"
         (finishEvent$)="refreshPage()"
-        [products]="categoryProducts" [categoryId]="categoryId" [(build)]="buildFilter"
+        [categoryId]="categoryId" [(build)]="buildFilter"
    ></app-modal-add-product-category>
 </ng-template>
 

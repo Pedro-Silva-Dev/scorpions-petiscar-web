@@ -1,6 +1,6 @@
 <div class="modal-body">
-   <app-table-products
-        [isSelectProduct]="true" [(productsSelected)]="productsSelected" [(build)]="build"
+   <app-table-products *ngIf="!(productLoadEvent$ | async)"
+        [isSelectProduct]="true" [(productsSelected)]="productsSelected" [blocked]="false" [(build)]="build"
    ></app-table-products>
 </div>
 <div class="modal-footer">
@@ -9,7 +9,7 @@
 </div>
 
 <ng-container *ngIf="(finishLoadEvent$ | async)">
-    <app-spinner></app-spinner>
+    <app-spinner [blocked]="false"></app-spinner>
 </ng-container>
 
 <swal #confirmFinish

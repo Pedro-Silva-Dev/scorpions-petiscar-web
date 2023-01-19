@@ -37,7 +37,7 @@ export class PageCategoryProductsComponent implements OnInit {
 	public isDisplayModal = false;
 	public isDisplayFilter = false;
 	public filterForm!: FormGroup;
-	public buildFilter: Partial<ProductDetailViewParamBuild> = {};
+	public buildFilter: Partial<ProductDetailViewParamBuild> = {size: 10};
 
 	constructor(
 		private _categoryService: CategoryService,
@@ -105,7 +105,7 @@ export class PageCategoryProductsComponent implements OnInit {
 	}
 
 	public searchProductsModalAdd(build: Partial<ProductDetailViewParamBuild>): void {
-		this.buildFilter = build;
+		this.buildFilter = {...build};
 		this.loadModalAddProductsEvent$.next(true);
 		setTimeout(() => {
 			this.loadModalAddProductsEvent$.next(false);

@@ -42,7 +42,7 @@
 
 
 <ng-container *ngIf="(loadProductEvent$ | async)">
-    <app-spinner></app-spinner>
+    <app-spinner [blocked]="blocked"></app-spinner>
 </ng-container>
 
 

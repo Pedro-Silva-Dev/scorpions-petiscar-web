@@ -26,63 +26,64 @@ export class TableProductsComponent implements OnInit {
   @Input() isUpdateStatus = false;
   @Input() isEditProduct = false;
   @Input() isSelectProduct = false;
+	@Input() blocked = true;
 
-  private _page = 0;
-  private _size = 10;
 
-  public loadProductEvent$ = new BehaviorSubject<boolean>(false);
+	private _page = 0;
+	private _size = 10;
 
-  public pagination!: Page<ProductDetailView>;
-  public products!: ProductDetailView[];
-  public isSelectedAll = false;
+	public loadProductEvent$ = new BehaviorSubject<boolean>(false);
 
-  constructor(
+	public pagination!: Page<ProductDetailView>;
+	public products!: ProductDetailView[];
+	public isSelectedAll = false;
+
+	constructor(
     private _productService: ProductService,
-  ) { }
+	) { }
 
-  ngOnInit(): void {
-  	this._setPaginator(null);
+	ngOnInit(): void {
+  	this._setPaginator();
   	this._setPageProduct();
-  }
+	}
 
 
-  public updateProductInPage(product: Product): void { 
+	public updateProductInPage(product: Product): void { 
   	if (product) {
   		this._setPageProduct();
   	}
-  }
+	}
 
-  public changePage(page: Paginator): void {
+	public changePage(page: Paginator): void {
   	this._page = page.page;
-  	const build = { ...this.build, page: this._page };
-  	this._setPaginator(build);
+  	this.build = { ...this.build, page: this._page };
   	this.buildChange.emit(this.build);
   	this._setPageProduct();
-  }
+	}
 
-  public editProduct(product: ProductDetailView): void {
+	public editProduct(product: ProductDetailView): void {
   	this.editProductEvent$.emit(product);
-  }
+	}
 
-  public updateStatusProduct(product: ProductDetailView): void {
+	public updateStatusProduct(product: ProductDetailView): void {
   	product.productActive = !product.productActive;
   	this.updateStatusEvent$.emit(product);
-  }
+	}
 
-  public isDisplayActions(): boolean {
+	public isDisplayActions(): boolean {
   	return this.isUpdateStatus || this.isEditProduct ? true : false;
-  }
+	}
 
-  public selectedProduct(product: ProductDetailView): void {
+	public selectedProduct(product: ProductDetailView): void {
   	if (this._isProductSelected(product)) {
   		this._removeProductSelected(product);
   	} else {
   		this._addProductSelected(product);
   	}
   	this.isSelectedAll = this.isSelectedAllProducts(this.products);
-  }
+	}
 
-  public selectedListProducts(products: ProductDetailView[]): void {
+	public selectedListProducts(products: ProductDetailView[]): void {
   	if (this.isSelectedAllProducts(products)) {
   		products?.forEach(res => {
   			this._removeProductSelected(res);
@@ -94,9 +95,9 @@ export class TableProductsComponent implements OnInit {
   			}
   		});
   	}
-  }
+	}
 
-  public isSelectedAllProducts(products: ProductDetailView[]): boolean { 
+	public isSelectedAllProducts(products: ProductDetailView[]): boolean { 
   	let selectedAll = true;
   	products?.forEach(res => {
   		if (!this._isProductSelected(res)) {
@@ -104,13 +105,11 @@ export class TableProductsComponent implements OnInit {
   		}
   	});
   	return selectedAll;
-  }
+	}
 
-  /******************** METHODS PRIVATE ********************/
+	/******************** METHODS PRIVATE ********************/
 
-  private _setPageProduct(): void {
-  	console.log(this.build);
-		
+	private _setPageProduct(): void {
   	this._productService.getPageProduct(this.build, this.loadProductEvent$).subscribe(res => {
   		if(res.status == 200) {
   			this.pagination = res.body;
@@ -121,9 +120,9 @@ export class TableProductsComponent implements OnInit {
   			this.isSelectedAll = this.isSelectedAllProducts(this.products);
   		}
   	});
-  }
+	}
 
-  private _getCategoryNames(categories: string[]): string {
+	private _getCategoryNames(categories: string[]): string {
   	let catgoryNames = '';
   	if(categories?.length) {
   		categories.forEach(category => {
@@ -132,33 +131,28 @@ export class TableProductsComponent implements OnInit {
   		catgoryNames = catgoryNames.startsWith(',') ? catgoryNames.replace(',', '') : catgoryNames;
   	}
   	return catgoryNames;
-  }
+	}
 
-  private _isProductSelected(product: ProductDetailView): boolean { 
+	private _isProductSelected(product: ProductDetailView): boolean { 
   	const selected = this.productsSelected?.find(res => res.productId === product?.id);
   	return selected ? true : false;
-  }
+	}
 
-  private _removeProductSelected(product: ProductDetailView): void {
+	private _removeProductSelected(product: ProductDetailView): void {
   	product.selected = false;
   	this.productsSelected = this.productsSelected?.filter(res => res.productId != product.id);
   	this.productsSelectedChange.emit(this.productsSelected);
-  }
+	}
 
-  private _addProductSelected(product: ProductDetailView): void {
+	private _addProductSelected(product: ProductDetailView): void {
   	product.selected = true;
   	const selected: ProductSelected = { productId: product.id };
   	this.productsSelected.push(selected);
   	this.productsSelectedChange.emit(this.productsSelected);
-  }
+	}
 
-  private _setPaginator(build: Partial<ProductDetailViewParamBuild>): void {
-  	if (!build) {
-  		this.build = { size: this._size, page: this._page };	
-  	} else {
-  		this.build = build;
-  	}
-  	
-  }
+	private _setPaginator(): void {
+  		this.build = {...this.build, size: 10};
+	}
 
 }
